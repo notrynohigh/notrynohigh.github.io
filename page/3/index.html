@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ubuntu-e5-90-af-e5-8a-a8-e6-88-96-e5-81-9c-e6-ad-a2django-e6-9c-8d-e5-8a-a1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/23/ubuntu-e5-90-af-e5-8a-a8-e6-88-96-e5-81-9c-e6-ad-a2django-e6-9c-8d-e5-8a-a1/" class="article-date">
+  <time datetime="2019-04-23T13:15:12.000Z" itemprop="datePublished">2019-04-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/23/ubuntu-e5-90-af-e5-8a-a8-e6-88-96-e5-81-9c-e6-ad-a2django-e6-9c-8d-e5-8a-a1/">Ubuntu 启动或停止django服务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>后台运行Django：</p>
+<p>nohup python manage.py runserver 0.0.0.0:5008 &amp;</p>
+<p>nohup (no hang up)</p>
+<p>查看进程</p>
+<p>#命令：<br>#用于显示tcp，udp的端口和进程等相关情况<br>netstat -tunlp<br>“””<br>ps:<br>-t (tcp)仅显示tcp相关选项<br>-u (udp)仅显示udp相关选项<br>-n 拒绝显示别名，能显示数字的全部转化成数字<br>-l 仅列出有Listen(监听)的服务状态<br>-p 显示建立相关链接的程序名<br>-a 列出所有的服务状态，默认是连接的<br>“””<br>#查看进程端口号及运行的程序<br>netstat -atunp</p>
+<p>#由端口号port(8000)查看进程id<br>netstat -anp |grep 8000</p>
+<p>杀掉进程</p>
+<p>#命令：<br>#杀死指定进程根据pid(进程id)：<br>kill pid<br>#强制杀死指定进程根据pid(进程id)：<br>kill -9 pid</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/23/ubuntu-e5-90-af-e5-8a-a8-e6-88-96-e5-81-9c-e6-ad-a2django-e6-9c-8d-e5-8a-a1/" data-id="ck7y4s36v00ap61479gsgfxep" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/" rel="tag">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-koa-e6-a1-86-e6-9e-b6-e6-95-99-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/koa-e6-a1-86-e6-9e-b6-e6-95-99-e7-a8-8b/" class="article-date">
+  <time datetime="2019-04-16T08:50:13.000Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/16/koa-e6-a1-86-e6-9e-b6-e6-95-99-e7-a8-8b/">Koa 框架教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Node 主要用在开发 Web 应用。这决定了使用 Node，往往离不开 Web 应用框架。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080801.png" alt=""></p>
+<p><a href="http://koajs.com/" target="_blank" rel="noopener">Koa</a> 就是一种简单好用的 Web 框架。它的特点是优雅、简洁、表达力强、自由度高。本身代码只有1000多行，所有功能都通过插件实现，很符合 Unix 哲学。</p>
+<p>本文从零开始，循序渐进，教会你如何使用 Koa 写出自己的 Web 应用。每一步都有简洁易懂的示例，希望让大家一看就懂。</p>
+<h2 id="零、准备"><a href="#零、准备" class="headerlink" title="零、准备"></a>零、准备</h2><p>首先，检查 Node 版本。</p>
+<blockquote>
+<p>$ node -v<br>v8.0.0 </p>
+</blockquote>
+<p>Koa 必须使用 7.6 以上的版本。如果你的版本低于这个要求，就要先升级 Node。</p>
+<p>然后，克隆本文的配套<a href="https://github.com/ruanyf/koa-demos" target="_blank" rel="noopener">示例库</a>。（如果不方便使用 Git，也可以下载 <a href="https://github.com/ruanyf/koa-demos/archive/master.zip" target="_blank" rel="noopener">zip 文件</a>解压。）</p>
+<blockquote>
+<p>$ git clone <a href="https://github.com/ruanyf/koa-demos.git" target="_blank" rel="noopener">https://github.com/ruanyf/koa-demos.git</a></p>
+</blockquote>
+<p>接着，进入示例库，安装依赖。</p>
+<blockquote>
+<p>$ cd koa-demos<br>$ npm install</p>
+</blockquote>
+<p>所有示例源码，都在 <a href="https://github.com/ruanyf/koa-demos/tree/master/demos" target="_blank" rel="noopener">demos</a> 目录下面。</p>
+<h2 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h2><h3 id="1-1-架设-HTTP-服务"><a href="#1-1-架设-HTTP-服务" class="headerlink" title="1.1 架设 HTTP 服务"></a>1.1 架设 HTTP 服务</h3><p>只要<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/01.js" target="_blank" rel="noopener">三行代码</a>，就可以用 Koa 架设一个 HTTP 服务。</p>
+<blockquote>
+<p> // demos/01.js const Koa = require(‘koa’); const app = new Koa(); app.listen(3000); </p>
+</blockquote>
+<p>运行这个脚本。</p>
+<blockquote>
+<p>$ node demos/01.js</p>
+</blockquote>
+<p>打开浏览器，访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> 。你会看到页面显示”Not Found”，表示没有发现任何内容。这是因为我们并没有告诉 Koa 应该显示什么内容。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080802.png" alt=""></p>
+<h3 id="1-2-Context-对象"><a href="#1-2-Context-对象" class="headerlink" title="1.2 Context 对象"></a>1.2 Context 对象</h3><p>Koa 提供一个 Context 对象，表示一次对话的上下文（包括 HTTP 请求和 HTTP 回复）。通过加工这个对象，就可以控制返回给用户的内容。</p>
+<p>Context.response.body属性就是发送给用户的内容。请看下面的例子（完整的代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/01.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/02.js const Koa = require(‘koa’); const app = new Koa(); const main = ctx =&gt; { ctx.response.body = ‘Hello World’; }; app.use(main); app.listen(3000); </p>
+</blockquote>
+<p>上面代码中，main函数用来设置ctx.response.body。然后，使用app.use方法加载main函数。</p>
+<p>你可能已经猜到了，ctx.response代表 HTTP Response。同样地，ctx.request代表 HTTP Request。</p>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/02.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，现在就可以看到”Hello World”了。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080803.png" alt=""></p>
+<h3 id="1-3-HTTP-Response-的类型"><a href="#1-3-HTTP-Response-的类型" class="headerlink" title="1.3 HTTP Response 的类型"></a>1.3 HTTP Response 的类型</h3><p>Koa 默认的返回类型是text/plain，如果想返回其他类型的内容，可以先用ctx.request.accepts判断一下，客户端希望接受什么数据（根据 HTTP Request 的Accept字段），然后使用ctx.response.type指定返回类型。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/03.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/03.js const main = ctx =&gt; { if (ctx.request.accepts(‘xml’)) { ctx.response.type = ‘xml’; ctx.response.body = ‘<data>Hello World</data>‘; } else if (ctx.request.accepts(‘json’)) { ctx.response.type = ‘json’; ctx.response.body = { data: ‘Hello World’ }; } else if (ctx.request.accepts(‘html’)) { ctx.response.type = ‘html’; ctx.response.body = ‘<p>Hello World</p>‘; } else { ctx.response.type = ‘text’; ctx.response.body = ‘Hello World’; } }; </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/03.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，现在看到的就是一个 XML 文档了。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080804.png" alt=""></p>
+<h3 id="1-4-网页模板"><a href="#1-4-网页模板" class="headerlink" title="1.4 网页模板"></a>1.4 网页模板</h3><p>实际开发中，返回给用户的网页往往都写成模板文件。我们可以让 Koa 先读取模板文件，然后将这个模板返回给用户。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/04.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/04.js const fs = require(‘fs’); const main = ctx =&gt; { ctx.response.type = ‘html’; ctx.response.body = fs.createReadStream(‘./demos/template.html’); }; </p>
+</blockquote>
+<p>运行这个 Demo。</p>
+<blockquote>
+<p>$ node demos/04.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，看到的就是<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/template.html" target="_blank" rel="noopener">模板文件</a>的内容了。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080805.png" alt=""></p>
+<h2 id="二、路由"><a href="#二、路由" class="headerlink" title="二、路由"></a>二、路由</h2><h3 id="2-1-原生路由"><a href="#2-1-原生路由" class="headerlink" title="2.1 原生路由"></a>2.1 原生路由</h3><p>网站一般都有多个页面。通过ctx.request.path可以获取用户请求的路径，由此实现简单的路由。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/05.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/05.js const main = ctx =&gt; { if (ctx.request.path !== ‘/‘) { ctx.response.type = ‘html’; ctx.response.body = ‘<a href="/">Index Page</a>‘; } else { ctx.response.body = ‘Hello World’; } }; </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/05.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000/about" target="_blank" rel="noopener">http://127.0.0.1:3000/about</a> ，可以看到一个链接，点击后就跳到首页。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080806.png" alt=""></p>
+<h3 id="2-2-koa-route-模块"><a href="#2-2-koa-route-模块" class="headerlink" title="2.2 koa-route 模块"></a>2.2 koa-route 模块</h3><p>原生路由用起来不太方便，我们可以使用封装好的<a href="https://www.npmjs.com/package/koa-route" target="_blank" rel="noopener">koa-route</a>模块。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/06.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/06.js const route = require(‘koa-route’); const about = ctx =&gt; { ctx.response.type = ‘html’; ctx.response.body = ‘<a href="/">Index Page</a>‘; }; const main = ctx =&gt; { ctx.response.body = ‘Hello World’; }; app.use(route.get(‘/‘, main)); app.use(route.get(‘/about’, about)); </p>
+</blockquote>
+<p>上面代码中，根路径/的处理函数是main，/about路径的处理函数是about。</p>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/06.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000/about" target="_blank" rel="noopener">http://127.0.0.1:3000/about</a> ，效果与上一个例子完全相同。</p>
+<h3 id="2-3-静态资源"><a href="#2-3-静态资源" class="headerlink" title="2.3 静态资源"></a>2.3 静态资源</h3><p>如果网站提供静态资源（图片、字体、样式表、脚本……），为它们一个个写路由就很麻烦，也没必要。<a href="https://www.npmjs.com/package/koa-static" target="_blank" rel="noopener">koa-static</a>模块封装了这部分的请求。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/12.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/12.js const path = require(‘path’); const serve = require(‘koa-static’); const main = serve(path.join(__dirname)); app.use(main); </p>
+</blockquote>
+<p>运行这个 Demo。</p>
+<blockquote>
+<p>$ node demos/12.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000/12.js，在浏览器里就可以看到这个脚本的内容。" target="_blank" rel="noopener">http://127.0.0.1:3000/12.js，在浏览器里就可以看到这个脚本的内容。</a></p>
+<h3 id="2-4-重定向"><a href="#2-4-重定向" class="headerlink" title="2.4 重定向"></a>2.4 重定向</h3><p>有些场合，服务器需要重定向（redirect）访问请求。比如，用户登陆以后，将他重定向到登陆前的页面。ctx.response.redirect()方法可以发出一个302跳转，将用户导向另一个路由。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/13.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/13.js const redirect = ctx =&gt; { ctx.response.redirect(‘/‘); ctx.response.body = ‘<a href="/">Index Page</a>‘; }; app.use(route.get(‘/redirect’, redirect)); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/13.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000/redirect" target="_blank" rel="noopener">http://127.0.0.1:3000/redirect</a> ，浏览器会将用户导向根路由。</p>
+<h2 id="三、中间件"><a href="#三、中间件" class="headerlink" title="三、中间件"></a>三、中间件</h2><h3 id="3-1-Logger-功能"><a href="#3-1-Logger-功能" class="headerlink" title="3.1 Logger 功能"></a>3.1 Logger 功能</h3><p>Koa 的最大特色，也是最重要的一个设计，就是中间件（middleware）。为了理解中间件，我们先看一下 Logger （打印日志）功能的实现。</p>
+<p>最简单的写法就是在main函数里面增加一行（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/07.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/07.js const main = ctx =&gt; { console.log(<code>${Date.now()} ${ctx.request.method} ${ctx.request.url}</code>); ctx.response.body = ‘Hello World’; }; </p>
+</blockquote>
+<p>运行这个 Demo。</p>
+<blockquote>
+<p>$ node demos/07.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，命令行就会输出日志。</p>
+<blockquote>
+<p>1502144902843 GET / </p>
+</blockquote>
+<h3 id="3-2-中间件的概念"><a href="#3-2-中间件的概念" class="headerlink" title="3.2 中间件的概念"></a>3.2 中间件的概念</h3><p>上一个例子里面的 Logger 功能，可以拆分成一个独立函数（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/08.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/08.js const logger = (ctx, next) =&gt; { console.log(<code>${Date.now()} ${ctx.request.method} ${ctx.request.url}</code>); next(); } app.use(logger); </p>
+</blockquote>
+<p>像上面代码中的logger函数就叫做”中间件”（middleware），因为它处在 HTTP Request 和 HTTP Response 中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
+<p>基本上，Koa 所有的功能都是通过中间件实现的，前面例子里面的main也是中间件。每个中间件默认接受两个参数，第一个参数是 Context 对象，第二个参数是next函数。只要调用next函数，就可以把执行权转交给下一个中间件。</p>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/08.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，命令行窗口会显示与上一个例子相同的日志输出。</p>
+<h3 id="3-3-中间件栈"><a href="#3-3-中间件栈" class="headerlink" title="3.3 中间件栈"></a>3.3 中间件栈</h3><p>多个中间件会形成一个栈结构（middle stack），以”先进后出”（first-in-last-out）的顺序执行。</p>
+<blockquote>
+<ol>
+<li>最外层的中间件首先执行。</li>
+<li>调用next函数，把执行权交给下一个中间件。</li>
+<li>…</li>
+<li>最内层的中间件最后执行。</li>
+<li>执行结束后，把执行权交回上一层的中间件。</li>
+<li>…</li>
+<li>最外层的中间件收回执行权之后，执行next函数后面的代码。</li>
+</ol>
+</blockquote>
+<p>请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/09.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/09.js const one = (ctx, next) =&gt; { console.log(‘&gt;&gt; one’); next(); console.log(‘&lt;&lt; one’); } const two = (ctx, next) =&gt; { console.log(‘&gt;&gt; two’); next(); console.log(‘&lt;&lt; two’); } const three = (ctx, next) =&gt; { console.log(‘&gt;&gt; three’); next(); console.log(‘&lt;&lt; three’); } app.use(one); app.use(two); app.use(three); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/09.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，命令行窗口会有如下输出。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>one &gt;&gt; two &gt;&gt; three &lt;&lt; three &lt;&lt; two &lt;&lt; one</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>如果中间件内部没有调用next函数，那么执行权就不会传递下去。作为练习，你可以将two函数里面next()这一行注释掉再执行，看看会有什么结果。</p>
+<h3 id="3-4-异步中间件"><a href="#3-4-异步中间件" class="headerlink" title="3.4 异步中间件"></a>3.4 异步中间件</h3><p>迄今为止，所有例子的中间件都是同步的，不包含异步操作。如果有异步操作（比如读取数据库），中间件就必须写成 <a href="http://es6.ruanyifeng.com/#docs/async" target="_blank" rel="noopener">async 函数</a>。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/10.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/10.js const fs = require(‘fs.promised’); const Koa = require(‘koa’); const app = new Koa(); const main = async function (ctx, next) { ctx.response.type = ‘html’; ctx.response.body = await fs.readFile(‘./demos/template.html’, ‘utf8’); }; app.use(main); app.listen(3000); </p>
+</blockquote>
+<p>上面代码中，fs.readFile是一个异步操作，必须写成await fs.readFile()，然后中间件必须写成 async 函数。</p>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/10.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，就可以看到模板文件的内容。</p>
+<h3 id="3-5-中间件的合成"><a href="#3-5-中间件的合成" class="headerlink" title="3.5 中间件的合成"></a>3.5 中间件的合成</h3><p><a href="https://www.npmjs.com/package/koa-compose" target="_blank" rel="noopener">koa-compose</a>模块可以将多个中间件合成为一个。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/11.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/11.js const compose = require(‘koa-compose’); const logger = (ctx, next) =&gt; { console.log(<code>${Date.now()} ${ctx.request.method} ${ctx.request.url}</code>); next(); } const main = ctx =&gt; { ctx.response.body = ‘Hello World’; }; const middlewares = compose([logger, main]); app.use(middlewares); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/11.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，就可以在命令行窗口看到日志信息。</p>
+<h2 id="四、错误处理"><a href="#四、错误处理" class="headerlink" title="四、错误处理"></a>四、错误处理</h2><h3 id="4-1-500-错误"><a href="#4-1-500-错误" class="headerlink" title="4.1 500 错误"></a>4.1 500 错误</h3><p>如果代码运行过程中发生错误，我们需要把错误信息返回给用户。HTTP 协定约定这时要返回500状态码。Koa 提供了ctx.throw()方法，用来抛出错误，ctx.throw(500)就是抛出500错误。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/14.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/14.js const main = ctx =&gt; { ctx.throw(500); }; </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/14.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000，你会看到一个500错误页&quot;Internal">http://127.0.0.1:3000，你会看到一个500错误页&quot;Internal</a> Server Error”。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080807.png" alt=""></p>
+<h3 id="4-2-404错误"><a href="#4-2-404错误" class="headerlink" title="4.2 404错误"></a>4.2 404错误</h3><p>如果将ctx.response.status设置成404，就相当于ctx.throw(404)，返回404错误。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/15.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/15.js const main = ctx =&gt; { ctx.response.status = 404; ctx.response.body = ‘Page Not Found’; }; </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/15.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，你就看到一个404页面”Page Not Found”。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080808.png" alt=""></p>
+<h3 id="4-3-处理错误的中间件"><a href="#4-3-处理错误的中间件" class="headerlink" title="4.3 处理错误的中间件"></a>4.3 处理错误的中间件</h3><p>为了方便处理错误，最好使用try…catch将其捕获。但是，为每个中间件都写try…catch太麻烦，我们可以让最外层的中间件，负责所有中间件的错误处理。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/16.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/16.js const handler = async (ctx, next) =&gt; { try { await next(); } catch (err) { ctx.response.status = err.statusCode || err.status || 500; ctx.response.body = { message: err.message }; } }; const main = ctx =&gt; { ctx.throw(500); }; app.use(handler); app.use(main); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/16.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，你会看到一个500页，里面有报错提示 {“message”:”Internal Server Error”}。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080809.png" alt=""></p>
+<h3 id="4-4-error-事件的监听"><a href="#4-4-error-事件的监听" class="headerlink" title="4.4 error 事件的监听"></a>4.4 error 事件的监听</h3><p>运行过程中一旦出错，Koa 会触发一个error事件。监听这个事件，也可以处理错误。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/17.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/17.js const main = ctx =&gt; { ctx.throw(500); }; app.on(‘error’, (err, ctx) =&gt; console.error(‘server error’, err); ); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/17.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，你会在命令行窗口看到”server error xxx”。</p>
+<h3 id="4-5-释放-error-事件"><a href="#4-5-释放-error-事件" class="headerlink" title="4.5 释放 error 事件"></a>4.5 释放 error 事件</h3><p>需要注意的是，如果错误被try…catch捕获，就不会触发error事件。这时，必须调用ctx.app.emit()，手动释放error事件，才能让监听函数生效。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/18.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/18.js` const handler = async (ctx, next) =&gt; { try { await next(); } catch (err) { ctx.response.status = err.statusCode || err.status || 500; ctx.response.type = ‘html’; ctx.response.body = ‘<p>Something wrong, please contact administrator.</p>‘; ctx.app.emit(‘error’, err, ctx); } }; const main = ctx =&gt; { ctx.throw(500); }; app.on(‘error’, function(err) { console.log(‘logging error ‘, err.message); console.log(err); }); </p>
+</blockquote>
+<p>上面代码中，main函数抛出错误，被handler函数捕获。catch代码块里面使用ctx.app.emit()手动释放error事件，才能让监听函数监听到。</p>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/18.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，你会在命令行窗口看到logging error。</p>
+<h2 id="五、Web-App-的功能"><a href="#五、Web-App-的功能" class="headerlink" title="五、Web App 的功能"></a>五、Web App 的功能</h2><h3 id="5-1-Cookies"><a href="#5-1-Cookies" class="headerlink" title="5.1 Cookies"></a>5.1 Cookies</h3><p>ctx.cookies用来读写 Cookie。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/19.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/19.js const main = function(ctx) { const n = Number(ctx.cookies.get(‘view’) || 0) + 1; ctx.cookies.set(‘view’, n); ctx.response.body = n + ‘ views’; } </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/19.js</p>
+</blockquote>
+<p>访问 <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> ，你会看到1 views。刷新一次页面，就变成了2 views。再刷新，每次都会计数增加1。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017080810.png" alt=""></p>
+<h3 id="5-2-表单"><a href="#5-2-表单" class="headerlink" title="5.2 表单"></a>5.2 表单</h3><p>Web 应用离不开处理表单。本质上，表单就是 POST 方法发送到服务器的键值对。<a href="https://www.npmjs.com/package/koa-body" target="_blank" rel="noopener">koa-body</a>模块可以用来从 POST 请求的数据体里面提取键值对。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/20.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/20.js const koaBody = require(‘koa-body’); const main = async function(ctx) { const body = ctx.request.body; if (!body.name) ctx.throw(400, ‘.name required’); ctx.body = { name: body.name }; }; app.use(koaBody()); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/20.js</p>
+</blockquote>
+<p>打开另一个命令行窗口，运行下面的命令。</p>
+<blockquote>
+<p>$ curl -X POST –data “name=Jack” 127.0.0.1:3000 {“name”:”Jack”} $ curl -X POST –data “name” 127.0.0.1:3000 name required</p>
+</blockquote>
+<p>上面代码使用 POST 方法向服务器发送一个键值对，会被正确解析。如果发送的数据不正确，就会收到错误提示。</p>
+<h3 id="2-3-文件上传"><a href="#2-3-文件上传" class="headerlink" title="2.3 文件上传"></a>2.3 文件上传</h3><p><a href="https://www.npmjs.com/package/koa-body" target="_blank" rel="noopener">koa-body</a>模块还可以用来处理文件上传。请看下面的例子（完整代码看<a href="https://github.com/ruanyf/koa-demos/blob/master/demos/21.js" target="_blank" rel="noopener">这里</a>）。</p>
+<blockquote>
+<p> // demos/21.js const os = require(‘os’); const path = require(‘path’); const koaBody = require(‘koa-body’); const main = async function(ctx) { const tmpdir = os.tmpdir(); const filePaths = []; const files = ctx.request.body.files || {}; for (let key in files) { const file = files[key]; const filePath = path.join(tmpdir, file.name); const reader = fs.createReadStream(file.path); const writer = fs.createWriteStream(filePath); reader.pipe(writer); filePaths.push(filePath); } ctx.body = filePaths; }; app.use(koaBody({ multipart: true })); </p>
+</blockquote>
+<p>运行这个 demo。</p>
+<blockquote>
+<p>$ node demos/21.js</p>
+</blockquote>
+<p>打开另一个命令行窗口，运行下面的命令，上传一个文件。注意，/path/to/file要更换为真实的文件路径。</p>
+<blockquote>
+<p>$ curl –form upload=@/path/to/file <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a> [“/tmp/file”] </p>
+</blockquote>
+<h2 id="六、参考链接"><a href="#六、参考链接" class="headerlink" title="六、参考链接"></a>六、参考链接</h2><ul>
+<li><a href="https://github.com/koajs/workshop" target="_blank" rel="noopener">koa workshop</a></li>
+<li><a href="https://github.com/koajs/kick-off-koa" target="_blank" rel="noopener">kick-off-koa</a></li>
+<li><a href="https://github.com/koajs/examples" target="_blank" rel="noopener">Koa Examples</a></li>
+</ul>
+<p>（完）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/koa-e6-a1-86-e6-9e-b6-e6-95-99-e7-a8-8b/" data-id="ck7y4s356007m61470pjlekzo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/koa/" rel="tag">koa</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu-e5-ae-89-e8-a3-85-e6-9c-80-e6-96-b0-e7-89-88nodejs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/ubuntu-e5-ae-89-e8-a3-85-e6-9c-80-e6-96-b0-e7-89-88nodejs/" class="article-date">
+  <time datetime="2019-04-16T07:47:42.000Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/16/ubuntu-e5-ae-89-e8-a3-85-e6-9c-80-e6-96-b0-e7-89-88nodejs/">Ubuntu安装最新版nodejs</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sudo apt update -y<br>sudo apt install -y nodejs nodejs-legacy npm<br>sudo npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>sudo npm install n -g<br>sudo n stable</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/ubuntu-e5-ae-89-e8-a3-85-e6-9c-80-e6-96-b0-e7-89-88nodejs/" data-id="ck7y4s37100b161477epl6z7o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-stm32f051-e4-bb-a3-e7-a0-81-e8-b7-b3-e8-bd-ac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/stm32f051-e4-bb-a3-e7-a0-81-e8-b7-b3-e8-bd-ac/" class="article-date">
+  <time datetime="2019-04-11T14:06:48.000Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/stm32f051-e4-bb-a3-e7-a0-81-e8-b7-b3-e8-bd-ac/">STM32F051代码跳转</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>使用STM32F051时设计bootloader和app时会发现和stm32f103不同，STM32F0是M0的核，会发现在system.c中没有设置中断向量重映射的设置。</code></pre><p>那么stm32f051怎么进行跳转呢？</p>
+<pre><code>查看数据手册可以发现这么一段描述：</code></pre><blockquote>
+<p>Physical remap Once the boot mode is selected, the application software can modify the memory accessible in the code area. This modification is performed by programming the MEM_MODE bits in the SYSCFG configuration register 1 (SYSCFG_CFGR1). Unlike Cortex® M3 and M4, the M0 CPU does not support the vector table relocation. For application code which is located in a different address than 0x0800 0000, some additional code must be added in order to be able to serve the application interrupts. A solution will be to relocate by software the vector table to the internal SRAM: • Copy the vector table from the Flash (mapped at the base of the application load address) to the base address of the SRAM at 0x2000 0000. • Remap SRAM at address 0x0000 0000, using SYSCFG configuration register 1. • Then once an interrupt occurs, the Cortex®-M0 processor will fetch the interrupt handler start address from the relocated vector table in SRAM, then it will jump to execute the interrupt handler located in the Flash. This operation should be done at the initialization phase of the application. Please refer to AN4065 and attached IAP code from <a href="http://www.st.com" target="_blank" rel="noopener">www.st.com</a> for more details.</p>
+</blockquote>
+<pre><code>从上面的描述可知不像M3 M4核，M0是不支持中断向量的重映射，但是可以将SRAM地址映射至0地址。那么就可以先将中断向量表拷贝到SRAM的0x20000000地址，然后通过代码设置地址映射。这里有几点需要注意，存放中断向量表的内存不能再存放其他数据，所以需要配置编译器的SRAM起始地址。
+
+调整的代码：</code></pre><p>__asm void MSR_MSP(uint32_t addr)<br>{<br>    MSR MSP, r0             //set Main Stack value<br>    BX r14<br>}</p>
+<p>void boot_to_app()<br>{<br>    memcpy((void<em>)0x20000000, (void</em>)APP_ADDRESS, 192);<br>    __HAL_SYSCFG_REMAPMEMORY_SRAM();</p>
+<pre><code>goto\_app = (pjump)*(volatile uint32\_t *)(APP_ADDRESS + 4);
+MSR\_MSP(*((uint32\_t *)APP_ADDRESS));
+goto_app();</code></pre><p>}</p>
+<pre><code>如上面代码所示，拷贝中断向量后做地址映射，然后跳转值APP部分的复位中断即可。可以看出拷贝了192字节的中断向量表，所以工程中SRAM的起始地址需要设置为0x2000_0000 + 192
+
+在使用STM32F0时还需要注意，STM32F0是不支持非对称访问，所以如果代码进入了硬件错误中断，可以检查是不是哪里进行了非对称访问。</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/stm32f051-e4-bb-a3-e7-a0-81-e8-b7-b3-e8-bd-ac/" data-id="ck7y4s36p00ac6147e3bbd8rv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/" class="article-date">
+  <time datetime="2019-04-06T08:11:37.000Z" itemprop="datePublished">2019-04-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/">通俗讲解LORA中的跳频和扩频</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转自：<a href="http://www.eemaker.com/lora-kuopintiaopin.html" target="_blank" rel="noopener">http://www.eemaker.com/lora-kuopintiaopin.html</a></p>
+<p><a href="http://www.eemaker.com/tag/lora" target="_blank" rel="noopener">lora</a>是一种实现远距离低功耗的无线调制技术。实际测试，在深圳这种高楼林立的地方不加PA也可以达到上千米的传输距离。如果放在空旷没有什么障碍物的地方达到3-5km也是不成问题。</p>
+<p>那么lora相比于传统的无线调制之所有可以传输更远的距离，归功于lora使用了<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>、<a href="http://www.eemaker.com/tag/%e8%b7%b3%e9%a2%91" target="_blank" rel="noopener">跳频</a>、向前纠错等等关键特性。而关于跳频和<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>很多人把他放在一起来说，让初接触者不免产生疑问，<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>和跳频到底有什么关系，为什么这两个特性可以提高传输距离。下面就一起来梳理梳理：</p>
+<h3 id="载波频率"><a href="#载波频率" class="headerlink" title="载波频率"></a>载波频率</h3><p>首先要明确一点，你要了解无线通信的基础知识，我们日长生活中接触到的各种无线通信都是把真实的有效信号和载波信号进行一个调制而发向空中的。这里关键地方就是弄清楚一个载波频率。比如现在的wifi路由器有2.4g的还有5g的，这里的2.4g和5g就是一个载波频率，而你上网的各种数据就乘坐2.4g或者5g的载波在路由器和手机之间来回穿梭。另一个例子就是在听收音机的时候，听到广播里播放：广大听众朋友好，这里是FM95.6。有木有很熟悉，这里的FM指的就是调制模式，而95.6呢就是载波频率，所以你听到的声音就是坐着95.6mhz的空中列车到达你的收音机，进而经过收音机的解调后播放出来。下面这张图是收音机无线信号调制的一个图：</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303133489.jpg" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>明白了基本无线通信的载波，我们再回归正题，继续探讨lora。lora同样也是把有效数据和载波进行调制而发送出去的。而lora的调制相比于上图所示的的AM调幅和FM调频就复杂很多，但是本质都是相同的，把真实信息放在载波频率上向空中发送或者接收空中的无线电波再进行解调。</p>
+<h3 id="LORA跳频"><a href="#LORA跳频" class="headerlink" title="LORA跳频"></a>LORA跳频</h3><p>下面再聊本文的核心问题：跳频。而如果上面的基础知识弄明白了，跳频就很好理解，跳频就是不断的变换载波频率。lora芯片sx127x本身就是支持跳频的，它可以设定一个时间段，我们后面简称为t1。发送端在经过t1之后，载波频率就会切换到下一个设定的值，再经过t1之后，载波频率又会进行一次切换。而接收端就要和发送端约定好跳频的规律，也就是维护同一张跳频表，知道下一次该往哪个频率切换。</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303292944.png" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>如上图所示，在一开始lora使用的载波频率是433mhz，经过t1时间之后跳到435mhz，再经过t1后跳到431mhz……等等就这样一直变换发送的频率，这个就是lora的跳频。</p>
+<p>有同学可能会有疑问，这个跳频的频率设定要遵循什么规律吗，下次我该设定要跳到多少mhz呢？这个首先你要确定你使用的lora芯片是什么型号的，比如sx1276和1278支持的频率范围是不一样的，理论来说在lora芯片支持的频率范围内都可以跳，具体下次跳到哪一个都可以通过软件自己灵活配置。但是考虑实际情况，有些频率点就不建议设定，例如每个国家都是有无线电使用条例的，在某些频率是不允许发射无线电信号的，所以国家不允许的频率点是要规避的。还有要考虑到天线的匹配，你使用的天线在哪个频率范围更能发挥它的优势等等</p>
+<p>明白了跳频的概念，那么跳频的作用又是什么呢：</p>
+<ul>
+<li>增加抗干扰，比如现在空中的433mhz一直有数据在传送，你也使用433mhz的时候就产生干扰的可能性就比较大。所以跳频就可以跳到例如435mhz频段避免和其他人发送无线频率冲突</li>
+<li>有些国家有规定，在一个信道上（也就是一个频率点）发送的无线信号持续时间不能超过一定的时间。通俗来说就是你不能一直占用这个频率，所以这个时候跳频就可以发挥作用</li>
+</ul>
+<h3 id="扩频"><a href="#扩频" class="headerlink" title="扩频"></a><a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a></h3><p>关于扩频要明白和跳频是不同的概念。扩频和载波频率也没有直接的关系。</p>
+<p>不管是蓝牙，wifi，还是lora，载波上载的都是数字信号。也就是如果你把发送的无线信号进行拆分来看的话，也就是载的0 、1这种有效信号。你可以简单的理解为传输过程中某一种波形代表0，另一种波形代表1。如何区分0和1的信号这里不做深究，可自行参考资料。</p>
+<p>lora 调制传输中的0和1这种一位数据是用码片来代表的。码片你可以理解为在载波频率带宽等其他无线参数设定一致的情况下。发送一个码片的时间是固定的。而扩频扩的是什么呢，就是用多少个码片来代表一位数据。先看下图：</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303572394.png" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>在lora软件配置的过程中，有个参数叫做扩频因子，这个就是用来设定扩频相关的。一共有6-12七个等级，而我这里就列出来四个作为分析。如图所示，扩频因子最小设定值为6，这个时候就代表用64个码片来代表一位。当扩频因子设定为7时，就要用128个码片来代表一位。所以可以看到设定的扩频因子越大，对应的码片数量越多，这样传输一位的时间就会更长。扩频因子和对应的码片数量也是有一定关系，2的6次方是64,2的7次方是128……</p>
+<p>所以可以得出来结论，扩频因子的设定的越大，抗干扰能力会越强，但是传输速率就会降低。也就是牺牲了传输速度而换来了高抗干扰性。这样你也可以明白lora为什么不适合传输很大的数据量。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/" data-id="ck7y4s34b006b61470biehac0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lora/" rel="tag">lora</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-a6-82-e4-bd-95-e8-8e-b7-e5-8f-96stm32-mcu-e7-9a-84-e5-94-af-e4-b8-80id" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/03/e5-a6-82-e4-bd-95-e8-8e-b7-e5-8f-96stm32-mcu-e7-9a-84-e5-94-af-e4-b8-80id/" class="article-date">
+  <time datetime="2019-04-03T06:40:06.000Z" itemprop="datePublished">2019-04-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/03/e5-a6-82-e4-bd-95-e8-8e-b7-e5-8f-96stm32-mcu-e7-9a-84-e5-94-af-e4-b8-80id/">如何获取STM32 MCU的唯一ID</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、基本描述  </p>
+<p>在STM32的全系列MCU中均有一个96位的唯一设备标识符。在ST的相关资料中，对其功能的描述有3各方面：  </p>
+<p>用作序列号（例如 USB 字符串序列号或其它终端应用程序）<br>在对内部 Flash 进行编程前将唯一 ID 与软件加密原语和协议结合使用时用作安全密钥以提高 Flash 中代码的安全性<br>激活安全自举过程等<br>在资料中对其特性的描述是：96 位的唯一设备标识符提供了一个对于任何设备和任何上下文都唯一的参考号码。用户永远不能改变这些位。96 位的唯一设备标识符也可以以单字节/半字/字等不同方式读取，然后使用自定义算法连接起来。  </p>
+<p>想要读取唯一ID，就需要知道它的存储地址，在不同系列的MCU中地址是有差别的，我们查询了部分MCU的资料并将其总结如下：</p>
+<p><img src="/wp-content/uploads/2019/04/20190403143827_21900.png" alt=""></p>
+<p>2、获取唯一ID  </p>
+<p>前面我们对唯一ID做了简单的描述，并且得到了其存储地址，接下来我们说以说如何得到这个ID。  </p>
+<p>前面已经描述过唯一ID可以按字节、半字、字等方式读取。唯一ID是一个96位的信息串，所以按字读取就是3个字，按半字读取就是6个，按字节读取就是12个。本质上没有区别，在这里我们按字读取。  </p>
+<p> 1/<em>定义STM32 MCU的类型</em>/<br> 2 typedef enum {<br> 3   STM32F0,<br> 4   STM32F1,<br> 5   STM32F2,<br> 6   STM32F3,<br> 7   STM32F4,<br> 8   STM32F7,<br> 9   STM32L0,<br>10   STM32L1,<br>11   STM32L4,<br>12   STM32H7,<br>13 }MCUTypedef;<br>14<br>15<br>16 uint32_t idAddr[]={0x1FFFF7AC,  /*STM32F0唯一ID起始地址*/<br>17                 0x1FFFF7E8,  /*STM32F1唯一ID起始地址*/<br>18                 0x1FFF7A10,  /*STM32F2唯一ID起始地址*/<br>19                 0x1FFFF7AC,  /*STM32F3唯一ID起始地址*/<br>20                 0x1FFF7A10,  /*STM32F4唯一ID起始地址*/<br>21                 0x1FF0F420,  /*STM32F7唯一ID起始地址*/<br>22                 0x1FF80050,  /*STM32L0唯一ID起始地址*/<br>23                 0x1FF80050,  /*STM32L1唯一ID起始地址*/<br>24                 0x1FFF7590,  /*STM32L4唯一ID起始地址*/<br>25                 0x1FF0F420}; /*STM32H7唯一ID起始地址*/<br>26<br>27 /<em>获取MCU的唯一ID</em>/<br>28 void GetSTM32MCUID(uint32_t <em>id,MCUTypedef type)<br>29 {<br>30   if(id!=NULL)<br>31   {<br>32     id[0]=</em>(uint32_t<em>)(idAddr[type]);<br>33     id[1]=</em>(uint32_t<em>)(idAddr[type]+4);<br>34     id[2]=</em>(uint32_t*)(idAddr[type]+8);<br>35   }<br>36 }</p>
+<p>3、使用唯一ID  </p>
+<p>我们得到唯一ID当然是为了使用它，前面在ST资料中描述了三个使用方式。我们在这里来使用它实现软件权限的限制。那么如何用唯一ID来实现软件运行权限的限制呢？我们说一说思路：  </p>
+<p>首先，我们需要指定一个Flash地址，至于于地址空间的大小则与我们xu要存储的信息有关，一般都不会太长。例如，我们使用MD5来生成加密信息，则最多需要16个字节的存储空间；如果我们使用SHA1来作为生成算法，则最多需要20个字节的空间。当然，我们也可以选取其中的一段或几段。不管选用多大的空间都炫耀将其清零，即初始化为0xFFFFFFFF。  </p>
+<p>接下来再程序运行前读取前面指定的地址并读取其值，并判断是否全部为0xFFFFFFFF，即判断程序是否第一次运行。如果是，那么就获取唯一ID并作相应的处理，然后将信息写入前面的地址中。  </p>
+<p>如果不是第一次运行，则读取指定地址的值，并用同样的算法处理唯一ID。然后比较存储的信息与计算的信息是否一致，一致则启动程序运行，不一致则终止运行。  </p>
+<p>如果有人使用工具读出FLASH内容时，因为改制定的地址已经被写入了信息，所以如果把读出的文件再烧到其它MCU芯片，因唯一ID不同所以信息完全不符程序就不会运行。从而实现了对程序权限的限制。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/03/e5-a6-82-e4-bd-95-e8-8e-b7-e5-8f-96stm32-mcu-e7-9a-84-e5-94-af-e4-b8-80id/" data-id="ck7y4s32t004r614749h3abs4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-e4-bf-ae-e6-94-b9-e8-bf-9c-e7-a8-8b-e4-bb-93-e5-ba-93-e5-9c-b0-e5-9d-80" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/git-e4-bf-ae-e6-94-b9-e8-bf-9c-e7-a8-8b-e4-bb-93-e5-ba-93-e5-9c-b0-e5-9d-80/" class="article-date">
+  <time datetime="2019-03-22T02:59:48.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/git-e4-bf-ae-e6-94-b9-e8-bf-9c-e7-a8-8b-e4-bb-93-e5-ba-93-e5-9c-b0-e5-9d-80/">git修改远程仓库地址</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转：<a href="https://www.cnblogs.com/lazb/articles/5597878.html" target="_blank" rel="noopener">https://www.cnblogs.com/lazb/articles/5597878.html</a>  </p>
+<p>问：Coding远程仓库地址变了，本地git仓库地址如何更新为最新地址  </p>
+<p>git修改远程仓库地址   </p>
+<p>方法有三种：  </p>
+<p>1.修改命令  </p>
+<p>git remote origin set-url [url]  </p>
+<p>2.先删后加  </p>
+<p>git remote rm origin<br>git remote add origin [url]  </p>
+<p>3.直接修改config文件  </p>
+<p>git 远程仓库管理  </p>
+<p>要参与任何一个 Git 项目的协作,必须要了解该如何管理远程仓库.远程仓库是指托管在网络上的项目仓库,可能会有好多个,其中有些你只能读,另外有些可以写.同他人协作开发某 个项目时,需要管理这些远程仓库,以便推送或拉取数据,分享各自的工作进展.管理远程仓库的工作,包括添加远程库,移除废弃的远程库,管理各式远程库分 支,定义是否跟踪这些分支,等等.本节我们将详细讨论远程库的管理和使用.  </p>
+<p>查看当前的远程库  </p>
+<p>要查看当前配置有哪些远程仓库,可以用 git remote 命令,它会列出每个远程库的简短名字.在克隆完某个项目后,至少可以看到一个名为 origin 的远程库,Git 默认使用这个名字来标识你所克隆的原始仓库:  </p>
+<p>$ git clone git://github.com/schacon/ticgit.git  </p>
+<p>Initialized empty Git repository in /private/tmp/ticgit/.git/  </p>
+<p>remote: Counting objects: 595, done.  </p>
+<p>remote: Compressing objects: 100% (269/269), done.  </p>
+<p>remote: Total 595 (delta 255), reused 589 (delta 253)  </p>
+<p>Receiving objects: 100% (595/595), 73.31 KiB | 1 KiB/s, done.  </p>
+<p>Resolving deltas: 100% (255/255), done.  </p>
+<p>$ cd ticgit  </p>
+<p>$ git remote  </p>
+<p>origin也可以加上 -v 选项(译注:此为 ?verbose 的简写,取首字母),显示对应的克隆地址:  </p>
+<p>$ git remote -v  </p>
+<p>origin git://github.com/schacon/ticgit.git如果有多个远程仓库,此命令将全部列出.比如在我的 Grit 项目中,可以看到:  </p>
+<p>$ cd grit  </p>
+<p>$ git remote -v  </p>
+<p>bakkdoor git://github.com/bakkdoor/grit.git  </p>
+<p>cho45 git://github.com/cho45/grit.git  </p>
+<p>defunkt git://github.com/defunkt/grit.git  </p>
+<p>koke git://github.com/koke/grit.git  </p>
+<p>origin <a href="mailto:git@github.com">git@github.com</a>:mojombo/grit.git这样一来,我就可以非常轻松地从这些用户的仓库中,拉取他们的提交到本地.请注意,上面列出的地址只有 origin 用的是 SSH URL 链接,所以也只有这个仓库我能推送数据上去(我们会在第四章解释原因).  </p>
+<p>添加远程仓库  </p>
+<p>要添加一个新的远程仓库,可以指定一个简单的名字,以便将来引用,运行 git remote add [shortname] [url]:  </p>
+<p>$ git remote  </p>
+<p>origin  </p>
+<p>$ git remote add pb git://github.com/paulboone/ticgit.git  </p>
+<p>$ git remote -v  </p>
+<p>origin git://github.com/schacon/ticgit.git  </p>
+<p>pb git://github.com/paulboone/ticgit.git现在可以用字串 pb 指代对应的仓库地址了.比如说,要抓取所有 Paul 有的,但本地仓库没有的信息,可以运行 git fetch pb:  </p>
+<p>$ git fetch pb  </p>
+<p>remote: Counting objects: 58, done.  </p>
+<p>remote: Compressing objects: 100% (41/41), done.  </p>
+<p>remote: Total 44 (delta 24), reused 1 (delta 0)  </p>
+<p>Unpacking objects: 100% (44/44), done.  </p>
+<p>From git://github.com/paulboone/ticgit  </p>
+<p>* [new branch] master -&gt; pb/master  </p>
+<p>* [new branch] ticgit -&gt; pb/ticgit现在,Paul 的主干分支(master)已经完全可以在本地访问了,对应的名字是 pb/master,你可以将它合并到自己的某个分支,或者切换到这个分支,看看有些什么有趣的更新.  </p>
+<p>从远程仓库抓取数据  </p>
+<p>正如之前所看到的,可以用下面的命令从远程仓库抓取数据到本地:  </p>
+<p>$ git fetch [remote-name]此命令会到远程仓库中拉取所有你本地仓库中还没有的数据.运行完成后,你就可以在本地访问该远程仓库中的所有分支,将其中某个 分支合并到本地,或者只是取出某个分支,一探究竟.(我们会在第三章详细讨论关于分支的概念和操作.)  </p>
+<p>如果是克隆了一个仓库,此命令会自动将远程仓库归于 origin 名下.所以,git fetch origin 会抓取从你上次克隆以来别人上传到此远程仓库中的所有更新(或是上次 fetch 以来别人提交的更新).有一点很重要,需要记住,fetch 命令只是将远端的数据拉到本地仓库,并不自动合并到当前工作分支,只有当你确实准备好了,才能手工合并.(说 明:事先需要创建好远程的仓库,然后执行:git remote add [仓库名] [仓库url],git fetch [远程仓库名],即可抓取到远程仓库数据到本地,再用git merge remotes/[仓库名]/master就可以将远程仓库merge到本地当前branch.这种分支方式比较适合独立-整合开发,即各自开发测试好后 再整合在一起.比如,Android的Framework和AP开发.  </p>
+<p>可以使用–bare 选项运行git init 来设定一个空仓库,这会初始化一个不包含工作目录的仓库.  </p>
+<p>$ cd /opt/git  </p>
+<p>$ mkdir project.git  </p>
+<p>$ cd project.git  </p>
+<p>$ git –bare init这时,Join,Josie 或者Jessica 就可以把它加为远程仓库,推送一个分支,从而把第一个版本的工程上传到仓库里了.)  </p>
+<p>如果设置了某个分支用于跟踪某个远端仓库的分支(参见下节及第三章的内容),可以使用 git pull 命令自动抓取数据下来,然后将远端分支自动合并到本地仓库中当前分支.在日常工作中我们经常这么用,既快且好.实际上,默认情况下 git clone 命令本质上就是自动创建了本地的 master 分支用于跟踪远程仓库中的 master 分支(假设远程仓库确实有 master 分支).所以一般我们运行 git pull,目的都是要从原始克隆的远端仓库中抓取数据后,合并到工作目录中当前分支.  </p>
+<p>推送数据到远程仓库  </p>
+<p>项目进行到一个阶段,要同别人分享目前的成果,可以将本地仓库中的数据推送到远程仓库.实现这个任务的命令很简单: git push [remote-name] [branch-name].如果要把本地的 master 分支推送到 origin 服务器上(再次说明下,克隆操作会自动使用默认的 master 和 origin 名字),可以运行下面的命令:  </p>
+<p>$ git push origin master只有在所克隆的服务器上有写权限,或者同一时刻没有其他人在推数据,这条命令才会如期完成任务.如果在你推数据前,已经有其他人推送了若干更新,那 你的推送操作就会被驳回.你必须先把他们的更新抓取到本地,并到自己的项目中,然后才可以再次推送.有关推送数据到远程仓库的详细内容见第三章.  </p>
+<p>查看远程仓库信息  </p>
+<p>我们可以通过命令 git remote show [remote-name] 查看某个远程仓库的详细信息,比如要看所克隆的origin 仓库,可以运行:  </p>
+<p>$ git remote show origin  </p>
+<p>* remote origin  </p>
+<p>URL: git://github.com/schacon/ticgit.git  </p>
+<p>Remote branch merged with ‘git pull’ while on branch master  </p>
+<p>master  </p>
+<p>Tracked remote branches  </p>
+<p>master  </p>
+<p>ticgit除了对应的克隆地址外,它还给出了许多额外的信息.它友善地告诉你如果是在 master 分支,就可以用git pull 命令抓取数据合并到本地.另外还列出了所有处于跟踪状态中的远端分支.  </p>
+<p>实际使用过程中,git remote show 给出的信息可能会像这样:  </p>
+<p>$ git remote show origin  </p>
+<p>* remote origin  </p>
+<p>URL: <a href="mailto:git@github.com">git@github.com</a>:defunkt/github.git  </p>
+<p>Remote branch merged with ‘git pull’ while on branch issues  </p>
+<p>issues  </p>
+<p>Remote branch merged with ‘git pull’ while on branch master  </p>
+<p>master  </p>
+<p>New remote branches (next fetch will store in remotes/origin)  </p>
+<p>caching  </p>
+<p>Stale tracking branches (use ‘git remote prune’)  </p>
+<p>libwalker  </p>
+<p>walker2  </p>
+<p>Tracked remote branches  </p>
+<p>acl  </p>
+<p>apiv2  </p>
+<p>dashboard2  </p>
+<p>issues  </p>
+<p>master  </p>
+<p>postgres  </p>
+<p>Local branch pushed with ‘git push’  </p>
+<p>master:master它告诉我们,运行 git push 时缺省推送的分支是什么(译注:最后两行).它还显示了有哪些远端分支还没有同步 到本地(译注:第六行的 caching 分支),哪些已同步到本地的远端分支在远端服务器上已被删除(译注:Stale tracking branches 下面的两个分支),以及运行 git pull 时将自动合并哪些分支(译注:前四行中列出的 issues 和 master 分支).(此命令也可以查看到本地分支和远程仓库分支的对应关系.)  </p>
+<p>远程仓库的删除和重命名  </p>
+<p>在新版 Git 中可以用 git remote rename 命令修改某个远程仓库的简短名称,比如想把 pb 改成 paul,可以这么运行:  </p>
+<p>$ git remote rename pb paul  </p>
+<p>$ git remote  </p>
+<p>origin  </p>
+<p>paul注意,对远程仓库的重命名,也会使对应的分支名称发生变化,原来的 pb/master 分支现在成了paul/master.  </p>
+<p>碰到远端仓库服务器迁移,或者原来的克隆镜像不再使用,又或者某个参与者不再贡献代码,那么需要移除对应的远端仓库,可以运行 git remote rm 命令:  </p>
+<p>$ git remote rm paul  </p>
+<p>$ git remote  </p>
+<p>origin</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/git-e4-bf-ae-e6-94-b9-e8-bf-9c-e7-a8-8b-e4-bb-93-e5-ba-93-e5-9c-b0-e5-9d-80/" data-id="ck7y4s34t00746147ehcu95wk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vmware12-e5-b8-a6-e5-af-86-e9-92-a5-e7-89-88" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/02/vmware12-e5-b8-a6-e5-af-86-e9-92-a5-e7-89-88/" class="article-date">
+  <time datetime="2019-02-02T06:43:30.000Z" itemprop="datePublished">2019-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/02/vmware12-e5-b8-a6-e5-af-86-e9-92-a5-e7-89-88/">VMware12带密钥版</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下载安装后证实可用，下载链接： <a href="https://www.cr173.com/soft/177242.html" target="_blank" rel="noopener">https://www.cr173.com/soft/177242.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/02/vmware12-e5-b8-a6-e5-af-86-e9-92-a5-e7-89-88/" data-id="ck7y4s37900be6147ej7k0y15" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-82-85-e9-87-8c-e5-8f-b6-e5-88-86-e6-9e-90-e4-b9-8b-e6-8e-90-e6-ad-bb-e6-95-99-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/01/e5-82-85-e9-87-8c-e5-8f-b6-e5-88-86-e6-9e-90-e4-b9-8b-e6-8e-90-e6-ad-bb-e6-95-99-e7-a8-8b/" class="article-date">
+  <time datetime="2019-02-01T05:23:41.000Z" itemprop="datePublished">2019-02-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/01/e5-82-85-e9-87-8c-e5-8f-b6-e5-88-86-e6-9e-90-e4-b9-8b-e6-8e-90-e6-ad-bb-e6-95-99-e7-a8-8b/">傅里叶分析之掐死教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作 者：韩 昊</p>
+<p>知 乎：Heinrich</p>
+<p>微 博：@花生油工人</p>
+<p>知乎专栏：与时间无关的故事</p>
+<p>谨以此文献给大连海事大学的吴楠老师，柳晓鸣老师，王新年老师以及张晶泊老师。</p>
+<p>其实学习本来就不是易事，我写这篇文章的初衷也是希望大家学习起来更加轻松，充满乐趣。但是千万！千万不要把这篇文章收藏起来，或是存下地址，心里想着：以后有时间再看。这样的例子太多了，也许几年后你都没有再打开这个页面。无论如何，耐下心，读下去。这篇文章要比读课本要轻松、开心得多……  </p>
+<p>p.s.本文无论是cos还是sin，都统一用“正弦波”（Sine Wave）一词来代表简谐波。  </p>
+<p>一、什么是频域<br>从我们出生，我们看到的世界都以时间贯穿，股票的走势、人的身高、汽车的轨迹都会随着时间发生改变。这种以时间作为参照来观察动态世界的方法我们称其为时域分析。而我们也想当然的认为，世间万物都在随着时间不停的改变，并且永远不会静止下来。但如果我告诉你，用另一种方法来观察世界的话，你会发现世界是永恒不变的，你会不会觉得我疯了？我没有疯，这个静止的世界就叫做频域。  </p>
+<p>先举一个公式上并非很恰当，但意义上再贴切不过的例子：  </p>
+<p>在你的理解中，一段音乐是什么呢？</p>
+<p><img src="https://pic2.zhimg.com/80/2ca39677363c65a305207a5491b75825_hd.jpg" alt="">  </p>
+<p>这是我们对音乐最普遍的理解，一个随着时间变化的震动。但我相信对于乐器小能手们来说，音乐更直观的理解是这样的：</p>
+<p><img src="https://pic3.zhimg.com/80/8e1fce9d7607d97cebf73e1f36f03f06_hd.jpg" alt=""><br>好的！下课，同学们再见。</p>
+<p>是的，其实这一段写到这里已经可以结束了。上图是音乐在时域的样子，而下图则是音乐在频域的样子。所以频域这一概念对大家都从不陌生，只是从来没意识到而已。</p>
+<p>现在我们可以回过头来重新看看一开始那句痴人说梦般的话：世界是永恒的。</p>
+<p>将以上两图简化：</p>
+<p>时域：</p>
+<p><img src="https://pic3.zhimg.com/80/d4fa1de0327eb491a6941ac84a56e432_hd.jpg" alt=""><br>频域：<img src="https://pic2.zhimg.com/80/1ca366b593d877a16c8a49773774b5b9_hd.jpg" alt="">  </p>
+<p>在时域，我们观察到钢琴的琴弦一会上一会下的摆动，就如同一支股票的走势；而在频域，只有那一个永恒的音符。</p>
+<p>所以</p>
+<h2 id="你眼中看似落叶纷飞变化无常的世界，实际只是躺在上帝怀中一份早已谱好的乐章。"><a href="#你眼中看似落叶纷飞变化无常的世界，实际只是躺在上帝怀中一份早已谱好的乐章。" class="headerlink" title="你眼中看似落叶纷飞变化无常的世界，实际只是躺在上帝怀中一份早已谱好的乐章。"></a>你眼中看似落叶纷飞变化无常的世界，实际只是躺在上帝怀中一份早已谱好的乐章。</h2><p>抱歉，这不是一句鸡汤文，而是黑板上确凿的公式：傅里叶同学告诉我们，任何周期函数，都可以看作是不同振幅，不同相位正弦波的叠加。在第一个例子里我们可以理解为，利用对不同琴键不同力度，不同时间点的敲击，可以组合出任何一首乐曲。</p>
+<p>而贯穿时域与频域的方法之一，就是传中说的傅里叶分析。傅里叶分析可分为傅里叶级数（Fourier Serie）和傅里叶变换(Fourier Transformation)，我们从简单的开始谈起。</p>
+<h2 id="二、傅里叶级数-Fourier-Series-的频谱"><a href="#二、傅里叶级数-Fourier-Series-的频谱" class="headerlink" title="二、傅里叶级数(Fourier Series)的频谱"></a>二、傅里叶级数(Fourier Series)的频谱</h2><p>还是举个栗子并且有图有真相才好理解。</p>
+<p>如果我说我能用前面说的正弦曲线波叠加出一个带90度角的矩形波来，你会相信吗？你不会，就像当年的我一样。但是看看下图：</p>
+<p><img src="https://pic2.zhimg.com/80/055bf33bb84555a952804c5dbeb75dd9_hd.jpg" alt="">  </p>
+<p>第一幅图是一个郁闷的正弦波cos（x）</p>
+<p>第二幅图是2个卖萌的正弦波的叠加cos(x)+a.cos(3x)</p>
+<p>第三幅图是4个发春的正弦波的叠加</p>
+<p>第四幅图是10个便秘的正弦波的叠加</p>
+<p>随着正弦波数量逐渐的增长，他们最终会叠加成一个标准的矩形，大家从中体会到了什么道理？</p>
+<p>（只要努力，弯的都能掰直！）</p>
+<p>随着叠加的递增，所有正弦波中上升的部分逐渐让原本缓慢增加的曲线不断变陡，而所有正弦波中下降的部分又抵消了上升到最高处时继续上升的部分使其变为水平线。一个矩形就这么叠加而成了。但是要多少个正弦波叠加起来才能形成一个标准90度角的矩形波呢？不幸的告诉大家，答案是无穷多个。（上帝：我能让你们猜着我？）</p>
+<p>不仅仅是矩形，你能想到的任何波形都是可以如此方法用正弦波叠加起来的。这是没<br>有接触过傅里叶分析的人在直觉上的第一个难点，但是一旦接受了这样的设定，游戏就开始有意思起来了。</p>
+<p>还是上图的正弦波累加成矩形波，我们换一个角度来看看：</p>
+<p><img src="https://pic4.zhimg.com/80/563deb4a6599d052b3ba108661872c57_hd.jpg" alt="">  </p>
+<p>在这几幅图中，最前面黑色的线就是所有正弦波叠加而成的总和，也就是越来越接近矩形波的那个图形。而后面依不同颜色排列而成的正弦波就是组合为矩形波的各个分量。这些正弦波按照频率从低到高从前向后排列开来，而每一个波的振幅都是不同的。一定有细心的读者发现了，每两个正弦波之间都还有一条直线，那并不是分割线，而是振幅为0的正弦波！也就是说，为了组成特殊的曲线，有些正弦波成分是不需要的。</p>
+<p>这里，不同频率的正弦波我们成为频率分量。</p>
+<p>好了，关键的地方来了！！</p>
+<p>如果我们把第一个频率最低的频率分量看作“1”，我们就有了构建频域的最基本单元。</p>
+<p>对于我们最常见的有理数轴，数字“1”就是有理数轴的基本单元。</p>
+<p>时域的基本单元就是“1秒”，如果我们将一个角频率为<img src="https://www.zhihu.com/equation?tex=%5Comega_%7B0%7D+" alt="\omega_{0} ">的正弦波cos（<img src="https://www.zhihu.com/equation?tex=%5Comega_%7B0%7D+" alt="\omega_{0} ">t）看作基础，那么频域的基本单元就是<img src="https://www.zhihu.com/equation?tex=%5Comega_%7B0%7D+" alt="\omega_{0} ">。</p>
+<p>有了“1”，还要有“0”才能构成世界，那么频域的“0”是什么呢？cos（0t）就是一个周期无限长的正弦波，也就是一条直线！所以在频域，0频率也被称为直流分量，在傅里叶级数的叠加中，它仅仅影响全部波形相对于数轴整体向上或是向下而不改变波的形状。</p>
+<p>接下来，让我们回到初中，回忆一下已经死去的八戒，啊不，已经死去的老师是怎么定义正弦波的吧。</p>
+<p><img src="https://pic3.zhimg.com/80/81ca9447d6c45c162c2d76df75a6690a_hd.jpg" alt="">  </p>
+<p>正弦波就是一个圆周运动在一条直线上的投影。所以频域的基本单元也可以理解为一个始终在旋转的圆</p>
+<p><img src="https://pic1.zhimg.com/80/841476e8e15e1d08114b65c50b741930_hd.jpg" alt="">  </p>
+<p>知乎不能传动态图真是太让人惋惜了……</p>
+<p>想看动图的同学请戳这里：</p>
+<p><a href="http://link.zhihu.com/?target=http%3A/en.wikipedia.org/wiki/File%3AFourier_series_square_wave_circles_animation.gif">File:Fourier series square wave circles animation.gif</a></p>
+<p>以及这里：</p>
+<p><a href="http://link.zhihu.com/?target=http%3A/en.wikipedia.org/wiki/File%3AFourier_series_sawtooth_wave_circles_animation.gif">File:Fourier series sawtooth wave circles animation.gif</a></p>
+<p>点出去的朋友不要被wiki拐跑了，wiki写的哪有这里的文章这么没节操是不是。</p>
+<p>介绍完了频域的基本组成单元，我们就可以看一看一个矩形波，在频域里的另一个模样了：</p>
+<p><img src="https://pic3.zhimg.com/80/e2e3c0af3bdbcba721c5415a4c65da9e_hd.jpg" alt=""><br>这是什么奇怪的东西？</p>
+<p>这就是矩形波在频域的样子，是不是完全认不出来了？教科书一般就给到这里然后留给了读者无穷的遐想，以及无穷的吐槽，其实教科书只要补一张图就足够了：频域图像，也就是俗称的频谱，就是——</p>
+<p><img src="https://pic4.zhimg.com/80/19679c871bd33d94e2fc8b174f0d14ab_hd.jpg" alt="">  </p>
+<p>再清楚一点：</p>
+<p><img src="https://pic2.zhimg.com/80/40cf849e55ed95732a60b52d4019d609_hd.jpg" alt="">可以发现，在频谱中，偶数项的振幅都是0，也就对应了图中的彩色直线。振幅为0的正弦波。  </p>
+<p>动图请戳：</p>
+<p><a href="http://link.zhihu.com/?target=http%3A/en.wikipedia.org/wiki/File%3AFourier_series_and_transform.gif">File:Fourier series and transform.gif</a></p>
+<p>老实说，在我学傅里叶变换时，维基的这个图还没有出现，那时我就想到了这种表达方法，而且，后面还会加入维基没有表示出来的另一个谱——相位谱。</p>
+<p>但是在讲相位谱之前，我们先回顾一下刚刚的这个例子究竟意味着什么。记得前面说过的那句“世界是静止的”吗？估计好多人对这句话都已经吐槽半天了。想象一下，世界上每一个看似混乱的表象，实际都是一条时间轴上不规则的曲线，但实际这些曲线都是由这些无穷无尽的正弦波组成。我们看似不规律的事情反而是规律的正弦波在时域上的投影，而正弦波又是一个旋转的圆在直线上的投影。那么你的脑海中会产生一个什么画面呢？</p>
+<p>我们眼中的世界就像皮影戏的大幕布，幕布的后面有无数的齿轮，大齿轮带动小齿轮，小齿轮再带动更小的。在最外面的小齿轮上有一个小人——那就是我们自己。我们只看到这个小人毫无规律的在幕布前表演，却无法预测他下一步会去哪。而幕布后面的齿轮却永远一直那样不停的旋转，永不停歇。这样说来有些宿命论的感觉。说实话，这种对人生的描绘是我一个朋友在我们都是高中生的时候感叹的，当时想想似懂非懂，直到有一天我学到了傅里叶级数……</p>
+<h2 id="三、傅里叶级数（Fourier-Series）的相位谱"><a href="#三、傅里叶级数（Fourier-Series）的相位谱" class="headerlink" title="三、傅里叶级数（Fourier Series）的相位谱"></a>三、傅里叶级数（Fourier Series）的相位谱</h2><p>上一章的关键词是：从侧面看。这一章的关键词是：从下面看。</p>
+<p>在这一章最开始，我想先回答很多人的一个问题：傅里叶分析究竟是干什么用的？这段相对比较枯燥，已经知道了的同学可以直接跳到下一个分割线。</p>
+<p>先说一个最直接的用途。无论听广播还是看电视，我们一定对一个词不陌生——频道。频道频道，就是频率的通道，不同的频道就是将不同的频率作为一个通道来进行信息传输。下面大家尝试一件事：</p>
+<p>先在纸上画一个sin（x），不一定标准，意思差不多就行。不是很难吧。</p>
+<p>好，接下去画一个sin（3x）+sin（5x）的图形。</p>
+<p>别说标准不标准了，曲线什么时候上升什么时候下降你都不一定画的对吧？</p>
+<p>好，画不出来不要紧，我把sin（3x）+sin（5x）的曲线给你，但是前提是你不知道这个曲线的方程式，现在需要你把sin（5x）给我从图里拿出去，看看剩下的是什么。这基本是不可能做到的。</p>
+<p>但是在频域呢？则简单的很，无非就是几条竖线而已。</p>
+<p>所以很多在时域看似不可能做到的数学操作，在频域相反很容易。这就是需要傅里叶变换的地方。尤其是从某条曲线中去除一些特定的频率成分，这在工程上称为滤波，是信号处理最重要的概念之一，只有在频域才能轻松的做到。</p>
+<p>再说一个更重要，但是稍微复杂一点的用途——求解微分方程。（这段有点难度，看不懂的可以直接跳过这段）微分方程的重要性不用我过多介绍了。各行各业都用的到。但是求解微分方程却是一件相当麻烦的事情。因为除了要计算加减乘除，还要计算微分积分。而傅里叶变换则可以让微分和积分在频域中变为乘法和除法，大学数学瞬间变小学算术有没有。</p>
+<p>傅里叶分析当然还有其他更重要的用途，我们随着讲随着提。</p>
+<p>————————————————————————————————————</p>
+<p>下面我们继续说相位谱：</p>
+<p>通过时域到频域的变换，我们得到了一个从侧面看的频谱，但是这个频谱并没有包含时域中全部的信息。因为频谱只代表每一个对应的正弦波的振幅是多少，而没有提到相位。基础的正弦波A.sin(wt+θ)中，振幅，频率，相位缺一不可，不同相位决定了波的位置，所以对于频域分析，仅仅有频谱（振幅谱）是不够的，我们还需要一个相位谱。那么这个相位谱在哪呢？我们看下图，这次为了避免图片太混论，我们用7个波叠加的图。</p>
+<p><img src="https://pic3.zhimg.com/80/07199fc0250791d768771b50c098e26a_hd.jpg" alt="">  </p>
+<p>鉴于正弦波是周期的，我们需要设定一个用来标记正弦波位置的东西。在图中就是那些小红点。小红点是距离频率轴最近的波峰，而这个波峰所处的位置离频率轴有多远呢？为了看的更清楚，我们将红色的点投影到下平面，投影点我们用粉色点来表示。当然，这些粉色的点只标注了波峰距离频率轴的距离，并不是相位。</p>
+<p><img src="https://pic4.zhimg.com/80/e1985fe86283a7b14d1fc7e11d322fcb_hd.jpg" alt=""><br>这里需要纠正一个概念：时间差并不是相位差。如果将全部周期看作2Pi或者360度的话，相位差则是时间差在一个周期中所占的比例。我们将时间差除周期再乘2Pi，就得到了相位差。</p>
+<p>在完整的立体图中，我们将投影得到的时间差依次除以所在频率的周期，就得到了最下面的相位谱。所以，频谱是从侧面看，相位谱是从下面看。下次偷看女生裙底被发现的话，可以告诉她：“对不起，我只是想看看你的相位谱。”</p>
+<p>注意到，相位谱中的相位除了0，就是Pi。因为cos（t+Pi）=-cos（t），所以实际上相位为Pi的波只是上下翻转了而已。对于周期方波的傅里叶级数，这样的相位谱已经是很简单的了。另外值得注意的是，由于cos（t+2Pi）=cos（t），所以相位差是周期的，pi和3pi，5pi，7pi都是相同的相位。人为定义相位谱的值域为(-pi，pi]，所以图中的相位差均为Pi。</p>
+<p>最后来一张大集合：</p>
+<p><img src="https://pic3.zhimg.com/80/4695ce06197677bab880cd55b6846f12_hd.jpg" alt=""></p>
+<h2 id="四、傅里叶变换（Fourier-Transformation）"><a href="#四、傅里叶变换（Fourier-Transformation）" class="headerlink" title="四、傅里叶变换（Fourier Transformation）"></a>四、傅里叶变换（Fourier Transformation）</h2><p>相信通过前面三章，大家对频域以及傅里叶级数都有了一个全新的认识。但是文章在一开始关于钢琴琴谱的例子我曾说过，这个栗子是一个公式错误，但是概念典型的例子。所谓的公式错误在哪里呢？</p>
+<p>傅里叶级数的本质是将一个周期的信号分解成无限多分开的（离散的）正弦波，但是宇宙似乎并不是周期的。曾经在学数字信号处理的时候写过一首打油诗：</p>
+<h3 id="往昔连续非周期，"><a href="#往昔连续非周期，" class="headerlink" title="往昔连续非周期，"></a>往昔连续非周期，</h3><h3 id="回忆周期不连续，"><a href="#回忆周期不连续，" class="headerlink" title="回忆周期不连续，"></a>回忆周期不连续，</h3><h3 id="任你ZT、DFT，"><a href="#任你ZT、DFT，" class="headerlink" title="任你ZT、DFT，"></a>任你ZT、DFT，</h3><h3 id="还原不回去。"><a href="#还原不回去。" class="headerlink" title="还原不回去。"></a>还原不回去。</h3><p>（请无视我渣一样的文学水平……）</p>
+<p>在这个世界上，有的事情一期一会，永不再来，并且时间始终不曾停息地将那些刻骨铭心的往昔连续的标记在时间点上。但是这些事情往往又成为了我们格外宝贵的回忆，在我们大脑里隔一段时间就会周期性的蹦出来一下，可惜这些回忆都是零散的片段，往往只有最幸福的回忆，而平淡的回忆则逐渐被我们忘却。因为，往昔是一个连续的非周期信号，而回忆是一个周期离散信号。</p>
+<p>是否有一种数学工具将连续非周期信号变换为周期离散信号呢？抱歉，真没有。</p>
+<p>比如傅里叶级数，在时域是一个周期且连续的函数，而在频域是一个非周期离散的函数。这句话比较绕嘴，实在看着费事可以干脆回忆第一章的图片。</p>
+<p>而在我们接下去要讲的傅里叶变换，则是将一个时域非周期的连续信号，转换为一个在频域非周期的连续信号。</p>
+<p>算了，还是上一张图方便大家理解吧：</p>
+<p><img src="https://pic1.zhimg.com/80/419cd0b2e965aca25d5f8a5a6362d728_hd.jpg" alt=""><br>或者我们也可以换一个角度理解：傅里叶变换实际上是对一个周期无限大的函数进行傅里叶变换。</p>
+<p>所以说，钢琴谱其实并非一个连续的频谱，而是很多在时间上离散的频率，但是这样的一个贴切的比喻真的是很难找出第二个来了。</p>
+<p>因此在傅里叶变换在频域上就从离散谱变成了连续谱。那么连续谱是什么样子呢？</p>
+<h2 id="你见过大海么？"><a href="#你见过大海么？" class="headerlink" title="你见过大海么？"></a>你见过大海么？</h2><p>为了方便大家对比，我们这次从另一个角度来看频谱，还是傅里叶级数中用到最多的那幅图，我们从频率较高的方向看。</p>
+<p><img src="https://pic3.zhimg.com/80/a185be412974fd73a7925cf1f1cc5372_hd.jpg" alt=""><br>以上是离散谱，那么连续谱是什么样子呢？</p>
+<p>尽情的发挥你的想象，想象这些离散的正弦波离得越来越近，逐渐变得连续……</p>
+<p>直到变得像波涛起伏的大海：</p>
+<p><img src="https://pic4.zhimg.com/80/ece53f825c6de629befba3de12f929a7_hd.jpg" alt="">  </p>
+<p>很抱歉，为了能让这些波浪更清晰的看到，我没有选用正确的计算参数，而是选择了一些让图片更美观的参数，不然这图看起来就像屎一样了。</p>
+<p>不过通过这样两幅图去比较，大家应该可以理解如何从离散谱变成了连续谱的了吧？原来离散谱的叠加，变成了连续谱的累积。所以在计算上也从求和符号变成了积分符号。</p>
+<p>不过，这个故事还没有讲完，接下去，我保证让你看到一幅比上图更美丽壮观的图片，但是这里需要介绍到一个数学工具才能然故事继续，这个工具就是——</p>
+<h2 id="五、宇宙耍帅第一公式：欧拉公式"><a href="#五、宇宙耍帅第一公式：欧拉公式" class="headerlink" title="五、宇宙耍帅第一公式：欧拉公式"></a>五、宇宙耍帅第一公式：欧拉公式</h2><p>虚数i这个概念大家在高中就接触过，但那时我们只知道它是-1的平方根，可是它真正的意义是什么呢?</p>
+<p><img src="https://pic1.zhimg.com/80/42e1f6dc43e8868b4962f5ba389a5df4_hd.jpg" alt="">这里有一条数轴，在数轴上有一个红色的线段，它的长度是1。当它乘以3的时候，它的长度发生了变化，变成了蓝色的线段，而当它乘以-1的时候，就变成了绿色的线段，或者说线段在数轴上围绕原点旋转了180度。  </p>
+<p>我们知道乘-1其实就是乘了两次 i使线段旋转了180度，那么乘一次 i 呢——答案很简单——旋转了90度。</p>
+<p><img src="https://pic1.zhimg.com/80/3e88e9463e4667e50ebdda51dee88358_hd.jpg" alt=""><br>同时，我们获得了一个垂直的虚数轴。实数轴与虚数轴共同构成了一个复数的平面，也称复平面。这样我们就了解到，乘虚数i的一个功能——旋转。</p>
+<p>现在，就有请宇宙第一耍帅公式欧拉公式隆重登场——</p>
+<p><img src="https://pic3.zhimg.com/80/a5212ab9fd17c148a3b8762f982a37b2_hd.jpg" alt="">)这个公式在数学领域的意义要远大于傅里叶分析，但是乘它为宇宙第一耍帅公式是因为它的特殊形式——当x等于Pi的时候。<img src="https://pic2.zhimg.com/80/57aabba66d545a26070989d3b5a864cd_hd.jpg" alt="">经常有理工科的学生为了跟妹子表现自己的学术功底，用这个公式来给妹子解释数学之美：”石榴姐你看，这个公式里既有自然底数e，自然数1和0，虚数i还有圆周率pi，它是这么简洁，这么美丽啊！“但是姑娘们心里往往只有一句话：”臭屌丝……“</p>
+<p>这个公式关键的作用，是将正弦波统一成了简单的指数形式。我们来看看图像上的涵义：</p>
+<p><img src="https://pic4.zhimg.com/80/974efc6a99e06dcd623193e960ccbe93_hd.jpg" alt=""><br>欧拉公式所描绘的，是一个随着时间变化，在复平面上做圆周运动的点，随着时间的改变，在时间轴上就成了一条螺旋线。如果只看它的实数部分，也就是螺旋线在左侧的投影，就是一个最基础的余弦函数。而右侧的投影则是一个正弦函数。</p>
+<p>关于复数更深的理解，大家可以参考：</p>
+<p><a href="http://www.zhihu.com/question/23234701/answer/26017000" target="_blank" rel="noopener">复数的物理意义是什么？</a></p>
+<p>这里不需要讲的太复杂，足够让大家理解后面的内容就可以了。</p>
+<h2 id="六、指数形式的傅里叶变换"><a href="#六、指数形式的傅里叶变换" class="headerlink" title="六、指数形式的傅里叶变换"></a>六、指数形式的傅里叶变换</h2><p>有了欧拉公式的帮助，我们便知道：正弦波的叠加，也可以理解为螺旋线的叠加在实数空间的投影。而螺旋线的叠加如果用一个形象的栗子来理解是什么呢？</p>
+<p>光波</p>
+<p>高中时我们就学过，自然光是由不同颜色的光叠加而成的，而最著名的实验就是牛顿师傅的三棱镜实验：</p>
+<p><img src="https://pic2.zhimg.com/80/c2d7bfc819ebcbea8d6f2c8271d4791d_hd.jpg" alt=""><br>所以其实我们在很早就接触到了光的频谱，只是并没有了解频谱更重要的意义。</p>
+<p>但不同的是，傅里叶变换出来的频谱不仅仅是可见光这样频率范围有限的叠加，而是频率从0到无穷所有频率的组合。</p>
+<p>这里，我们可以用两种方法来理解正弦波：</p>
+<p>第一种前面已经讲过了，就是螺旋线在实轴的投影。</p>
+<p>另一种需要借助欧拉公式的另一种形式去理解：</p>
+<p><img src="https://www.zhihu.com/equation?tex=e%5E%7Bit%7D%3Dcos%28t%29%2Bi.sin%28t%29" alt="e^{it}=cos(t)+i.sin(t)"><br><img src="https://www.zhihu.com/equation?tex=e%5E%7B-it%7D%3Dcos%28t%29-i.sin%28t%29" alt="e^{-it}=cos(t)-i.sin(t)">  </p>
+<p>将以上两式相加再除2，得到：</p>
+<p><img src="https://www.zhihu.com/equation?tex=cos%28t%29%3D%5Cfrac%7Be%5E%7Bit%7D%2Be%5E%7B-it%7D%7D%7B2%7D+" alt="cos(t)=\frac{e^{it}+e^{-it}}{2} ">  </p>
+<p>这个式子可以怎么理解呢？</p>
+<p>我们刚才讲过，e^(it)可以理解为一条逆时针旋转的螺旋线，那么e^(-it)则可以理解为一条顺时针旋转的螺旋线。而cos(t)则是这两条旋转方向不同的螺旋线叠加的一半，因为这两条螺旋线的虚数部分相互抵消掉了！</p>
+<p>举个例子的话，就是极化方向不同的两束光波，磁场抵消，电场加倍。</p>
+<p>这里，逆时针旋转的我们称为正频率，而顺时针旋转的我们称为负频率（注意不是复频率）。</p>
+<p>好了，刚才我们已经看到了大海——连续的傅里叶变换频谱，现在想一想，连续的螺旋线会是什么样子：</p>
+<p>想象一下再往下翻：</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p>|</p>
+<p><img src="https://pic1.zhimg.com/80/f116ae26859bdc80b28ea0f8f894ccc0_hd.jpg" alt=""><br>是不是很漂亮？</p>
+<p>你猜猜，这个图形在时域是什么样子？</p>
+<p><img src="https://pic1.zhimg.com/80/0fdfa0a9b6eea036703ab2499381080c_hd.jpg" alt=""><br>哈哈，是不是觉得被狠狠扇了一个耳光。数学就是这么一个把简单的问题搞得很复杂的东西。</p>
+<p>顺便说一句，那个像大海螺一样的图，为了方便观看，我仅仅展示了其中正频率的部分，负频率的部分没有显示出来。</p>
+<p>如果你认真去看，海螺图上的每一条螺旋线都是可以清楚的看到的，每一条螺旋线都有着不同的振幅（旋转半径），频率（旋转周期）以及相位。而将所有螺旋线连成平面，就是这幅海螺图了。</p>
+<p>好了，讲到这里，相信大家对傅里叶变换以及傅里叶级数都有了一个形象的理解了，我们最后用一张图来总结一下：</p>
+<p><img src="https://pic3.zhimg.com/80/097c9051af221c171730d4bc8f436a72_hd.jpg" alt=""></p>
+<p>好了，傅里叶的故事终于讲完了，下面来讲讲我的故事：</p>
+<p>这篇文章第一次被写下来的地方你们绝对猜不到在哪，是在一张高数考试的卷子上。当时为了刷分，我重修了高数（上），但是后来时间紧压根没复习，所以我就抱着裸考的心态去了考场。但是到了考场我突然意识到，无论如何我都不会比上次考的更好了，所以干脆写一些自己对于数学的想法吧。于是用了一个小时左右的时间在试卷上洋洋洒洒写了本文的第一草稿。</p>
+<p>你们猜我的了多少分？</p>
+<p>6分</p>
+<p>没错，就是这个数字。而这6分的成绩是因为最后我实在无聊，把选择题全部填上了C，应该是中了两道，得到了这宝贵的6分。说真的，我很希望那张卷子还在，但是应该不太可能了。</p>
+<p>那么你们猜猜我第一次信号与系统考了多少分呢？</p>
+<p>45分</p>
+<p>没错，刚刚够参加补考的。但是我心一横没去考，决定重修。因为那个学期在忙其他事情，学习真的就抛在脑后了。但是我知道这是一门很重要的课，无论如何我要吃透它。说真的，信号与系统这门课几乎是大部分工科课程的基础，尤其是通信专业。</p>
+<p>在重修的过程中，我仔细分析了每一个公式，试图给这个公式以一个直观的理解。虽然我知道对于研究数学的人来说，这样的学习方法完全没有前途可言，因为随着概念愈加抽象，维度越来越高，这种图像或者模型理解法将完全丧失作用。但是对于一个工科生来说，足够了。</p>
+<p>后来来了德国，这边学校要求我重修信号与系统时，我彻底无语了。但是没办法，德国人有时对中国人就是有种藐视，觉得你的教育不靠谱。所以没办法，再来一遍吧。</p>
+<p>这次，我考了满分，而及格率只有一半。</p>
+<p>老实说，数学工具对于工科生和对于理科生来说，意义是完全不同的。工科生只要理解了，会用，会查，就足够了。但是很多高校却将这些重要的数学课程教给数学系的老师去教。这样就出现一个问题，数学老师讲得天花乱坠，又是推理又是证明，但是学生心里就只有一句话：学这货到底干嘛用的？</p>
+<p>缺少了目标的教育是彻底的失败。</p>
+<p>在开始学习一门数学工具的时候，学生完全不知道这个工具的作用，现实涵义。而教材上有只有晦涩难懂，定语就二十几个字的概念以及看了就眼晕的公式。能学出兴趣来就怪了！</p>
+<p>好在我很幸运，遇到了大连海事大学的吴楠老师。他的课全程来看是两条线索，一条从上而下，一条从下而上。先讲本门课程的意义，然后指出这门课程中会遇到哪样的问题，让学生知道自己学习的某种知识在现实中扮演的角色。然后再从基础讲起，梳理知识树，直到延伸到另一条线索中提出的问题，完美的衔接在一起！</p>
+<p>这样的教学模式，我想才是大学里应该出现的。</p>
+<p>最后，写给所有给我点赞并留言的同学。真的谢谢大家的支持，也很抱歉不能一一回复。因为知乎专栏的留言要逐次加载，为了看到最后一条要点很多次加载。当然我都坚持看完了，只是没办法一一回复。</p>
+<p>本文只是介绍了一种对傅里叶分析新颖的理解方法，对于求学，还是要踏踏实实弄清楚公式和概念，学习，真的没有捷径。但至少通过本文，我希望可以让这条漫长的路变得有意思一些。</p>
+<p>最后，祝大家都能在学习中找到乐趣。…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/01/e5-82-85-e9-87-8c-e5-8f-b6-e5-88-86-e6-9e-90-e4-b9-8b-e6-8e-90-e6-ad-bb-e6-95-99-e7-a8-8b/" data-id="ck7y4s32g00466147f97k1pzx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-b3-a2-e7-89-b9-e7-8e-87-e7-ac-a6-e5-8f-b7-e9-80-9f-e7-8e-87-e4-bc-a0-e7-a0-81-e7-8e-87-e6-95-b0-e6-8d-ae-e9-80-9f-e7-8e-87-e6-af-94-e7-89-b9-e7-8e-87-e5-90-9e-e5-90-90-e7-8e-87-e5-b8-a6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/24/e6-b3-a2-e7-89-b9-e7-8e-87-e7-ac-a6-e5-8f-b7-e9-80-9f-e7-8e-87-e4-bc-a0-e7-a0-81-e7-8e-87-e6-95-b0-e6-8d-ae-e9-80-9f-e7-8e-87-e6-af-94-e7-89-b9-e7-8e-87-e5-90-9e-e5-90-90-e7-8e-87-e5-b8-a6/" class="article-date">
+  <time datetime="2019-01-24T02:35:08.000Z" itemprop="datePublished">2019-01-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/24/e6-b3-a2-e7-89-b9-e7-8e-87-e7-ac-a6-e5-8f-b7-e9-80-9f-e7-8e-87-e4-bc-a0-e7-a0-81-e7-8e-87-e6-95-b0-e6-8d-ae-e9-80-9f-e7-8e-87-e6-af-94-e7-89-b9-e7-8e-87-e5-90-9e-e5-90-90-e7-8e-87-e5-b8-a6/">波特率/符号速率/传码率/数据速率/比特率/吞吐率/带宽区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工作中我们经常碰到这几个概念，由于这几个概念意思很接近，给我们带来很大的困惑，有时还把他们搞混，今天我们就来谈谈这几个概念，希望对大家理解他们能有所帮助。  </p>
+<p> 在讲述这几个概念之前，我们先看看信号一般是如何在信道上传输的。  </p>
+<p><img src="http://www.yourmcu.com/wp-content/uploads/2019/01/20190124103424_37233.png" alt="">  </p>
+<p>如上图所述，虽然我们只想传输bit0~bit7，但由于通信机制的限制，我们必须在bit0之前加上start bit，在bit7之后加上stop bit，以及其他冗余部分。以上图来做参考，我们看看上述概念都是如何定义的。  </p>
+<p>波特率（Baud or Baud rate），单位bps （bits per second）或者baud本身就是单位，即1baud = 1bps，波特率就是图中的t1，表示一秒钟最多可以传输多少个符号（码元）。<br>Symbol rate（符号速率，或者传码率，或者码元传输速率），单位sps（symbol per second），symbol rate就等于波特率，即符号速率（传码率）也对应图中的t1。<br>比特率（bit rate），单位bps（ bits per second），比特率跟符号速率（传码率）意思很接近，像图中情况，你可以认为比特率=符号速率，因为图中一个符号表示一个比特。但有很多系统，一个符号可以表示多个bit，比如4PSK（QPSK），一个符号表示2个比特，因此比特率=2*符号速率。也有很多系统，多个符号表示一个bit，比如BLE coded PHY，8个符号表示一个bit，这个时候，比特率=符号速率/8。有时候，比特率也可以用来表示有效bit速率，比如上图，整个t2时间实际只传输了8bit数据（另外2bit数据属于无效数据），因此你可以认为bit rate = 8/10 symbol rate<br>数据速率（data rate），单位bps（ bits per second），data rate的具体内涵要看语境，有时候data rate = symbol rate，有时候data rate = bit rate。<br>吞吐率（data throughput），单位bps或者Bps（bits/bytes per second），吞吐率度量的是一个比较长的时间，是用户实际感受的最大“速度”，就如上图中的t3，把t3时间传输的全部有效字节除以t3，就是吞吐率。计算吞吐率时，不仅要扣除像start bit/stop bit这种冗余bits，还要扣除字节与字节之间的延时时间，以及块与块之间的延时时间，等等，因此吞吐率比数据速率要“慢”得多。<br>带宽（bandwidth）。带宽有多重内涵，在计算机和网络领域，带宽基本等价于吞吐率，单位为bps或者Bps（bits/bytes per second），请参考上面“吞吐率”说明。在信号处理/射频/微电子学领域，带宽就是两个极限频率之差，如下图所示，B就是带宽。  </p>
+<p><img src="/wp-content/uploads/2019/01/20190124103456_91592.png" alt="">  </p>
+<p>极限频率之差，这才是带宽的本意，而吞吐率可以说是带宽的延伸义，为什么带宽可以延伸为“吞吐率”的意思？这个是由奈奎斯特（Nyquist）定理而来的，1924年，奈奎斯特推导出有限带宽无噪声信道的极限传码率，称为奈奎斯特定理。若信道带宽为W（单位Hz），则奈奎斯特定理的最大码元速率B（单位：sps或者baud）为：  </p>
+<pre><code>B=2W  </code></pre><p>从上述公式可知，带宽直接决定了信道的最高传码率，因此用带宽来表示吞吐率也就在情理之中了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/24/e6-b3-a2-e7-89-b9-e7-8e-87-e7-ac-a6-e5-8f-b7-e9-80-9f-e7-8e-87-e4-bc-a0-e7-a0-81-e7-8e-87-e6-95-b0-e6-8d-ae-e9-80-9f-e7-8e-87-e6-af-94-e7-89-b9-e7-8e-87-e5-90-9e-e5-90-90-e7-8e-87-e5-b8-a6/" data-id="ck7y4s33i005e6147eaax9tsl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

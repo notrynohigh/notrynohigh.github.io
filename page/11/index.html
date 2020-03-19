@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/11/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-b-log-e5-b8-ae-e5-8a-a9-e4-bd-a0-e6-9b-b4-e5-a5-bd-e7-9a-84-e6-89-93-e5-8d-b0-e8-b0-83-e8-af-95-e4-bf-a1-e6-81-af" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/07/b-log-e5-b8-ae-e5-8a-a9-e4-bd-a0-e6-9b-b4-e5-a5-bd-e7-9a-84-e6-89-93-e5-8d-b0-e8-b0-83-e8-af-95-e4-bf-a1-e6-81-af/" class="article-date">
+  <time datetime="2018-02-07T14:43:22.000Z" itemprop="datePublished">2018-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/b-log/">b_log</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/b-log-e5-b8-ae-e5-8a-a9-e4-bd-a0-e6-9b-b4-e5-a5-bd-e7-9a-84-e6-89-93-e5-8d-b0-e8-b0-83-e8-af-95-e4-bf-a1-e6-81-af/">b_log帮助你更好的打印调试信息</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在做MCU开发时，有许多时候添加打印消息比在线调试更加有用。一般情况下都可以使用串口或者RTT进行输出。</p>
+<p>添加stdio头文件后，完成fpuc，然后就可以使用printf进行打印输出。这样也可以进行调试。但是有一个很明显的缺点是，</p>
+<p>在我们完成调试后，发现代码中有很多printf，需要一个个清理。而有时候清理后又会有情况需要再加入。于是想到一个方便的办法</p>
+<p>给打印分级别，根据级别来控制是否打印输出。当然这个是个很简单也很容易想到的问题。</p>
+<p>在之前的一个项目中，有了级别控制的打印输出，但是似乎还是无法满足需要。需要每个C文件里面的打印可以单独的控制开关。考虑到这些，就简单的做了一份打印的代码：</p>
+<p><a href="https://github.com/notrynohigh/b_log" target="_blank" rel="noopener">https://github.com/notrynohigh/b_log</a></p>
+<p>使用接口如下：<br>#define log_i(…)                           /<strong>&lt; information log      */<br>#define log_w(…)                           /</strong>&lt; warning log          <em>/<br>#define log_e(…)                           /*</em>&lt; error log            <em>/<br>#define log_a(cond, …)                     /*</em>&lt; assert log           */<br>主要功能：<br>（所有配置在b_log_config.h）<br>1、打印等级配置   #define B_LOG_LEVEL_CFG    B_LOG_LEVEL_I<br>2、每个C文件可以单独配置是否打印<br>   1、设置 B_LOG_CTRL_TOGETHER  0<br>   #define B_LOG_CTRL_TOGETHER            0<br>   2、在每个C文件，include “b_log.h”上面如果加了 #define B_LOG_ENABLE 那么这个C文件里的打印有效<br>3、V0.0.1不支持缓存,后面版本加入。<br>4、在b_log_port.c里完成一个字符串打印输出即可使用<br>5、配置每个级别打印的额外参数：<br>   #define B_LOG_I_LEVEL_PARAM    (B_LOG_PARAM_NULL)<br>   #define B_LOG_W_LEVEL_PARAM    (B_LOG_PARAM_FUNC | B_LOG_PARAM_LINE)<br>   #define B_LOG_E_LEVEL_PARAM    (B_LOG_PARAM_FILE | B_LOG_PARAM_FUNC | B_LOG_PARAM_LINE)<br>   #define B_LOG_A_LEVEL_PARAM    (B_LOG_PARAM_FILE | B_LOG_PARAM_FUNC | B_LOG_PARAM_LINE)<br>   可选择性打印函数名、文件名、行号</p>
+<p>有兴趣的可以下载或者一起开发，增强功能！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/07/b-log-e5-b8-ae-e5-8a-a9-e4-bd-a0-e6-9b-b4-e5-a5-bd-e7-9a-84-e6-89-93-e5-8d-b0-e8-b0-83-e8-af-95-e4-bf-a1-e6-81-af/" data-id="ck7y4s31h002q6147407ndjds" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git-for-windows" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/02/git-for-windows/" class="article-date">
+  <time datetime="2018-02-02T13:25:51.000Z" itemprop="datePublished">2018-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/02/git-for-windows/">Git for Windows</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在windows上使用git，先下载软件(到官网下载，使用浏览器自带的下载功能会比较慢，建议用迅雷下载)：</p>
+<p><a href="http://gitforwindows.org/" target="_blank" rel="noopener">http://gitforwindows.org/</a></p>
+<p>在github上建立一个repository来测试：<a href="https://github.com/notrynohigh/test.git" target="_blank" rel="noopener">https://github.com/notrynohigh/test.git</a></p>
+<p>下载 beyondcompare : 链接: <a href="https://pan.baidu.com/s/1jJX0mDw" target="_blank" rel="noopener">https://pan.baidu.com/s/1jJX0mDw</a> 密码: ey3j</p>
+<p>启动 git bash，进入主目录后生成SSH，将SSH添加到github账户中。</p>
+<p>Administrator@liklon MINGW64 ~<br>$ ssh-keygen -t rsa -C “<a href="mailto:notrynohigh@outlook.com">notrynohigh@outlook.com</a>“<br>Generating public/private rsa key pair.<br>Enter file in which to save the key (/d/Users/Administrator/AppData/Roaming/SPB_Data/.ssh/id_rsa):<br>Created directory ‘/d/Users/Administrator/AppData/Roaming/SPB_Data/.ssh’.<br>Enter passphrase (empty for no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved in /d/Users/Administrator/AppData/Roaming/SPB_Data/.ssh/id_rsa.<br>Your public key has been saved in /d/Users/Administrator/AppData/Roaming/SPB_Data/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>SHA256:etnJbXrq1SBRpA7DyosEc6Qur6fr0J1kDpPAcjRmagE <a href="mailto:notrynohigh@outlook.com">notrynohigh@outlook.com</a><br>The key’s randomart image is:<br>+—[RSA 2048]—-+<br>|E.= .      .o    |<br>|.=.+   .   o     |<br>|+o= .   + o      |<br>|o+ = . . + .     |<br>|. = + o S o .    |<br>| + O o o + + o   |<br>|. o = o o + + .  |<br>|…    .   +.    |<br>|==       .+o     |<br>+—-[SHA256]—–+</p>
+<p>生成密钥后，将SSH的公钥复制到账户的中。</p>
+<hr>
+<p>修改配置文件，刚安装后在主目录下没有.gitconfig文件，配置一项后即可出现：</p>
+<p>Administrator@liklon MINGW64 ~<br>$ git config –global user.name “notrynohigh”<br>Administrator@liklon MINGW64 ~<br>$ ls<br>cdssetup/<br>Administrator@liklon MINGW64 ~<br>$ ls -a<br>./  ../  .bash_history  .gitconfig  .ssh/  cdssetup/</p>
+<p>再修改.gitconfig如下：</p>
+<p>[user]<br>    name = xx<br>    email = xxxx<br>[gui]<br>    tabsize = 4<br>[merge]<br>    tool = C:\\Program Files (x86)\\Beyond Compare 4\\BCompare.exe<br>[color]<br>    ui = true<br>[alias]<br>    st = status<br>    co = checkout<br>    ci = commit<br>    br = branch<br>    dif = difftool<br>    lg = log –color –graph –pretty=format:’%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset’ –abbrev-commit<br>[diff]<br>    tool = bc4<br>[difftool]<br>    prompt = false<br>[difftool “bc4”]<br>    cmd = “\“C:/Program Files (x86)/Beyond Compare 4/BCompare.exe\“ \“$LOCAL\“ \“$REMOTE\“”<br>[merge]<br>    tool = bc4<br>[mergetool]<br>    prompt = false<br>[mergetool “bc4”]<br>    cmd = “\“C:/Program Files (x86)/Beyond Compare 4/BCompare.exe\“ \“$LOCAL\“ \“$REMOTE\“ \“$BASE\“ \“$MERGED\“”</p>
+<p>配置后即可操作。</p>
+<p>Administrator@liklon MINGW64 /g/icomwell/git/test<br>$ git clone <a href="https://github.com/notrynohigh/test.git" target="_blank" rel="noopener">https://github.com/notrynohigh/test.git</a><br>Cloning into ‘test’…<br>remote: Counting objects: 28, done.<br>remote: Compressing objects: 100% (16/16), done.<br>remote: Total 28 (delta 1), reused 28 (delta 1), pack-reused 0<br>Unpacking objects: 100% (28/28), done.<br>Administrator@liklon MINGW64 /g/icomwell/git/test<br>$ git st<br>fatal: Not a git repository (or any of the parent directories): .git<br>Administrator@liklon MINGW64 /g/icomwell/git/test<br>$ cd test/<br>Administrator@liklon MINGW64 /g/icomwell/git/test/test (master)<br>$ git st<br>On branch master<br>Your branch is up to date with ‘origin/master’.<br>nothing to commit, working tree clean<br>Administrator@liklon MINGW64 /g/icomwell/git/test/test (master)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/02/git-for-windows/" data-id="ck7y4s34v007761470oyw6ipz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e8-bd-acgit-e4-bd-bf-e7-94-a8-e6-95-99-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/02/e8-bd-acgit-e4-bd-bf-e7-94-a8-e6-95-99-e7-a8-8b/" class="article-date">
+  <time datetime="2018-02-02T04:42:50.000Z" itemprop="datePublished">2018-02-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/02/e8-bd-acgit-e4-bd-bf-e7-94-a8-e6-95-99-e7-a8-8b/">转git使用教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></p>
+<p>Git是什么？</p>
+<p>Git是目前世界上最先进的分布式版本控制系统（没有之一）。</p>
+<p>Git有什么特点？简单来说就是：高端大气上档次！</p>
+<p>那什么是版本控制系统？</p>
+<p>如果你用Microsoft Word写过长篇大论，那你一定有这样的经历：</p>
+<p>想删除一个段落，又怕将来想恢复找不回来怎么办？有办法，先把当前文件“另存为……”一个新的Word文件，再接着改，改到一定程度，再“另存为……”一个新文件，这样一直改下去，最后你的Word文档变成了这样：</p>
+<p><img src="https://cdn.liaoxuefeng.com/cdn/files/attachments/0013848606651673ff1c83932d249118bf8fd5c58c15ca2000/0" alt="lots-of-docs"></p>
+<p>过了一周，你想找回被删除的文字，但是已经记不清删除前保存在哪个文件里了，只好一个一个文件去找，真麻烦。</p>
+<p>看着一堆乱七八糟的文件，想保留最新的一个，然后把其他的删掉，又怕哪天会用上，还不敢删，真郁闷。</p>
+<p>更要命的是，有些部分需要你的财务同事帮助填写，于是你把文件Copy到U盘里给她（也可能通过Email发送一份给她），然后，你继续修改Word文件。一天后，同事再把Word文件传给你，此时，你必须想想，发给她之后到你收到她的文件期间，你作了哪些改动，得把你的改动和她的部分合并，真困难。</p>
+<p>于是你想，如果有一个软件，不但能自动帮我记录每次文件的改动，还可以让同事协作编辑，这样就不用自己管理一堆类似的文件了，也不需要把文件传来传去。如果想查看某次改动，只需要在软件里瞄一眼就可以，岂不是很方便？</p>
+<p>这样，你就结束了手动管理多个“版本”的史前时代，进入到版本控制的20世纪。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/02/e8-bd-acgit-e4-bd-bf-e7-94-a8-e6-95-99-e7-a8-8b/" data-id="ck7y4s344005z6147ctozehg3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-80-9a-e7-94-a8-e6-a8-a1-e6-8b-9fiic-e6-8e-a5-e5-8f-a3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/29/e9-80-9a-e7-94-a8-e6-a8-a1-e6-8b-9fiic-e6-8e-a5-e5-8f-a3/" class="article-date">
+  <time datetime="2018-01-29T12:19:12.000Z" itemprop="datePublished">2018-01-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/29/e9-80-9a-e7-94-a8-e6-a8-a1-e6-8b-9fiic-e6-8e-a5-e5-8f-a3/">通用模拟IIC接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通用型的模拟IIC接口，不用每次都重复编写代码。</p>
+<p>1、定义一个下面的结构体，并完成成员函数：</p>
+<p>typedef struct<br>{<br>    void (*iic_clk_pin)(uint8_t);          /**&lt; control clock pin <em>/<br>    void (*iic_sda_pin)(uint8_t);          /*\</em>&lt; control sda pin <em>/<br>    void (*iic_sda_pin_dir)(uint8_t);      /*\</em>&lt; configure sda direction <em>/<br>    uint8_t (*iic_sda_pin_read)();         /*\</em>&lt; read sda pin <em>/<br>    void (</em>delay)();<br>}iic_info_t;</p>
+<p>CLK操作函数，SDA脚操作函数，SDA的输入输出设置，SDA读取函数，延时。</p>
+<p>那么可以使用如下接口：</p>
+<p>void iic_write_byte(iic_info_t <em>iic_info, uint8_t dat);<br>uint8_t uc_iic_read_byte(iic_info_t *iic_info);<br>int i_iic_write_data_mem(iic_info_t *iic_info, uint8_t dev, uint8_t addr, uint8_t dat);<br>int i_iic_read_data_mem(iic_info_t \</em>iic_info, uint8_t dev, uint8_t addr, uint8_t *pdat, uint32_t len);</p>
+<p>代码下载：</p>
+<p><a href="https://github.com/notrynohigh/IIC_INTERFACE" target="_blank" rel="noopener">https://github.com/notrynohigh/IIC_INTERFACE</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/29/e9-80-9a-e7-94-a8-e6-a8-a1-e6-8b-9fiic-e6-8e-a5-e5-8f-a3/" data-id="ck7y4s34g006l61475fxl9d8d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nrf51-e5-92-8cnrf52-e7-b3-bb-e5-88-97-e5-af-b9-e6-af-94" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/27/nrf51-e5-92-8cnrf52-e7-b3-bb-e5-88-97-e5-af-b9-e6-af-94/" class="article-date">
+  <time datetime="2018-01-27T12:59:45.000Z" itemprop="datePublished">2018-01-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/27/nrf51-e5-92-8cnrf52-e7-b3-bb-e5-88-97-e5-af-b9-e6-af-94/">nrf51和nrf52系列对比</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>nordic有官方的技术支持论坛，可以在里面找到你的问题以及提问。链接如下：</p>
+<p><a href="https://devzone.nordicsemi.com/questions/" target="_blank" rel="noopener">https://devzone.nordicsemi.com/questions/</a></p>
+<p>在里面有一篇讲述51和52区别的文章，转载至如下链接：</p>
+<p><a href="https://devzone.nordicsemi.com/blogs/792/new-features-in-nrf52/" target="_blank" rel="noopener">https://devzone.nordicsemi.com/blogs/792/new-features-in-nrf52/</a></p>
+<p>There are lots of improvements in nRF52 compared to nRF51. Features that are the same in both products are not mentioned here, only changes worth mentioning will be described. It is expected that you have prior knowledge of <a href="http://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf51.v1.0.0%2Fnrf51_series.html&cp=2" target="_blank" rel="noopener">nRF51</a> so that you are able to judge the improvements.</p>
+<h1 id="1-CPU"><a href="#1-CPU" class="headerlink" title="1. CPU"></a>1. CPU</h1><p>nRF52 has an ARM Cortex-M4F processor which is very powerful as compared to ARM Cortex-M0 on nRF51. For simplicity we will use M4F and M0 from now on when be talk about just the CPU alone inside the product.</p>
+<p>Both of them are 32-bit microprocessors but M4F has a higher performance per clock design, powerful digital signal processing (DSP) instruction set, and floating point capability. All of these mentioned features will provide the computing performance needed for the broader wearable and IoT industry.</p>
+<p>The DSP and single-precision floating point capability of the M4F further increases its desirability for use in wearable and IoT devices. The ability to perform single-instruction multiple-data (<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a>) operations, single-cycle multiply accumulate (<a href="https://en.wikipedia.org/wiki/Multiply%E2%80%93accumulate_operation" target="_blank" rel="noopener">MAC</a>) instructions, and floating point operations using (<a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0439b/BEHIDGHI.html" target="_blank" rel="noopener">FPU</a>) without calling complicated subroutines enables efficient processing and control of digital signals from the many sensors used in these systems.</p>
+<p>What does “higher performance of M4F per clock design” mean?</p>
+<p>M4F in nRF52 runs at 64MHz as compared to M0 in nRF51 which runs at 16MHz. Clocking CPU with higher speed means applications are able to finish their tasks faster, but it also means higher consumption of power per second. So it is very important to compare CPU’s per MHz performance.</p>
+<p>Take a look at CoreMark and Dhrystone per MHz performance benchmark below <img src="https://devzone.nordicsemi.com/attachment/ff82c24a86d8e78db1999443aa1e5e66" alt="image description"></p>
+<p>This shows that M4F is 45.9% ((3.40-2.33)/2.33) faster at executing instructions per second than the M0 (2.33 CoreMark/MHz).This means that if they are running at the same clock frequency the same task can be done 46% faster in M4F and allows the device to quickly go back to a lower power sleep state. In embedded systems that is a lot of power saving, because your battery that lasted for a year for your product might now last for a year and half just by changing CPU from M0 to M4F and keeping everything else exactly same (including CPU clock speed).</p>
+<ol start="2">
+<li><h1 id="Power"><a href="#Power" class="headerlink" title="Power"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1577623828.html?cp=1_1_0_14#concept" target="_blank" rel="noopener">Power</a></h1></li>
+</ol>
+<p>@Stian has made a nice tutorial for measuring current for <a href="https://devzone.nordicsemi.com/tutorials/29/" target="_blank" rel="noopener">nRF52832 Engineering B and S132 v2.0.0-7.alpha</a> and <a href="https://devzone.nordicsemi.com/tutorials/28/" target="_blank" rel="noopener">Measuring current with PCA10040 v0.9.0</a></p>
+<ol start="3">
+<li><h1 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk312679877.html?cp=1_1_0_7#concept_gqq_mdf_yr" target="_blank" rel="noopener">Memory</a></h1></li>
+</ol>
+<h2 id="3-1-Flash-Code-Memory-ROM-Non-Volatile-Memory"><a href="#3-1-Flash-Code-Memory-ROM-Non-Volatile-Memory" class="headerlink" title="3.1 Flash (Code Memory/ROM/Non Volatile Memory)"></a>3.1 Flash (Code Memory/ROM/Non Volatile Memory)</h2><p>nRF52 can have as much as 512KB of Flash as compared to maximum of 256KB on nRF51. The page size is also increased to 4KB from 1KB. This is an important thing to note and because of this increase, the flash operation per page will take longer time.</p>
+<p>On the nRF52, the NVMC (Non Volatile Memory Controller) is used for configuring and controlling flash, FICR, UICR and Instruction cache (I-Cache 2048 bytes).</p>
+<p>In UICR, CLENR0 is removed as you use <a href="http://infocenter.nordicsemi.com/index.jsp?topic=%2Fnrf52.v1.7%2FChunk1052323766.html&cp=1_1_0_41&anchor=concept_hqv_lq2_1s" target="_blank" rel="noopener">MWU</a> to partition memory into regions. RBPCONF has been replaced by APPROTECT (more on this later).</p>
+<p>Even though I-Cache is a different memory technology, it is controlled and configured by NVMC as this cache is only used for code residing in flash.</p>
+<p>Quote from product specification:</p>
+<blockquote>
+<p>Cache will use some current when enabled. If the reduction in average current due to reduced flash accesses is larger than the cache power requirement, the average current to execute the program code will reduce. When disabled, the cache does not use current and does not retain its content.</p>
+</blockquote>
+<h2 id="3-2-RAM-Volatile-Memory"><a href="#3-2-RAM-Volatile-Memory" class="headerlink" title="3.2 RAM(Volatile Memory)"></a>3.2 RAM(Volatile Memory)</h2><p>nRF51 supports a maximum of 8 RAM AHB slaves with 4KB of RAM section connected to each slave. So the maximum RAM size a product could have is 8 * 4 = 32KB.</p>
+<p>nRF52 support a maximum of 8 RAM AHB slaves with <strong>two</strong> sections of 4KB RAM connected to each slave. So the maximum RAM size a product can have is 8 _2 _4 = 64KB.</p>
+<p>To know how much RAM is implemented on your chip, you need to read product specification for your chip revision.</p>
+<p>RAM contents are lost when the system loses power, but the contents can be retained in System OFF mode and this is configurable in POWER.RAM[n] register for each available RAM slave.</p>
+<h1 id="4-Memory-Protection"><a href="#4-Memory-Protection" class="headerlink" title="4. Memory Protection"></a>4. Memory Protection</h1><p>nRF52 has a new module called Memory Watch Unit(<a href="http://infocenter.nordicsemi.com/index.jsp?topic=%2Fnrf52.v1.7%2FChunk1052323766.html&cp=1_1_0_41&anchor=concept_hqv_lq2_1s" target="_blank" rel="noopener">MWU</a>) which is able to listen and detect read, writes or both to four configurable and two fixed memory address regions. It is worth mentioning that MWU fires a configured interrupt ONLY AFTER the memory access already happened. That is, it will not stop or trap the access but only let the firmware know that protected block has been accessed. Cortex-M4 has multiple AHB bus connects and it will not be possible to listen and trap all memory accesses that could happen in the same cycle. MWU will not generate hardfaults, only (configurable NMI) interrupts if enabled. If you want to know exactly which peripheral was accessed, then you can read <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1052323766.html?cp=1_1_0_41_0_6#register.PERREGION-0.SUBSTATWA" target="_blank" rel="noopener">PERREGION[0 or 1].SUBSTATWA</a> and <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1052323766.html?cp=1_1_0_41_0_7#register.PERREGION-0.SUBSTATRA" target="_blank" rel="noopener">PERREGION[0 or 1].SUBSTATRA</a>. Each bit then would correspond to its respective <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1323335068.html?cp=1_1_0_12_0#concept_xxc_ftz_vr" target="_blank" rel="noopener">Peripheral ID</a></p>
+<p>ARM-Cortex M4F has an <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0439b/BIHJJABA.html" target="_blank" rel="noopener">MPU</a> in itself. Documentation and software support for ARM MPU is not part of Nordic releases.</p>
+<p>Also the readback protection on nRF51 (configured through RBPCONF in UICR) is replaced with <a href="http://infocenter.nordicsemi.com/index.jsp?topic=%2Fnrf52.v1.7%2FChunk1712815461.html&cp=1_1_0_11_0_61&anchor=register.APPROTECT" target="_blank" rel="noopener">APPROTECT</a>. The difference is, with APPROTECT you either block ALL or NONE of the CPU registers and memory mapped addresses (APPROTECT.PALL). This means that if APPROTECT.PALL is set, then debugger is blocked to access any (CPU and peripheral) registers. This is done to add extra layer of security for those who want to protect their firmware IP.</p>
+<p>The new <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1686029038.html?cp=1_1_0_9#concept_gdr_qlx_vr" target="_blank" rel="noopener">BPROT</a> module in nRF52 can be configured to protect flash memory block each of size 4KB against any write and/or erase operations. CPU will hardfault in case any attempt is made to erase/write protected blocks. It is worth noting that the settings in this module are cleared at system reset, so it is up to the firmware to configure this module at early stage of system boot up.</p>
+<ol start="5">
+<li><h1 id="CLOCK"><a href="#CLOCK" class="headerlink" title="CLOCK"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk401120700.html?cp=1_1_0_15#frontpage_clock" target="_blank" rel="noopener">CLOCK</a></h1></li>
+</ol>
+<p>Clock architecture has changed a lot on nRF52.</p>
+<h2 id="5-1-HFCLK"><a href="#5-1-HFCLK" class="headerlink" title="5.1 HFCLK"></a>5.1 HFCLK</h2><p>Instead of internal <a href="https://en.wikipedia.org/wiki/RC_oscillator" target="_blank" rel="noopener">RC oscillators</a>, nRF52 is based on <a href="https://en.wikipedia.org/wiki/Phase-locked_loop" target="_blank" rel="noopener">PLL</a> to provide better accuracy and stable system wide clock.</p>
+<p>By default, the PLL will start in open loop mode with 32MHz clock output until the externtal crystal (only 32MHz XTAL is supported) is started and stable. The PLL will then gradually change frequency to match that of the XO and generate a CLOCKREADY event when PLL is locked and starts to operate in closed loop mode. This means that the clock will always be provided by PLL (either in open loop mode or locked to external crystal oscillator). In addition to the HF clock output clock frequencies available on nRF51, HF clock controller on nRF52 provides 64MHz CPU clock and 32MHz peripheral clock.</p>
+<h2 id="5-2-LFCLK"><a href="#5-2-LFCLK" class="headerlink" title="5.2 LFCLK"></a>5.2 LFCLK</h2><p>This is same as in nRF51 including calibration mechanism.</p>
+<ol start="6">
+<li><h1 id="GPIO"><a href="#GPIO" class="headerlink" title="GPIO"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1498869550.html?cp=1_1_0_16#concept_zyt_tcb_lr" target="_blank" rel="noopener">GPIO</a></h1></li>
+</ol>
+<p>Same as in nRF51 except for <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1498869550.html?cp=1_1_0_16_2_7#register.LATCH" target="_blank" rel="noopener">Latch</a> and <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1498869550.html?cp=1_1_0_16_2_8#register.DETECTMODE" target="_blank" rel="noopener">DetectMode</a></p>
+<p>Quote from spec</p>
+<blockquote>
+<p>When a pin’s PINx.DETECT signal goes high, a flag will be set in the LATCH register, e.g. when the PIN0.DETECT signal goes high, bit 0 in the LATCH register will be set to ‘1’.The LATCH register will only be cleared if the CPU explicitly clears it by writing a ‘1’ to the bit that shall be cleared, i.e. the LATCH register will not be affected by a PINx.DETECT signal being set low.</p>
+<p>The LDETECT signal will be set high when one or more bits in the LATCH register are ‘1’. The LDETECT signal will be set low when all bits in the LATCH register are successfully cleared to ‘0’.</p>
+</blockquote>
+<ol start="7">
+<li><h1 id="GPIOTE"><a href="#GPIOTE" class="headerlink" title="GPIOTE"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1552895232.html?cp=1_1_0_17#concept_knz_kww_lr" target="_blank" rel="noopener">GPIOTE</a></h1></li>
+</ol>
+<p>nRF52 has 8 GPIOTE channels compared to 4 GPIOTE channels in nRF51.</p>
+<ol start="8">
+<li><h1 id="PPI"><a href="#PPI" class="headerlink" title="PPI"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1149777515.html?cp=1_1_0_18#concept_sxf_21l_1s" target="_blank" rel="noopener">PPI</a></h1></li>
+</ol>
+<p>nRF52 has four additional usable channels (16,17,18 and 19), two additional channel groups (CHG[4] and CHG[5]), and an additional FORK mechanism.</p>
+<p>Quote from spec</p>
+<blockquote>
+<p>Each TEP implements a fork mechanism that enables a second task to be triggered at the same time as the task specified in the TEP is triggered. This second task is configured in the task end point register in the FORK registers groups, e.g. FORK.TEP[0] is associated with PPI channel CH[0].</p>
+</blockquote>
+<p>This means that event connected to CH[n].EEP will result in two tasks (CH[n]TEP and FORK[n].TEP). The fork mechanism is enabled by default and is not configurable. It will not have any power consumption penalties if FORK features is not used because this is just a copy of CH[n].TEP.</p>
+<ol start="9">
+<li><h1 id="RADIO"><a href="#RADIO" class="headerlink" title="RADIO"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk271234109.html?cp=1_1_0_19#concept_lhd_ygj_4r" target="_blank" rel="noopener">RADIO</a></h1></li>
+</ol>
+<p>Even though the programmable interface to the RADIO is maintained to be the same, there are a lot of internal improvements and few new features which are listed below.</p>
+<ul>
+<li>Better internal performance and transceiver sensitivity.(+4dB link budget from nRF51). The advantage of this is that you get improved range.</li>
+<li>RF interface is now single ended with on-chip Balun (differential, off-chip balun on nRF51). The advantage of this is that the RF calibration with on-chip balun is done in the production line and the chip can be used directly without the need of any external balun.</li>
+<li>About 44% reduced RX current when using DC/DC and 10% reduced RX current with LDO.</li>
+<li>About 34% reduced TX current when using DC/DC and 9% increased TX current with LDO. <img src="https://devzone.nordicsemi.com/attachment/d32a5e584a4a0e9ac70b22d577a50bbe" alt="image description"></li>
+<li>3x faster ramp up times for RX and TX. 130us in nRF51 and 40us in nRF52. Ramp up time is the time between the TASKS_TX/TASKS_RX started and receiving EVENTS_READY. This means that the application will have about 90us extra time for processing for each RADIO ramp up cycle.</li>
+<li>6x faster switching time (switching from RX-&gt;TX or from TX-&gt;RX). 130us in nRF51 and 20us in nRF52. This means that every connection interval will save 90us switching time which could be available for application processing.</li>
+<li>On nRF51, TX mode was limited to a maximum of 16ms which was dependent on crystal accuracy. On nRF52 TX mode can be used continuously without any limitations or need to switch it off.</li>
+<li>Only 32MHz crystal is supported as compared to 16/32MHz support on nRF51. This is done to make the design simpler and more efficient.</li>
+</ul>
+<ol start="10">
+<li><h1 id="TIMERS"><a href="#TIMERS" class="headerlink" title="TIMERS"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk196140934.html?cp=1_1_0_20#concept_xbd_hqp_sr" target="_blank" rel="noopener">TIMERS</a></h1></li>
+</ol>
+<p>Two additional timers and 6 CC (CaptureCompare) registers for TIMER3 and TIMER4 in nRF52.</p>
+<p><img src="https://devzone.nordicsemi.com/attachment/7c56e637ad5cfbdb64333f68ddba739b" alt="image description"></p>
+<p>Using prescaler, you can use 16MHz or lower frequency for TIMER ticks.</p>
+<ol start="11">
+<li><h1 id="RTC"><a href="#RTC" class="headerlink" title="RTC"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1532939480.html?cp=1_1_0_21#concept_rvn_vkj_sr" target="_blank" rel="noopener">RTC</a></h1></li>
+</ol>
+<p>One additional RTC available on nRF52</p>
+<p><img src="https://devzone.nordicsemi.com/attachment/3fade2ef586eed5551f76838bc494c2e" alt="image description"></p>
+<p>Using prescaler, you can use 32KHz or lower frequency for RTC ticks.</p>
+<h1 id="12-Serial-Communication-TWI-UART-and-SPI"><a href="#12-Serial-Communication-TWI-UART-and-SPI" class="headerlink" title="12. Serial Communication (TWI, UART and SPI)"></a>12. Serial Communication (TWI, UART and SPI)</h1><p><img src="https://devzone.nordicsemi.com/attachment/a8a639f24ef880f0791e923f9d7a89eb" alt="image description"></p>
+<p>This image is giving a lot of information but I have learned that it is confusing for some. So I will try to explain what it is. There are four serial instances on nRF52, which have their own register address space. It is only possible to have one module using an instance at a given time. For example, SPIM and SPIS cannot use the instance SERIAL0 simultaneously.</p>
+<ul>
+<li>Instance UART with register base address 0x40002000 can only be UARTE and can be used for nothing else. Legacy UART module from nRF51 is still available to maintain backward compatibility but we do not recommend new designs to use it.</li>
+<li>Instance Serial0 with register base address 0x40003000 can either be used as SPIM, SPIS, TWIM or TWIS. It also says that traditional SPI and TWI from nRF51 are available to maintain backward compatibility but we do not recommend new designs to use it.</li>
+<li>Instance Serial1 with register base address 0x40004000 can either be used as SPIM, SPIS, TWIM or TWIS. It also says that traditional SPI and TWI from nRF51 are available to maintain backward compatibility but we do not recommend new designs to use it.</li>
+<li>Instance Serial2 with register base address 0x40023000 can either be used as SPIM or SPIS. It also says that traditional SPI from nRF51 is available to maintain backward compatibility but we do not recommend new designs to use it.</li>
+</ul>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples:"></a>Examples:</h2><ul>
+<li><p>UARTE+SPIM0+TWIM0 (Not OK, SPIM and TWIM cannot use same Serial0 instance)   </p>
+</li>
+<li><p>SPIM0+TWI2 (Not OK, there is no TWI support for Serial2 instance)  </p>
+</li>
+<li><p>UARTE+SPIM0+TWIS1+SPIM2 (OK)</p>
+</li>
+</ul>
+<h1 id="12-Peripheral-specific-EasyDMA"><a href="#12-Peripheral-specific-EasyDMA" class="headerlink" title="12. Peripheral specific EasyDMA"></a>12. Peripheral specific EasyDMA</h1><p>EasyDMA is not traditional DMA, it is light weighted and tuned to suit each peripheral. Which means that easydma of one peripheral could differ in behavior compared to easydma of another peripheral (SPIM EasyDMA will differ slightly compared to TWIM EasyDMA).</p>
+<p>Below are some of the common things between them</p>
+<ul>
+<li>They only operate on Data RAM and will not work for flash. Pointing EasyDMA to anything else than Data RAM might result in hardfault or RAM corruption.</li>
+<li>They operate only in full byte mode. Take a look at one good <a href="https://devzone.nordicsemi.com/question/53698/does-the-nrf52-radio-easydma-write-a-bit-or-byte-at-a-time-to-packetptr/" target="_blank" rel="noopener">post</a> regarding this.</li>
+</ul>
+<ol start="13">
+<li><h1 id="NFCT-Near-Field-Communication-Tag"><a href="#NFCT-Near-Field-Communication-Tag" class="headerlink" title="NFCT (Near Field Communication Tag)"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk237737960.html?cp=1_1_0_38#concept_kmr_nxj_1s" target="_blank" rel="noopener">NFCT</a> (Near Field Communication Tag)</h1></li>
+</ol>
+<p>TBD</p>
+<ol start="14">
+<li><h1 id="EGU-Event-Generation-Unit"><a href="#EGU-Event-Generation-Unit" class="headerlink" title="EGU (Event Generation Unit)"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk43417114.html?cp=1_1_0_42#concept_x4j_fx1_lr" target="_blank" rel="noopener">EGU</a> (Event Generation Unit)</h1></li>
+</ol>
+<p>TBD</p>
+<ol start="15">
+<li><h1 id="PWM-Pulse-Width-Modulation"><a href="#PWM-Pulse-Width-Modulation" class="headerlink" title="PWM (Pulse Width Modulation)"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1670748135.html?cp=1_1_0_43#concept_pzc_1pw_nr" target="_blank" rel="noopener">PWM</a> (Pulse Width Modulation)</h1></li>
+</ol>
+<p>On nRF51, it was possible to generate PWM using TIMER+GPIOTE+PPI. But the setup has large software overhead and there were issues when trying to update the duty cycle of the PWM output. Our engineers took all those issues into account and desgined a dedicated PWM module on nRF52. There are three PWM modules each with 4 channels can provide upto 12 PWM outputs to be driven on selected GPIOs.</p>
+<p>The documentation given is very detailed. To help you understand the <a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk1670748135.html?cp=1_1_0_43#concept_pzc_1pw_nr" target="_blank" rel="noopener">examples</a> given in the documentation, I will create a different blog to explain them in detail (when i find some time) and link it here.</p>
+<ol start="16">
+<li><h1 id="PDM-Pulse-Density-Modulation"><a href="#PDM-Pulse-Density-Modulation" class="headerlink" title="PDM (Pulse Density Modulation)"></a><a href="http://infocenter.nordicsemi.com/topic/nrf52.v1.7/Chunk178364960.html?cp=1_1_0_39#concept_tyv_452_yr" target="_blank" rel="noopener">PDM</a> (Pulse Density Modulation)</h1></li>
+</ol>
+<p>TBD</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/27/nrf51-e5-92-8cnrf52-e7-b3-bb-e5-88-97-e5-af-b9-e6-af-94/" data-id="ck7y4s35q008m6147fmx2fagt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nordic-e4-bd-bf-e7-94-a8app-timer-e6-b3-a8-e6-84-8f-e4-ba-8b-e9-a1-b9" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/19/nordic-e4-bd-bf-e7-94-a8app-timer-e6-b3-a8-e6-84-8f-e4-ba-8b-e9-a1-b9/" class="article-date">
+  <time datetime="2018-01-19T13:03:33.000Z" itemprop="datePublished">2018-01-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/19/nordic-e4-bd-bf-e7-94-a8app-timer-e6-b3-a8-e6-84-8f-e4-ba-8b-e9-a1-b9/">nordic使用app_timer注意事项</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇提到的问题，解决方式确定为文中的方法。<a href="http://www.yourmcu.com/2018/01/19/%e8%b0%83%e7%94%a8sd_ble_uuid_vs_add%e5%87%ba%e7%8e%b0%e5%86%85%e5%ad%98%e9%94%99%e8%af%af%e9%97%ae%e9%a2%98/" target="_blank" rel="noopener">http://www.yourmcu.com/2018/01/19/%e8%b0%83%e7%94%a8sd_ble_uuid_vs_add%e5%87%ba%e7%8e%b0%e5%86%85%e5%ad%98%e9%94%99%e8%af%af%e9%97%ae%e9%a2%98/</a></p>
+<p>今天的试验中，在服务中添加notify character并创建定时器，定时发送数据。那么在使用SDK中app_timer时遇到一个问题。</p>
+<p>查看app_timer.h中有这样的函数。</p>
+<p>ret_code_t app_timer_init(void);<br>ret_code_t app_timer_create(app_timer_id_t const *      p_timer_id,<br>                            app_timer_mode_t            mode,<br>                            app_timer_timeout_handler_t timeout_handler);<br>ret_code_t app_timer_start(app_timer_id_t timer_id, uint32_t timeout_ticks, void * p_context);<br>ret_code_t app_timer_stop(app_timer_id_t timer_id);</p>
+<p>看到其中的创建timer的函数，一般情况下看到这个函数肯定是想的去直接定一个app_timer_id_t的变量然后作为这个函数的入口参数。但是事情好像不是这样。会发现创建后。然后start，timer根本都没有进入过timeout_handler。找了例程后发现，不能直接只定义一个app_timer_id的变量。需要利用这个宏：</p>
+<p>#define APP_TIMER_DEF(timer_id)                                      <br>    static app_timer_t CONCAT_2(timer_id,_data) = { {0} };           <br>    static const app_timer_id_t timer_id = &amp;CONCAT_2(timer_id,_data)</p>
+<p>利用这个宏来创建timer_id才可以。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/19/nordic-e4-bd-bf-e7-94-a8app-timer-e6-b3-a8-e6-84-8f-e4-ba-8b-e9-a1-b9/" data-id="ck7y4s35p008i6147906gf400" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e8-b0-83-e7-94-a8sd-ble-uuid-vs-add-e5-87-ba-e7-8e-b0-e5-86-85-e5-ad-98-e9-94-99-e8-af-af-e9-97-ae-e9-a2-98" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/19/e8-b0-83-e7-94-a8sd-ble-uuid-vs-add-e5-87-ba-e7-8e-b0-e5-86-85-e5-ad-98-e9-94-99-e8-af-af-e9-97-ae-e9-a2-98/" class="article-date">
+  <time datetime="2018-01-18T16:31:57.000Z" itemprop="datePublished">2018-01-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/19/e8-b0-83-e7-94-a8sd-ble-uuid-vs-add-e5-87-ba-e7-8e-b0-e5-86-85-e5-ad-98-e9-94-99-e8-af-af-e9-97-ae-e9-a2-98/">调用sd_ble_uuid_vs_add出现内存错误问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在使用NORDIC的SDK时，使用template例程进行进一步开发时，创建服务使用了自定义的UUID，调用sd_ble_uuid_vs_add后出错。</p>
+<p>一直很纠结原因，在nodic论坛上找到了如下链接，得到的解决方法：</p>
+<p><a href="https://devzone.nordicsemi.com/question/64138/device-reset-when-calling-sd_ble_uuid_vs_add-second-time/" target="_blank" rel="noopener">https://devzone.nordicsemi.com/question/64138/device-reset-when-calling-sd_ble_uuid_vs_add-second-time/</a></p>
+<p>在代码中搜索如下代码：</p>
+<p>ble_cfg.common_cfg.vs_uuid_cfg.vs_uuid_count = NRF_SDH_BLE_VS_UUID_COUNT;</p>
+<p>再查看</p>
+<p>NRF_SDH_BLE_VS_UUID_COUNT</p>
+<p>如果为0，那么使用自定义UUID则会出错，这里是设置自定义UUID的个数。暂且这么理解了，有新发现再进行修改记录吧。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/19/e8-b0-83-e7-94-a8sd-ble-uuid-vs-add-e5-87-ba-e7-8e-b0-e5-86-85-e5-ad-98-e9-94-99-e8-af-af-e9-97-ae-e9-a2-98/" data-id="ck7y4s34600626147c8n82oyw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nodic-52832-e4-bd-8e-e5-8a-9f-e8-80-97-e8-93-9d-e7-89-99-e4-b8-80" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/15/nodic-52832-e4-bd-8e-e5-8a-9f-e8-80-97-e8-93-9d-e7-89-99-e4-b8-80/" class="article-date">
+  <time datetime="2018-01-15T14:24:52.000Z" itemprop="datePublished">2018-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/15/nodic-52832-e4-bd-8e-e5-8a-9f-e8-80-97-e8-93-9d-e7-89-99-e4-b8-80/">Nordic_52832低功耗蓝牙一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开始主攻nordic的52832芯片，以前以为不会涉及蓝牙方面，冥冥之中逃不脱，还是得上了。一步步探索并记录吧。</p>
+<p>访问官网下载SDK，安装MDK5或者4,添加NODIC的pack（pack在keil官网下载）</p>
+<p><a href="http://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF52832" target="_blank" rel="noopener">http://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF52832</a></p>
+<p>需要下载 <a href="http://www.nordicsemi.com/eng/nordic/download_resource/59012/67/96986479/116085" target="_blank" rel="noopener">nRF5-SDK-zip</a> and <a href="http://www.nordicsemi.com/eng/nordic/download_resource/48826/69/95309377/2447" target="_blank" rel="noopener">nRFgo Studio-Win64</a></p>
+<p>在SDK目录下\nRF5_SDK_14.2.0_17b948a\documentation\index.html 可以查看SDK的详细介绍。</p>
+<p>先跑跑例程….</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/15/nodic-52832-e4-bd-8e-e5-8a-9f-e8-80-97-e8-93-9d-e7-89-99-e4-b8-80/" data-id="ck7y4s35l008b6147gkl85pou" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-stm32bootloader-e8-b7-b3-e8-bd-ac-e8-bf-87-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/13/stm32bootloader-e8-b7-b3-e8-bd-ac-e8-bf-87-e7-a8-8b/" class="article-date">
+  <time datetime="2018-01-13T02:22:50.000Z" itemprop="datePublished">2018-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/STM32/">STM32</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/13/stm32bootloader-e8-b7-b3-e8-bd-ac-e8-bf-87-e7-a8-8b/">STM32bootloader跳转过程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>在STM32开发时，为了后续的升级，都会将代码分为bootloader和APP部分，两部分都是独立的程序，但是又有些联系，bootloader运行结束后将跳转到APP部分。那么这个跳转过程应该怎么处理呢，下面是详情。
+
+以STM32F1为例，bootloader addr: 0x8000000  size: 0x10000     APP addr: 0x8010000 size: 0x70000
+
+在没有bootloader的时候程序怎么运行，看一下复位后的代码：</code></pre><p>; Reset handler<br>Reset_Handler   PROC<br>                EXPORT  Reset_Handler             [WEAK]<br>                IMPORT  <strong>main<br>                IMPORT  SystemInit<br>                LDR     R0, =SystemInit<br>                BLX     R0<br>                LDR     R0, =</strong>main<br>                BX      R0<br>                ENDP</p>
+<p>执行了systemInit后再进入到用户的main。所以我们bootloader跳转到APP的时候也是跳转到Reset_Handle的地方。那么这个地方是哪里呢，可以看下面：</p>
+<p>; Vector Table Mapped to Address 0 at Reset<br>                AREA    RESET, DATA, READONLY<br>                EXPORT  __Vectors<br>                EXPORT  __Vectors_End<br>                EXPORT  __Vectors_Size<br>__Vectors       DCD     __initial_sp               ; Top of Stack<br>                DCD     Reset_Handler              ; Reset Handler<br>                DCD     NMI_Handler                ; NMI Handler<br>                DCD     HardFault_Handler          ; Hard Fault Handler<br>                DCD     MemManage_Handler          ; MPU Fault Handler<br>                DCD     BusFault_Handler           ; Bus Fault Handler<br>                DCD     UsageFault_Handler         ; Usage Fault Handler<br>                DCD     0                          ; Reserved</p>
+<p>一个bin文件，最开始的四个字节是栈地址，之后的四个字节是Reset_Handler的地址。</p>
+<p>跳转到APP，需要做以下几件事：</p>
+<p>1、APP的bin文件已经写入 0X8010000中</p>
+<p>2、重新设置栈地址</p>
+<p>3、跳转到复位handler的地址，开始执行</p>
+<p>---------------------------------------------------------------------------------</p>
+<p>STM32内部FLASH编程也是需要擦除后再进行写入。使用的是HAL库，发现一个小问题，也许是我自己没有使用正确</p>
+<p>按照下面这么操作是没有写入的（入口参数先不填了）：</p>
+<p>HAL_FLASH_Unlock();<br>FLASH_PageErase();<br>HAL_FLASH_Program();<br>HAL_FLASH_Unlock();</p>
+<p>这样只可以擦除，但是后面的写是写不进去的。最后找到如下方法：</p>
+<p>将擦除函数更改为如下函数：</p>
+<p>HAL_FLASHEx_Erase(&amp;f, &amp;PageError);</p>
+<p>重设栈地址使用汇编：</p>
+<p>__asm void MSR_MSP(uint32_t addr)<br>{<br>    MSR MSP, r0<br>    BX r14<br>}</p>
+<p>跳转：</p>
+<p>typedef  void (<em>iapfun)(void);<br>void iap_load_app(uint32_t appxaddr)<br>{<br>    iapfun jump2app;<br>    if(((</em>(volatile uint32_t <em>)appxaddr)&amp;0x2FFE0000)==0x20000000)<br>    {<br>        jump2app = (iapfun)</em>(volatile uint32_t <em>)(appxaddr+4);<br>        MSR_MSP(</em>(volatile uint32_t *)appxaddr);<br>        jump2app();<br>    }<br>}</p>
+<p>跳转部分来自正点原子的例程代码。还是挺好的。</p>
+<p>这样APP就可以运行了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/13/stm32bootloader-e8-b7-b3-e8-bd-ac-e8-bf-87-e7-a8-8b/" data-id="ck7y4s36n00a8614736570mtf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-cjson-e5-8d-95-e7-89-87-e6-9c-ba-e4-b8-ad-e4-bd-bf-e7-94-a8-e4-ba-8c" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/12/cjson-e5-8d-95-e7-89-87-e6-9c-ba-e4-b8-ad-e4-bd-bf-e7-94-a8-e4-ba-8c/" class="article-date">
+  <time datetime="2018-01-12T08:39:55.000Z" itemprop="datePublished">2018-01-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/open-source/">open source</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/12/cjson-e5-8d-95-e7-89-87-e6-9c-ba-e4-b8-ad-e4-bd-bf-e7-94-a8-e4-ba-8c/">cJSON单片机中使用二</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[repo owner=”notrynohigh” name=”cJSON”] 在上面仓库中可以查看到源码，原先测试代码打印的结果太长，进行改造，修改test.c里面的void create_objects(void)这个函数。代码如下：创建之前提到的结构<a href="http://www.yourmcu.com/2018/01/03/cjson%e5%8d%95%e7%89%87%e6%9c%ba%e4%b8%ad%e4%bd%bf%e7%94%a8%e4%b8%80/" target="_blank" rel="noopener">cJSON单片机中使用一</a> <code>static void create_objects(void) { /* declare a few. */ cJSON *root = NULL; root = cJSON_CreateObject(); cJSON_AddNumberToObject(root, &quot;data_1&quot;, 32); cJSON_AddStringToObject(root,&quot;data_2&quot;,&quot;hello&quot;); cJSON_AddStringToObject(root, &quot;data_3&quot;, &quot;world&quot;); /* Print to text */ if (print_preallocated(root) != 0) { cJSON_Delete(root); exit(EXIT_FAILURE); } cJSON_Delete(root); }</code> 运行结果： <code>root@ubuntu:/var/smb_files/cJSON-1.6.0# ./cJSON_test Version: 1.6.0 { &quot;data_1&quot;: 32, &quot;data_2&quot;: &quot;hello&quot;, &quot;data_3&quot;: &quot;world&quot; }</code> -------------------------------- 将main函数改为验证上一篇的结论： <code>int main(void) { cJSON *root = NULL; cJSON *data_2 = NULL; char *p; char cccjson[128]; create_objects(); sprintf(cccjson, &quot;{\&quot;data_1\&quot;:%d,\&quot;data_2\&quot;:\&quot;%s\&quot;}&quot;, 32, &quot;hello&quot;); root = cJSON_Parse(cccjson); if(root == NULL) { printf(&quot;parse error\n\r&quot;); return 0; } p = cJSON_Print(root); if(p != NULL) { printf(&quot;%s\n\r&quot;, p); free(p); } data_2 = cJSON_GetObjectItem(root, &quot;data_2&quot;); printf(&quot;data_2: %s\n\r&quot;, data_2-&gt;valuestring); cJSON_Delete(root); sprintf(cccjson, &quot;{\&quot;data_1\&quot;:%d,\&quot;data_2\&quot;:\&quot;%s\&quot;,\&quot;data_3\&quot;:\&quot;%s\&quot;}&quot;, 32, &quot;hello&quot;, &quot;world&quot;); root = cJSON_Parse(cccjson); if(root == NULL) { printf(&quot;parse error\n\r&quot;); return 0; } p = cJSON_Print(root); if(p != NULL) { printf(&quot;%s\n\r&quot;, p); free(p); } data_2 = cJSON_GetObjectItem(root, &quot;data_2&quot;); printf(&quot;data_2: %s\n\r&quot;, data_2-&gt;valuestring); cJSON_Delete(root); return 0; }</code> 运行结果： <code>root@ubuntu:/var/smb_files/cJSON-1.6.0# ./cJSON_test { &quot;data_1&quot;: 32, &quot;data_2&quot;: &quot;hello&quot;, &quot;data_3&quot;: &quot;world&quot; } { &quot;data_1&quot;: 32, &quot;data_2&quot;: &quot;hello&quot; } data_2: hello { &quot;data_1&quot;: 32, &quot;data_2&quot;: &quot;hello&quot;, &quot;data_3&quot;: &quot;world&quot; } data_2: hello</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/12/cjson-e5-8d-95-e7-89-87-e6-9c-ba-e4-b8-ad-e4-bd-bf-e7-94-a8-e4-ba-8c/" data-id="ck7y4s322003o6147cjj06aad" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/10/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

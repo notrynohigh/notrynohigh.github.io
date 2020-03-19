@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-nrf52832-reset-e8-84-9a-e5-81-9agpio" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/21/nrf52832-reset-e8-84-9a-e5-81-9agpio/" class="article-date">
+  <time datetime="2018-06-21T01:47:56.000Z" itemprop="datePublished">2018-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/21/nrf52832-reset-e8-84-9a-e5-81-9agpio/">nrf52832 Reset脚做GPIO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>找到    #if defined (CONFIG_GPIO_AS_PINRESET) 这个宏 ，在</p>
+<p><img src="https://img-blog.csdn.net/20161014170435762" alt=""></p>
+<p>把这个CONFIG_GPIO_AS_PINRESET宏给去掉 这样就不打开，复位脚功能</p>
+<p>编译程序下载进去，</p>
+<p>然后再次把用工具把芯片程序erase，</p>
+<p>在下下载sdk，和程序就没有打开reset的功能了。</p>
+<p>红色部分最为重要，编译下载后一定要把芯片程序全部擦除，然后再重新烧录softdevice 和应用程序，不然复位脚依然无法使用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/06/21/nrf52832-reset-e8-84-9a-e5-81-9agpio/" data-id="ck7y4s35t008r61471717cu42" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nordic-dfu-e4-bb-a3-e7-a0-81-e7-bc-96-e8-af-91" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/19/nordic-dfu-e4-bb-a3-e7-a0-81-e7-bc-96-e8-af-91/" class="article-date">
+  <time datetime="2018-06-19T01:55:56.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/19/nordic-dfu-e4-bb-a3-e7-a0-81-e7-bc-96-e8-af-91/">nordic-dfu代码编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>选用此路径的例子进行：*<em>SDK\nRF5_SDK_15.0.0_a53641a\nRF5_SDK_15.0.0_a53641a\examples\dfu\secure_bootloader\pca10040_ble *</em></p>
+<p>直接编译会有错误，还需要进行：</p>
+<p><strong>SDK\nRF5_SDK_15.0.0_a53641a\nRF5_SDK_15.0.0_a53641a\external\micro-ecc</strong>   运行批处理文件。</p>
+<p><img src="/blog/wp-content/uploads/2018/06/20180619093347_60046.png" alt=""></p>
+<p>clone了mico-ecc代码，但是缺少arm-gcc工具所以后续操作失败，下载：<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads" target="_blank" rel="noopener">https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads</a></p>
+<p>根据安装GCC的版本，修改如下路径的：<strong>SDK\nRF5_SDK_15.0.0_a53641a\nRF5_SDK_15.0.0_a53641a\components\toolchain\gcc</strong>  Makefile.windows文件</p>
+<p>再次运行批处理文件：</p>
+<p><img src="/blog/wp-content/uploads/2018/06/20180619094914_20975.png" alt=""></p>
+<p>再次打开工程，这里的感叹号就没了：</p>
+<p><img src="/blog/wp-content/uploads/2018/06/20180619095100_42667.png" alt=""></p>
+<p>将dfu_public_key.c文件里面的pk[]更换为自己生成的key即可。然后编译工程。</p>
+<p>如果keil缺少pack。下载地址：<a href="http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/" target="_blank" rel="noopener">http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/06/19/nordic-dfu-e4-bb-a3-e7-a0-81-e7-bc-96-e8-af-91/" data-id="ck7y4s35n008f6147dlxxc8f3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-qt5-e7-9a-84-e7-a8-8b-e5-ba-8f-e6-89-93-e5-8c-85-e5-8f-91-e5-b8-83-ef-bc-88-e5-b0-86qt5-e7-9a-84-e5-b7-a5-e7-a8-8b-e9-a1-b9-e7-9b-ae-e6-89-93-e5-8c-85-e6-88-90-e4-b8-80-e4-b8-aaexe-e7-a8-8b-e5-ba-8f" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/23/qt5-e7-9a-84-e7-a8-8b-e5-ba-8f-e6-89-93-e5-8c-85-e5-8f-91-e5-b8-83-ef-bc-88-e5-b0-86qt5-e7-9a-84-e5-b7-a5-e7-a8-8b-e9-a1-b9-e7-9b-ae-e6-89-93-e5-8c-85-e6-88-90-e4-b8-80-e4-b8-aaexe-e7-a8-8b-e5-ba-8f/" class="article-date">
+  <time datetime="2018-05-23T08:25:15.000Z" itemprop="datePublished">2018-05-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/23/qt5-e7-9a-84-e7-a8-8b-e5-ba-8f-e6-89-93-e5-8c-85-e5-8f-91-e5-b8-83-ef-bc-88-e5-b0-86qt5-e7-9a-84-e5-b7-a5-e7-a8-8b-e9-a1-b9-e7-9b-ae-e6-89-93-e5-8c-85-e6-88-90-e4-b8-80-e4-b8-aaexe-e7-a8-8b-e5-ba-8f/">QT5的程序打包发布（将QT5的工程项目打包成一个exe程序）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>打开QT5.8 for Desktop命令窗口 ：<br>在QT目录下是可以找到这个目录的。</p>
+<p>接着输入命令行，cd /d 路径(指的是需要打包的exe程序目录，就是刚才拷贝出来的exe程序所在的目录)，回车后：<br><img src="/wp-content/uploads/2018/12/20181225141334_76038.png" alt=""><br>输入如下命令行：windeployqt 程序名 敲击回车。这一步操作是将所需的库文件全都拷贝到exe程序的当前文件：<br><img src="/wp-content/uploads/2018/12/20181225141358_44520.png" alt=""><br>此时，在当前目录下是可以点击运行exe程序的，说明库文件都已经拷贝到当前目录下了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/23/qt5-e7-9a-84-e7-a8-8b-e5-ba-8f-e6-89-93-e5-8c-85-e5-8f-91-e5-b8-83-ef-bc-88-e5-b0-86qt5-e7-9a-84-e5-b7-a5-e7-a8-8b-e9-a1-b9-e7-9b-ae-e6-89-93-e5-8c-85-e6-88-90-e4-b8-80-e4-b8-aaexe-e7-a8-8b-e5-ba-8f/" data-id="ck7y4s36c009o61473oi3g8oc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QT/" rel="tag">QT</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-numpy-e5-81-9a-e7-9f-a9-e9-98-b5-e8-bf-90-e7-ae-97" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/18/numpy-e5-81-9a-e7-9f-a9-e9-98-b5-e8-bf-90-e7-ae-97/" class="article-date">
+  <time datetime="2018-05-18T05:36:23.000Z" itemprop="datePublished">2018-05-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/18/numpy-e5-81-9a-e7-9f-a9-e9-98-b5-e8-bf-90-e7-ae-97/">numpy做矩阵运算</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>import numpy as np<br>a = np.array([[-1,2],[2,3]])<br>b = np.array([[3,4],[4,5]])<br>print ‘\n a:\n’,a<br>print ‘\n b:\n’,b<br>##转置<br>print ‘\n a transpose:\n’,a.T<br>##共扼矩阵<br>#print ‘\n a H:\n’,a.I<br>##逆矩阵<br>print ‘\n a inv:\n’,np.linalg.inv(a) # 求逆<br>##转置<br>print ‘\n a transpose:\n’,a.T<br># a + b，矩阵相加<br>print “\n a+b: \n”,a+b<br># a - b，矩阵相减<br>print “\n a-b: \n”,a-b<br>#2x2 矩阵，矩阵相乘<br>print “\n a mul b:\n”,a.dot(b.T)<br>#2x3矩阵，矩阵点乘<br>print “\n a dot b: \n”,a*b<br>#2x3矩阵，矩阵点除<br>print “\n a/b \n:”,a/np.linalg.inv(b)<br>#求迹<br>print “\n a trace”,np.trace(a)<br>#特征，特征向量<br>eigval,eigvec = np.linalg.eig(a)<br>#eigval = np.linalg.eigvals(a) #直接求解特征值<br>print “\n a eig value:\n”,eigval,<br>print’\n a eig vector:\n’,eigvec</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/18/numpy-e5-81-9a-e7-9f-a9-e9-98-b5-e8-bf-90-e7-ae-97/" data-id="ck7y4s36000906147apa01nlu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-b-tp-v2-0-1-e7-89-88-e6-9c-ac-e4-bb-8b-e7-bb-8d" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/16/b-tp-v2-0-1-e7-89-88-e6-9c-ac-e4-bb-8b-e7-bb-8d/" class="article-date">
+  <time datetime="2018-05-16T10:16:40.000Z" itemprop="datePublished">2018-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/b-tp/">b_tp</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/16/b-tp-v2-0-1-e7-89-88-e6-9c-ac-e4-bb-8b-e7-bb-8d/">b_tp V2.0.1版本介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在实际使用中使用动态的分配内存不可取，所以在V2版本后采用静态缓存空间。</p>
+<p>对比V1，接口没有变，配置起来更加简单。</p>
+<p>实测在串口通讯中支持不好，如果是数据流的通信可以使用 b_tp_stream（下一篇博文介绍）</p>
+<p><a href="https://github.com/notrynohigh/b_tp" target="_blank" rel="noopener">https://github.com/notrynohigh/b_tp</a></p>
+<p>V1的介绍： <a href="http://www.yourmcu.com/2018/03/03/b_tp%E7%AE%80%E6%98%93%E7%9A%84%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E6%8B%86%E5%8C%85%E7%BB%84%E5%8C%85%E5%8D%8F%E8%AE%AE/" target="_blank" rel="noopener">http://www.yourmcu.com/2018/03/03/b_tp%E7%AE%80%E6%98%93%E7%9A%84%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E6%8B%86%E5%8C%85%E7%BB%84%E5%8C%85%E5%8D%8F%E8%AE%AE/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/16/b-tp-v2-0-1-e7-89-88-e6-9c-ac-e4-bb-8b-e7-bb-8d/" data-id="ck7y4s31p003461476kjfdwkr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-c-e8-b0-83-e7-94-a8c-e6-96-87-e4-bb-b6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/05/c-e8-b0-83-e7-94-a8c-e6-96-87-e4-bb-b6/" class="article-date">
+  <time datetime="2018-05-05T02:08:16.000Z" itemprop="datePublished">2018-05-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/05/c-e8-b0-83-e7-94-a8c-e6-96-87-e4-bb-b6/">C++调用C文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有一个程序，代码目录如下：</p>
+<p>.<br>|-- calc<br>| |-- calc.c<br>| <code>\-\- calc.h</code>-- main.cpp</p>
+<p>假如main.cpp需要调用calc.h中的函数（calc.c是c代码）</p>
+<p>传统C编程中需要#include “calc/calc.h”后，声明函数，然后调用。</p>
+<p>但是由于main.cpp是个C++代码。以C方式的调用，g++编译器无法通过编译。</p>
+<p><strong>解决方案一：</strong><br>若calc中代码量很小，或代码是自己写的可以直接利用c++兼容c的特性，把calc.c改成calc.cpp。即可编译。</p>
+<p><strong>解决方案二：</strong><br>在calc.h中的每个函数最前面添加：extern “C”</p>
+<p>比较简单的方案是：</p>
+<p>extern “C” { void fun1(int arg1); void fun2(int arg1, int arg2); void fun3(int arg1, int arg2, int arg3);<br>}</p>
+<p>若不确定当前编译环境是C还是C++，可以这样：</p>
+<p><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p>#ifdef __cplusplus extern “C” { #endif void fun1(int arg1); void fun2(int arg1, int arg2); void fun3(int arg1, int arg2, int arg3);<br>#ifdef __cplusplus<br>} #endif</p>
+<p><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p><strong>解决方法三：</strong><br>若别人已经写好的头文件，我们无法修改，怎么办？重写一个专门被c++用的头文件即可。</p>
+<p>例：编写头文件 cpp_calc.h</p>
+<p>extern “C” {<br>#include “calc.h”;<br>}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/05/c-e8-b0-83-e7-94-a8c-e6-96-87-e4-bb-b6/" data-id="ck7y4s31y003i6147dhjsdejb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-b8-b2-e5-8f-a3-e8-b0-83-e8-af-95-e5-8a-a9-e6-89-8b-ef-bc-88-e4-b8-81-e4-b8-81-ef-bc-89" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/04/e4-b8-b2-e5-8f-a3-e8-b0-83-e8-af-95-e5-8a-a9-e6-89-8b-ef-bc-88-e4-b8-81-e4-b8-81-ef-bc-89/" class="article-date">
+  <time datetime="2018-05-04T07:03:08.000Z" itemprop="datePublished">2018-05-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/04/e4-b8-b2-e5-8f-a3-e8-b0-83-e8-af-95-e5-8a-a9-e6-89-8b-ef-bc-88-e4-b8-81-e4-b8-81-ef-bc-89/">串口调试助手（丁丁）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SSCOM系列的串口调试助手，估计是目前使用人数最多的串口软件。<br>近期，看到网络上，好像对这类串口软件挺感兴趣，正好我找到一个无广告的版本(SSCOM3.3),特分享给大家。</p>
+<p>无广告的版本(SSCOM3.3)的下载文件：<a href="http://club.szlcsc.com/article/downFile_E883B51DE61616BF.html" target="_blank" rel="noopener">sscom.rar</a> (下载次数：757) </p>
+<p> <img src="http://club.szlcsc.com/upload/postuploadimage/bigImage/2017-04-19/385E60FA767A4E1BA0C0D8B9E9CB0A09_412.png" alt="" title="点击查看大图">  </p>
+<p>喜欢尝鲜的朋友，可以下载这个最新版的SSCOM5.12.1，不过有广告<img src="http://club.szlcsc.com/js/kindeditor/plugins/emoticons/images/20.gif" alt="" title="点击查看大图"><br>最新版的SSCOM5.12.1的下载文件：<a href="http://club.szlcsc.com/article/downFile_1F1D0FFB42ADD988.html" target="_blank" rel="noopener">sscom5.12.1.rar</a> (下载次数：504)  </p>
+<p> <img src="http://club.szlcsc.com/upload/postuploadimage/bigImage/2017-04-19/F38E641E772E4D72935AA777627A9E66_325.png" alt="" title="点击查看大图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/04/e4-b8-b2-e5-8f-a3-e8-b0-83-e8-af-95-e5-8a-a9-e6-89-8b-ef-bc-88-e4-b8-81-e4-b8-81-ef-bc-89/" data-id="ck7y4s32d00446147cz55du4v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rtt-e5-9c-b0-e5-9d-80-e6-9f-a5-e7-9c-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/04/rtt-e5-9c-b0-e5-9d-80-e6-9f-a5-e7-9c-8b/" class="article-date">
+  <time datetime="2018-05-04T03:22:17.000Z" itemprop="datePublished">2018-05-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/04/rtt-e5-9c-b0-e5-9d-80-e6-9f-a5-e7-9c-8b/">RTT地址查看</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在我们已经连接到JLINK上了，下面就可以通过JLINK来读单片机SRAM上的数据了，下面我们来读取SRAM中的SEGGER_RTT_CB结构体变量_SEGGER_RTT，因为此变量存储了读写数据的所有信息<br>要读此变量需要先知道此变量在内存中的位置，这可以通过查看MDK编译生成的.map文件来实现，如下：<br><img src="https://cache.amobbs.com/new2012/forum/201603/19/160108aeqzodw51bb4dtbd.png" alt=""> </p>
+<p>QQ截图20160319160148.png (19.14 KB, 下载次数: 0)</p>
+<p><a href="https://www.amobbs.com/forum.php?mod=attachment&aid=MzE0MDc5fDc2N2RmYTdjfDE1MjU0MDI2NzV8MTM1NjIyM3w1NjQ2Mjcw&nothumb=yes" target="_blank" rel="noopener">下载附件</a></p>
+<p>2016-3-19 16:01 上传</p>
+<p>可知，_SEGGER_RTT在地址0x20001400处，_SEGGER_RTT在内存中占用的内存的长度可以通过查看SEGGER_RTT_CB结构体的定义知道</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/04/rtt-e5-9c-b0-e5-9d-80-e6-9f-a5-e7-9c-8b/" data-id="ck7y4s36f009u61472b55h2n7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-staruml-e7-a0-b4-e8-a7-a3-e6-95-99-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/08/staruml-e7-a0-b4-e8-a7-a3-e6-95-99-e7-a8-8b/" class="article-date">
+  <time datetime="2018-04-08T05:43:38.000Z" itemprop="datePublished">2018-04-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/08/staruml-e7-a0-b4-e8-a7-a3-e6-95-99-e7-a8-8b/">StarUML破解教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>StarUML官方下载地址：<a href="http://staruml.io/download" target="_blank" rel="noopener">http://staruml.io/download</a></p>
+<p>StarUML是一个非常好用的画UML图的工具，但是它是收费软件，以下是破解方法：</p>
+<p><strong>1.使用Editplus或者Notepad++等特殊的文本编辑器打开%StarUML_HOME%/www/license/node/LicenseManagerDomain.js文件</strong></p>
+<p><strong>２．修改validate方法</strong></p>
+<p>在如下指定的位置上添加指定的代码</p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=&url=http://album.sina.com.cn/pic/002G71Ofty70CD2YDZu60" target="_blank" rel="noopener"><img src="http://s1.sinaimg.cn/mw690/002G71Ofty70CD2YDZu60" alt=""></a></p>
+<p>在validate方法中添加上面提示部分的代码</p>
+<p><strong>3.验证</strong></p>
+<p>打开StarUML，打开菜单Help-&gt;Enter License，输入上面指定的name和license信息，以上面的代码为例就是</p>
+<p>name:kdyzm</p>
+<p>license:hello,kdyzm!</p>
+<p>然后就有注册成功的提示信息了，help-&gt;about startuml，可以看到如下的提示信息：</p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=&url=http://album.sina.com.cn/pic/002G71Ofty70CDht2UW9a" target="_blank" rel="noopener"><img src="http://s11.sinaimg.cn/mw690/002G71Ofty70CDht2UW9a" alt=""></a></p>
+<p>成功之后help-&gt;about staruml提示的成功信息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/08/staruml-e7-a0-b4-e8-a7-a3-e6-95-99-e7-a8-8b/" data-id="ck7y4s36i00a16147ajfkgmhw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-implementing-the-device-manager" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/23/implementing-the-device-manager/" class="article-date">
+  <time datetime="2018-03-23T11:28:14.000Z" itemprop="datePublished">2018-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/23/implementing-the-device-manager/">Implementing the device manager</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In this tutorial we will cover how to implement pairing and bonding with a BLE enabled device using the device manager library for the nRF52 preview development kit. It is also possible to follow this tutorial for the nRF51 DK with some minor adjustments.</p>
+<h3 id="Required-tools"><a href="#Required-tools" class="headerlink" title="Required tools"></a>Required tools</h3><p>To follow this tutorial you will need</p>
+<ul>
+<li><a href="https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822#Downloads" target="_blank" rel="noopener">Master Control Panel 3.9.0.6</a></li>
+<li>Keil 5.14 or newer</li>
+<li><a href="https://www.nordicsemi.com/eng/nordic/download_resource/48744/1/31595960" target="_blank" rel="noopener">SoftDevice S132</a> (<a href="https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822#additional-terms-content-link-resource-download-link46579-16-17909021" target="_blank" rel="noopener">S130</a> for nRF51)</li>
+<li><a href="https://developer.nordicsemi.com/nRF52_SDK/nRF52_SDK_v0.x.x/" target="_blank" rel="noopener">SDK 0.9</a> or newer (<a href="https://developer.nordicsemi.com/nRF51_SDK/nRF51_SDK_v8.x.x/" target="_blank" rel="noopener">SDK 8.1</a> for nRF51)</li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This tutorial is intended to be accessed after the tutorials on:</p>
+<ul>
+<li><p><a href="https://devzone.nordicsemi.com/tutorials/2/setting-up-an-example-project-on-the-nrf51-dk/" target="_blank" rel="noopener">Setting up an example project on the nRF51 DK</a></p>
+</li>
+<li><p><a href="https://devzone.nordicsemi.com/tutorials/5/ble-advertising-a-beginners-tutorial/" target="_blank" rel="noopener">BLE Advertising, a beginner’s tutorial</a></p>
+</li>
+<li><p><a href="https://devzone.nordicsemi.com/tutorials/4/testing-and-using-a-simple-ble-application/" target="_blank" rel="noopener">Testing and using a simple BLE application</a></p>
+</li>
+</ul>
+<p>The tutorial will use the example ble_app_template(an advertising and pairing example) and modify it to use the <a href="http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk52.v0.9.0/group__device__manager.html?cp=4_0_0_5_0_3_11" target="_blank" rel="noopener">device manager</a> to store and restore bond information.</p>
+<p><strong>Pairing</strong> is the initial exchange of security features for each BLE device creating a temporary encryption. After a device has been paired it can optionally continue to bond. <strong>Bonding</strong> is the exchange of long term security keys which are stored for later re-connection and encryption.</p>
+<p>The device manager does this for you, utilizing the persistent storage module, pstorage, to store the bond information in flash, so that it is persistent even after reboot. When you have reached the maximum amount of bonds(you can define this yourself, up to a max of 8) the device manager will assert and you will be able to handle this in your application. For an example of handling this see the github-example <a href="https://github.com/NordicSemiconductor/nRF51-ble-peripheral-bond-handling" target="_blank" rel="noopener">ble-peripheral-bond-handling</a>.</p>
+<h3 id="Start-off-by"><a href="#Start-off-by" class="headerlink" title="Start off by:"></a>Start off by:</h3><ul>
+<li><p>Flashing SoftDevice S132 to your kit</p>
+</li>
+<li><p>Compiling and flashing the ble_app_template example</p>
+</li>
+</ul>
+<p>The example can be found in <a href="https://developer.nordicsemi.com/nRF52_SDK/" target="_blank" rel="noopener">the SDK</a> at ..sdk_0.9\examples\ble_peripheral\ble_app_template\pca10036\s132\arm5_no_packs</p>
+<p>Next verify that everything is working correctly, observe that LED_1 is blinking to indicate advertising. You can also check that you are able to see Nordic_template advertising in Master Control Panel. <strong>Note</strong> that since the nRF52 DK uses a different pin configuration from the nRF51 DK, you will need to change the header file used if you want to follow this tutorial for the nRF51, for help with this see the tutorial on the <a href="https://devzone.nordicsemi.com/tutorials/13/board-support-packagebsp/" target="_blank" rel="noopener">Board Support Package</a>.</p>
+<h2 id="Adding-the-device-manager-library"><a href="#Adding-the-device-manager-library" class="headerlink" title="Adding the device manager library"></a>Adding the device manager library</h2><p>There are a few steps required to include the device manager in your project, these are:</p>
+<p><strong>Include the header file in main.c</strong></p>
+<p>#include “device_manager.h”</p>
+<p><strong>Add .c files to project</strong></p>
+<p><img src="https://devzone.nordicsemi.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-14-DZ-15/include_5F00_c_5F00_files.png" alt="image description"></p>
+<ol>
+<li><p>Click “File extensions, Books and Environment…”</p>
+</li>
+<li><p>Click “Add files…”</p>
+</li>
+<li><p>Add either device_manager_central.c or device_manager_peripheral.c, these can be found in “..\sdk_0.9\components\ble\device_manager” for this tutorial we will use the <strong>peripheral version</strong></p>
+</li>
+</ol>
+<p>For most cases the version you chose is determined like this:</p>
+<p>S110 -&gt; peripheral</p>
+<p>S120 -&gt; central</p>
+<p>S13x_peripheral -&gt; peripheral</p>
+<p>S13x_central -&gt; central</p>
+<p>Bonding as both peripheral and central at the same time is beyond the scope of this tutorial. It is not straightforward, and we do not support it out of the box.</p>
+<p><strong>Include the header path</strong></p>
+<p><img src="https://devzone.nordicsemi.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-14-DZ-15/include_5F00_h_5F00_files.png" alt="image description"></p>
+<ol>
+<li><p>Click “Options for target…”</p>
+</li>
+<li><p>Select “C/C++”</p>
+</li>
+<li><p>Click “…”</p>
+</li>
+<li><p>Add the paths:</p>
+</li>
+</ol>
+<p>..\..\..\..\..\..\components\ble\device_manager</p>
+<p>and ..\..\..\..\..\..\components\ble\device_manager\config</p>
+<p>In this last path you will find the file device_manager_cnfg.h, this file contains configurations for the device manager, here you can set max amount of bonds, connections etc. the file is well commented, so I will leave it for you to configure.</p>
+<hr>
+<p>Next we need to configure some dependencies, for this project we need the pstorage module, include it like this:</p>
+<p>#include “pstorage.h”</p>
+<p>If you want to do this for a custom example you may also have to include some paths, these are:</p>
+<p>..\..\..\..\..\..\components\drivers_nrf\pstorage</p>
+<p>and</p>
+<p>..\..\..\..\..\..\components\drivers_nrf\pstorage\config</p>
+<p>Here you will find the pstorage_platform.h file which contains configurations for the persistent storage module, more information on this can be found in <a href="http://infocenter.nordicsemi.com/index.jsp" target="_blank" rel="noopener">the SDK</a>.</p>
+<h2 id="Code-initialization"><a href="#Code-initialization" class="headerlink" title="Code initialization"></a>Code initialization</h2><p>We need to add pstorage to the system event dispatcher. A <strong>dispatcher</strong> is an event handler that decides where to, and in which order to dispatch an event. Change sys_evt_dispatch from:</p>
+<p>static void sys_evt_dispatch(uint32_t sys_evt)<br>{<br>    ble_advertising_on_sys_evt(sys_evt);<br>}</p>
+<p>to:</p>
+<p>static void sys_evt_dispatch(uint32_t sys_evt)<br>{<br>    pstorage_sys_event_handler(sys_evt); //Add this line<br>    ble_advertising_on_sys_evt(sys_evt);<br>}</p>
+<hr>
+<p>Next we will initialize the device manager module, add this code to your project, just above main.</p>
+<p>static dm_application_instance_t         m_app_handle;                              /<strong>&lt; Application identifier allocated by device manager */<br>/</strong>@brief Function for handling the Device Manager events.<br> *<br> * @param[in] p_evt  Data associated to the device manager event.<br> <em>/<br>static uint32_t device_manager_evt_handler(dm_handle_t const * p_handle,<br>                                           dm_event_t const  * p_event,<br>                                           ret_code_t        event_result)<br>{<br>    APP_ERROR_CHECK(event_result);<br>    return NRF_SUCCESS;<br>}<br>/**@brief Function for the Device Manager initialization.<br> \</em><br> * @param[in] erase_bonds  Indicates whether bonding information should be cleared from<br> *                         persistent storage during initialization of the Device Manager.<br> */<br>static void device_manager_init(bool erase_bonds)<br>{<br>    uint32_t               err_code;<br>    dm_init_param_t        init_param = {.clear_persistent_data = erase_bonds};<br>    dm_application_param_t register_param;<br>    // Initialize persistent storage module.<br>    err_code = pstorage_init();<br>    APP_ERROR_CHECK(err_code);<br>    err_code = dm_init(&amp;init_param);<br>    APP_ERROR_CHECK(err_code);<br>    memset(&amp;register_param.sec_param, 0, sizeof(ble_gap_sec_params_t));<br>    register_param.sec_param.bond         = SEC_PARAM_BOND;<br>    register_param.sec_param.mitm         = SEC_PARAM_MITM;<br>    register_param.sec_param.io_caps      = SEC_PARAM_IO_CAPABILITIES;<br>    register_param.sec_param.oob          = SEC_PARAM_OOB;<br>    register_param.sec_param.min_key_size = SEC_PARAM_MIN_KEY_SIZE;<br>    register_param.sec_param.max_key_size = SEC_PARAM_MAX_KEY_SIZE;<br>    register_param.evt_handler            = device_manager_evt_handler;<br>    register_param.service_type           = DM_PROTOCOL_CNTXT_GATT_SRVR_ID;<br>    err_code = dm_register(&amp;m_app_handle, &amp;register_param);<br>    APP_ERROR_CHECK(err_code);<br>}</p>
+<p>For some explanation of the security parameters, see this <a href="http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.s132.api.v0.9.0/structble__gap__sec__params__t.html?resultof=%22%53%45%43%5f%50%41%52%41%4d%5f%42%4f%4e%44%22%20" target="_blank" rel="noopener">infocenter link</a>.</p>
+<p>We also need to initialize this in our main() function. We will also initialize the local variable erase_bonds, this lets us add support for erasing all bonds by pressing a button or something similar.</p>
+<p>bool erase_bonds;<br>device_manager_init(erase_bonds);</p>
+<p>And we need to register the device manger event handler with the BLE dispatcher, change ble_evt_dispatch() from:</p>
+<p>static void ble_evt_dispatch(ble_evt_t * p_ble_evt)<br>{<br>    on_ble_evt(p_ble_evt);<br>    ble_conn_params_on_ble_evt(p_ble_evt);<br>    ble_advertising_on_ble_evt(p_ble_evt);<br>    /*<br>    YOUR_JOB: Add service ble_evt handlers calls here, like, for example:<br>    ble_bas_on_ble_evt(&amp;m_bas, p_ble_evt);<br>    */<br>}</p>
+<p>to:</p>
+<p>static void ble_evt_dispatch(ble_evt_t * p_ble_evt)<br>{<br>    on_ble_evt(p_ble_evt);<br>    ble_conn_params_on_ble_evt(p_ble_evt);<br>    ble_advertising_on_ble_evt(p_ble_evt);<br>    /*<br>    YOUR_JOB: Add service ble_evt handlers calls here, like, for example:<br>    ble_bas_on_ble_evt(&amp;m_bas, p_ble_evt);<br>    */<br>    dm_ble_evt_handler(p_ble_evt); //Add this line<br>}</p>
+<p>Let’s open Master Control Panel(MCP) and check the functionality of our new device managed connection. After compiling and flashing our project we can see that LED1 is blinking, this indicates advertising. We can also connect to it using MCP, and observe that LED1 changes to a solid lit state. But when we try to bond with the device we’re in for some trouble, it will refuse the bonding and go back to advertising.</p>
+<p>Because the original code already has implemented manual pairing we are effectively doing the same thing twice, once manually and once with the device manager, this is causing an error. Since we want pairing and bonding to be handled by the device manager we can change the on_ble_evt handler to:</p>
+<p>static void on_ble_evt(ble_evt_t * p_ble_evt)<br>{<br>    uint32_t                         err_code;<br>    switch (p_ble_evt-&gt;header.evt_id)<br>    {<br>        case BLE_GAP_EVT_CONNECTED:<br>            err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);<br>            APP_ERROR_CHECK(err_code);<br>            m_conn_handle = p_ble_evt-&gt;evt.gap_evt.conn_handle;<br>            break;<br>        default:<br>            // No implementation needed.<br>            break;<br>    }<br>}</p>
+<p>Now we can connect and bond freely with Nordic_template using either MCP or a BLE enabled phone. Note that when not connected LED1 is blinking to indicate advertising, and is permanently lit when connected.</p>
+<p>Notice that if you pair and bond with the development kit, and then disconnect and reconnect again, you will not have to do bonding again, you have already got an encrypted connection. That is the beauty of the device manager.</p>
+<h2 id="Final-notes-and-further-reading"><a href="#Final-notes-and-further-reading" class="headerlink" title="Final notes and further reading"></a>Final notes and further reading</h2><p>The full project files are <a href="https://devzone.nordicsemi.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-14-DZ-15/ble_5F00_app_5F00_template_5F00_devicemanger.zip" target="_blank" rel="noopener">attached here</a>, they are provided as is. These files should be added to the peripheral examples folder of SDK 0.9, e.g. ..sdk_0.9\examples\ble_peripheral.</p>
+<p>Feedback is much appreciated, post a comment here or send me a personal message if you have any questions or input.</p>
+<ul>
+<li><a href="https://developer.nordicsemi.com/nRF51_SDK/nRF51_SDK_v8.x.x/doc/8.1.0/s110/html/a00152.html" target="_blank" rel="noopener">SDK on Device Manager</a></li>
+<li><a href="https://github.com/NordicSemiconductor/nRF51-ble-peripheral-bond-handling" target="_blank" rel="noopener">Bond handling example on github</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/23/implementing-the-device-manager/" data-id="ck7y4s34z007c61478kyi6c63" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/8/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>树莓派B+调试U9300C | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="根据模块产品型号在 kernle&#x2F;drivers&#x2F;usb&#x2F;serial&#x2F;option.c 中加入 VID 和 PIDU9300C&#x2F;U9507 为：{ USB_DEVICE( 0x1c9e, 0x9b3c ) }U9507A&#x2F;E&#x2F;J 为：{ USB_DEVICE( 0x2df3, 0x9b3e ) }U8300 为：   { USB_DEVICE( 0x1c9e, 0x9b05 ) } 内核配置：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派B+调试U9300C">
+<meta property="og:url" content="http://yoursite.com/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="根据模块产品型号在 kernle&#x2F;drivers&#x2F;usb&#x2F;serial&#x2F;option.c 中加入 VID 和 PIDU9300C&#x2F;U9507 为：{ USB_DEVICE( 0x1c9e, 0x9b3c ) }U9507A&#x2F;E&#x2F;J 为：{ USB_DEVICE( 0x2df3, 0x9b3e ) }U8300 为：   { USB_DEVICE( 0x1c9e, 0x9b05 ) } 内核配置：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-10-28T01:17:13.000Z">
+<meta property="article:modified_time" content="2020-03-19T02:23:33.869Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="U9300C">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/" class="article-date">
+  <time datetime="2019-10-28T01:17:13.000Z" itemprop="datePublished">2019-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树莓派B+调试U9300C
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据模块产品型号在 kernle/drivers/usb/serial/option.c 中加入 VID 和 PID<br>U9300C/U9507 为：<br>{ USB_DEVICE( 0x1c9e, 0x9b3c ) }<br>U9507A/E/J 为：<br>{ USB_DEVICE( 0x2df3, 0x9b3e ) }<br>U8300 为：  </p>
+<p>{ USB_DEVICE( 0x1c9e, 0x9b05 ) }</p>
+<p>内核配置：</p>
+<p>Device Drivers —&gt;<br>[<em>]USB support —&gt;<br>[</em>]USB Serial Conerter support —&gt;<br>[<em>]USB Generic Serial Driver<br>……<br>[</em>]USB driver for GSM and CDMA modems<br>……  </p>
+<p>如果拨号上网则配置 PPP，make menuconfig 后<br>Device Drivers —&gt;<br>-<em>-Network device support —&gt;<br>{</em>}ppp(point-to-point protocol) support<br>……<br>[<em>] ppp support for async serial ports<br>[</em>] ppp support for sync tty ports<br>……<br>一般选择以上即可，如果需要更多 PPP 服务，则 PPP 相关都选择上。  </p>
+<hr>
+<p>编译内核….启动树莓派</p>
+<p>1) 将 USIM/SIM 正确插入应用终端， 将 LTE/TD-SCDMA/GSM 天线连接到 U9300的射频连接器。 U9300 开机， 加载 USB 驱动， 获取 USB 端口： ttyUSB0~ ttyUSB5。<br>2) 启动 Linux 系统串口工具 minicom， 使用如下指令：<br>#minicom –s<br>在 minicom 菜单中选择“Serial port setup” ， 选取正确的端口配置“Serial device ” ； 注： U9300 的端口设备中 AT， Modem 可以发 AT 命令， 其它不能发 AT指令； 修改完毕后退出到 minicom 菜单， 选择“Save setup as df1” 保存配置后选<br>择“exit” 退出 minicom 配置；<br>注意：<br>minicom 是 Linux 系统中的一个串口工具， 本文默认使用的是该工具； 若客户的 Linux<br>系统中没有 minicom 工具， 也可以用其它的串口工具或者自行安装一个串口工具。<br>3) 通过 minicom 发送 AT 指令进行系统测试</p>
+<p>#minicom<br>将会得到如下的返回结果：<br>Welcome to minicom 2.3 OPTIONS: I18n<br>Compiled on Feb 24 2008, 16:35:15. Port /dev/ttyUSB1<br>Press CTRL-A Z for help on special keys<br>输入 AT 指令（打开回显） ：<br>ATE<br>如果系统工作正常， 将会得到如下的返回结果：<br>OK<br>查询版本信息：<br>输入如下指令（查询版本信息） ：<br>AT+LCTSW（U9300C 和 U9300W 返回各不同）<br>将会得到如下 U9300 的 Firmware 版本信息：<br>SoftwareVersion: QB30001.1.6_MX10<br>InnerVersion: QB30001_0016_1.2.8_L0725_EFS3.0<br>AP: QB30001_0016_1.2.8_L0725_MX10<br>OK<br>注： 本例是以 U9300C 为例， 具体模块的版本信息， 如有需要了解请联系 FAE。<br>查询信号强度：<br>输入如下指令（查询信号） ：<br>AT+CSQ<br>将会得到如下信号强度信息：<br>+CSQ: 20,74<br>OK<br>查询注册状态：<br>输入如下指令（注册状态） ：<br>AT+CEREG?（LTE 网络的注册状态）<br>将会得到如下注册信息：<br>+CEREG: 0,1<br>OK<br>查询网络运营商信息：<br>输入如下指令（网络运营商信息） ：<br>AT+COPS?<br>将会得到如下运营商信息（不同运营商返回字段不同。 以中国移动 USIM 卡为例） ：<br>+COPS: 0,0,”CHN-UNICOM”,<br>OK<br>注： 信号强度、 网络的运营商信息、 注册状态等查询指令和结果， 根据具体网络制式<br>和运营商会有所不同， 细节请参阅 AT 命令手册。  </p>
+<hr>
+<p>1) 重复 U9300 的 USB 加载过程和 AT 交互流程。 确保 U9300 正确注册到网络， 信<br>号强度 CSQ 返回的第一个参数在 13 以上；<br>2) 确认 Linux 系统带有 pppd 应用程序， 如果系统没有 pppd， 请安装 kppp， 里面<br>带有 pppd 应用程序；<br>3)创建拨号配置文件/etc/ppp/gprs-connect-chat<br>gprs-connect-char它是在ppp层会话时给chat进程的参数,每行<br>是一个”期望/发送” 的组合序列  </p>
+<p>TIMEOUT 15<br>ABORT “DELAYED”<br>ABORT “BUSY”<br>ABORT “ERROR”<br>ABORT “NO DIALTONE”<br>ABORT “NO CARRIER”<br>TIMEOUT 40<br>“” \rAT<br>OK ATS0=0<br>OK ATE0V1<br>OK AT+CGDCONT=1,”IP”,”UNINET”<br>OK ATDT*99#<br>CONNECT “”</p>
+<p>//使用的是电信4G卡</p>
+<p>注： 插入不同运营商的卡， AT+CGDCONT=1,”IP”,”CMNET”最后一个参数不同，<br>请咨询当地的运营商获取 APN。<br>4) 修改 pppd 的配置文件/etc/ppp/options<br>找到 auth 字样的行然后将其改为#auth， 这样在拨号过程中就不会提示需要身<br>份验证；<br>5) 建立拨号配置文件/etc/ppp/peer/gprs  </p>
+<p>#Usage:root&gt;pppd call gprs<br>/dev/ttyUSB1<br>9600<br>crtscts<br>modem<br>#noauth<br>debug<br>nodetach<br>#hide-password<br>usepeerdns<br>noipdefault<br>defaultroute<br>0.0.0.0:0.0.0.0<br>ipcp-accept-local<br>ipcp-accept-remote<br>#lcp-echo-failure 12<br>#lcp-echo-interval 3<br>#noccp<br>#novj<br>#novjccomp<br>#persist<br>connect ‘/usr/sbin/chat -s -v -f /etc/ppp/gprs-connect-chat’</p>
+<p>6) 拨号上网， 使用如下指令：<br>#pppd call gprs<br># ifconfig 如果出现如下回显， 多出了一个 ppp0 网口， 说明拨号已经成功<br>7) 测试连接 Internet<br>测试是否连接 Internet， 用如下指令：<br># ping 119.75.217.56<br>测试是否 ping 通 baidu 的 IP 地址。 如果 ping 不通， 需要给本机加条路由， 使<br>用如下指令：<br># route add default gw 10.64.64.64<br>注: 10.64.64.64: 运营商的 IP 地址。<br>如果 IP 地址能 ping 通， 而 ping 域名不通， 如下指令：<br># ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>则需要添加 DNS 到/etc/resolv.conf。<br>8) Linux 断开网络（必须 kill 当前的 pppd， 才能进行下一次 pppd）， 需要 kill pppd<br>进程（这个过程需要一段时间， 中间可能无响应） ， 使用如下指令：<br># killall pppd</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/" data-id="ck7y4s33g005c61474qku653n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/13/e5-b0-8f-e6-8a-80-e5-b7-a7-e5-a6-82-e4-bd-95-e5-8a-a0-e5-bf-abgithub-e4-b8-8b-e8-bd-bd-e4-bb-a3-e7-a0-81-e7-9a-84-e9-80-9f-e5-ba-a6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          小技巧-如何加快github下载代码的速度
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/18/using-your-raspberry-pi-as-a-dlna-upnp-media-server/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Using your Raspberry Pi as a DLNA/UPnP media server</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

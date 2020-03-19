@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>通俗讲解LORA中的跳频和扩频 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="转自：http:&#x2F;&#x2F;www.eemaker.com&#x2F;lora-kuopintiaopin.html lora是一种实现远距离低功耗的无线调制技术。实际测试，在深圳这种高楼林立的地方不加PA也可以达到上千米的传输距离。如果放在空旷没有什么障碍物的地方达到3-5km也是不成问题。 那么lora相比于传统的无线调制之所有可以传输更远的距离，归功于lora使用了扩频、跳频、向前纠错等等关键特性。而关于跳频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通俗讲解LORA中的跳频和扩频">
+<meta property="og:url" content="http://yoursite.com/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="转自：http:&#x2F;&#x2F;www.eemaker.com&#x2F;lora-kuopintiaopin.html lora是一种实现远距离低功耗的无线调制技术。实际测试，在深圳这种高楼林立的地方不加PA也可以达到上千米的传输距离。如果放在空旷没有什么障碍物的地方达到3-5km也是不成问题。 那么lora相比于传统的无线调制之所有可以传输更远的距离，归功于lora使用了扩频、跳频、向前纠错等等关键特性。而关于跳频">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303133489.jpg">
+<meta property="og:image" content="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303292944.png">
+<meta property="og:image" content="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303572394.png">
+<meta property="article:published_time" content="2019-04-06T08:11:37.000Z">
+<meta property="article:modified_time" content="2020-03-19T02:23:33.869Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="lora">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303133489.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/" class="article-date">
+  <time datetime="2019-04-06T08:11:37.000Z" itemprop="datePublished">2019-04-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通俗讲解LORA中的跳频和扩频
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转自：<a href="http://www.eemaker.com/lora-kuopintiaopin.html" target="_blank" rel="noopener">http://www.eemaker.com/lora-kuopintiaopin.html</a></p>
+<p><a href="http://www.eemaker.com/tag/lora" target="_blank" rel="noopener">lora</a>是一种实现远距离低功耗的无线调制技术。实际测试，在深圳这种高楼林立的地方不加PA也可以达到上千米的传输距离。如果放在空旷没有什么障碍物的地方达到3-5km也是不成问题。</p>
+<p>那么lora相比于传统的无线调制之所有可以传输更远的距离，归功于lora使用了<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>、<a href="http://www.eemaker.com/tag/%e8%b7%b3%e9%a2%91" target="_blank" rel="noopener">跳频</a>、向前纠错等等关键特性。而关于跳频和<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>很多人把他放在一起来说，让初接触者不免产生疑问，<a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a>和跳频到底有什么关系，为什么这两个特性可以提高传输距离。下面就一起来梳理梳理：</p>
+<h3 id="载波频率"><a href="#载波频率" class="headerlink" title="载波频率"></a>载波频率</h3><p>首先要明确一点，你要了解无线通信的基础知识，我们日长生活中接触到的各种无线通信都是把真实的有效信号和载波信号进行一个调制而发向空中的。这里关键地方就是弄清楚一个载波频率。比如现在的wifi路由器有2.4g的还有5g的，这里的2.4g和5g就是一个载波频率，而你上网的各种数据就乘坐2.4g或者5g的载波在路由器和手机之间来回穿梭。另一个例子就是在听收音机的时候，听到广播里播放：广大听众朋友好，这里是FM95.6。有木有很熟悉，这里的FM指的就是调制模式，而95.6呢就是载波频率，所以你听到的声音就是坐着95.6mhz的空中列车到达你的收音机，进而经过收音机的解调后播放出来。下面这张图是收音机无线信号调制的一个图：</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303133489.jpg" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>明白了基本无线通信的载波，我们再回归正题，继续探讨lora。lora同样也是把有效数据和载波进行调制而发送出去的。而lora的调制相比于上图所示的的AM调幅和FM调频就复杂很多，但是本质都是相同的，把真实信息放在载波频率上向空中发送或者接收空中的无线电波再进行解调。</p>
+<h3 id="LORA跳频"><a href="#LORA跳频" class="headerlink" title="LORA跳频"></a>LORA跳频</h3><p>下面再聊本文的核心问题：跳频。而如果上面的基础知识弄明白了，跳频就很好理解，跳频就是不断的变换载波频率。lora芯片sx127x本身就是支持跳频的，它可以设定一个时间段，我们后面简称为t1。发送端在经过t1之后，载波频率就会切换到下一个设定的值，再经过t1之后，载波频率又会进行一次切换。而接收端就要和发送端约定好跳频的规律，也就是维护同一张跳频表，知道下一次该往哪个频率切换。</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303292944.png" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>如上图所示，在一开始lora使用的载波频率是433mhz，经过t1时间之后跳到435mhz，再经过t1后跳到431mhz……等等就这样一直变换发送的频率，这个就是lora的跳频。</p>
+<p>有同学可能会有疑问，这个跳频的频率设定要遵循什么规律吗，下次我该设定要跳到多少mhz呢？这个首先你要确定你使用的lora芯片是什么型号的，比如sx1276和1278支持的频率范围是不一样的，理论来说在lora芯片支持的频率范围内都可以跳，具体下次跳到哪一个都可以通过软件自己灵活配置。但是考虑实际情况，有些频率点就不建议设定，例如每个国家都是有无线电使用条例的，在某些频率是不允许发射无线电信号的，所以国家不允许的频率点是要规避的。还有要考虑到天线的匹配，你使用的天线在哪个频率范围更能发挥它的优势等等</p>
+<p>明白了跳频的概念，那么跳频的作用又是什么呢：</p>
+<ul>
+<li>增加抗干扰，比如现在空中的433mhz一直有数据在传送，你也使用433mhz的时候就产生干扰的可能性就比较大。所以跳频就可以跳到例如435mhz频段避免和其他人发送无线频率冲突</li>
+<li>有些国家有规定，在一个信道上（也就是一个频率点）发送的无线信号持续时间不能超过一定的时间。通俗来说就是你不能一直占用这个频率，所以这个时候跳频就可以发挥作用</li>
+</ul>
+<h3 id="扩频"><a href="#扩频" class="headerlink" title="扩频"></a><a href="http://www.eemaker.com/tag/%e6%89%a9%e9%a2%91" target="_blank" rel="noopener">扩频</a></h3><p>关于扩频要明白和跳频是不同的概念。扩频和载波频率也没有直接的关系。</p>
+<p>不管是蓝牙，wifi，还是lora，载波上载的都是数字信号。也就是如果你把发送的无线信号进行拆分来看的话，也就是载的0 、1这种有效信号。你可以简单的理解为传输过程中某一种波形代表0，另一种波形代表1。如何区分0和1的信号这里不做深究，可自行参考资料。</p>
+<p>lora 调制传输中的0和1这种一位数据是用码片来代表的。码片你可以理解为在载波频率带宽等其他无线参数设定一致的情况下。发送一个码片的时间是固定的。而扩频扩的是什么呢，就是用多少个码片来代表一位数据。先看下图：</p>
+<p><img src="http://www.eemaker.com/wp-content/uploads/2019/01/2019012303572394.png" alt="通俗讲解LORA中的跳频和扩频" title="通俗讲解LORA中的跳频和扩频"></p>
+<p>在lora软件配置的过程中，有个参数叫做扩频因子，这个就是用来设定扩频相关的。一共有6-12七个等级，而我这里就列出来四个作为分析。如图所示，扩频因子最小设定值为6，这个时候就代表用64个码片来代表一位。当扩频因子设定为7时，就要用128个码片来代表一位。所以可以看到设定的扩频因子越大，对应的码片数量越多，这样传输一位的时间就会更长。扩频因子和对应的码片数量也是有一定关系，2的6次方是64,2的7次方是128……</p>
+<p>所以可以得出来结论，扩频因子的设定的越大，抗干扰能力会越强，但是传输速率就会降低。也就是牺牲了传输速度而换来了高抗干扰性。这样你也可以明白lora为什么不适合传输很大的数据量。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/06/e9-80-9a-e4-bf-97-e8-ae-b2-e8-a7-a3lora-e4-b8-ad-e7-9a-84-e8-b7-b3-e9-a2-91-e5-92-8c-e6-89-a9-e9-a2-91/" data-id="ck7y4s34b006b61470biehac0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lora/" rel="tag">lora</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/11/stm32f051-e4-bb-a3-e7-a0-81-e8-b7-b3-e8-bd-ac/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          STM32F051代码跳转
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/03/e5-a6-82-e4-bd-95-e8-8e-b7-e5-8f-96stm32-mcu-e7-9a-84-e5-94-af-e4-b8-80id/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何获取STM32 MCU的唯一ID</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/" class="article-date">
+  <time datetime="2019-10-28T01:17:13.000Z" itemprop="datePublished">2019-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/">树莓派B+调试U9300C</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据模块产品型号在 kernle/drivers/usb/serial/option.c 中加入 VID 和 PID<br>U9300C/U9507 为：<br>{ USB_DEVICE( 0x1c9e, 0x9b3c ) }<br>U9507A/E/J 为：<br>{ USB_DEVICE( 0x2df3, 0x9b3e ) }<br>U8300 为：  </p>
+<p>{ USB_DEVICE( 0x1c9e, 0x9b05 ) }</p>
+<p>内核配置：</p>
+<p>Device Drivers —&gt;<br>[<em>]USB support —&gt;<br>[</em>]USB Serial Conerter support —&gt;<br>[<em>]USB Generic Serial Driver<br>……<br>[</em>]USB driver for GSM and CDMA modems<br>……  </p>
+<p>如果拨号上网则配置 PPP，make menuconfig 后<br>Device Drivers —&gt;<br>-<em>-Network device support —&gt;<br>{</em>}ppp(point-to-point protocol) support<br>……<br>[<em>] ppp support for async serial ports<br>[</em>] ppp support for sync tty ports<br>……<br>一般选择以上即可，如果需要更多 PPP 服务，则 PPP 相关都选择上。  </p>
+<hr>
+<p>编译内核….启动树莓派</p>
+<p>1) 将 USIM/SIM 正确插入应用终端， 将 LTE/TD-SCDMA/GSM 天线连接到 U9300的射频连接器。 U9300 开机， 加载 USB 驱动， 获取 USB 端口： ttyUSB0~ ttyUSB5。<br>2) 启动 Linux 系统串口工具 minicom， 使用如下指令：<br>#minicom –s<br>在 minicom 菜单中选择“Serial port setup” ， 选取正确的端口配置“Serial device ” ； 注： U9300 的端口设备中 AT， Modem 可以发 AT 命令， 其它不能发 AT指令； 修改完毕后退出到 minicom 菜单， 选择“Save setup as df1” 保存配置后选<br>择“exit” 退出 minicom 配置；<br>注意：<br>minicom 是 Linux 系统中的一个串口工具， 本文默认使用的是该工具； 若客户的 Linux<br>系统中没有 minicom 工具， 也可以用其它的串口工具或者自行安装一个串口工具。<br>3) 通过 minicom 发送 AT 指令进行系统测试</p>
+<p>#minicom<br>将会得到如下的返回结果：<br>Welcome to minicom 2.3 OPTIONS: I18n<br>Compiled on Feb 24 2008, 16:35:15. Port /dev/ttyUSB1<br>Press CTRL-A Z for help on special keys<br>输入 AT 指令（打开回显） ：<br>ATE<br>如果系统工作正常， 将会得到如下的返回结果：<br>OK<br>查询版本信息：<br>输入如下指令（查询版本信息） ：<br>AT+LCTSW（U9300C 和 U9300W 返回各不同）<br>将会得到如下 U9300 的 Firmware 版本信息：<br>SoftwareVersion: QB30001.1.6_MX10<br>InnerVersion: QB30001_0016_1.2.8_L0725_EFS3.0<br>AP: QB30001_0016_1.2.8_L0725_MX10<br>OK<br>注： 本例是以 U9300C 为例， 具体模块的版本信息， 如有需要了解请联系 FAE。<br>查询信号强度：<br>输入如下指令（查询信号） ：<br>AT+CSQ<br>将会得到如下信号强度信息：<br>+CSQ: 20,74<br>OK<br>查询注册状态：<br>输入如下指令（注册状态） ：<br>AT+CEREG?（LTE 网络的注册状态）<br>将会得到如下注册信息：<br>+CEREG: 0,1<br>OK<br>查询网络运营商信息：<br>输入如下指令（网络运营商信息） ：<br>AT+COPS?<br>将会得到如下运营商信息（不同运营商返回字段不同。 以中国移动 USIM 卡为例） ：<br>+COPS: 0,0,”CHN-UNICOM”,<br>OK<br>注： 信号强度、 网络的运营商信息、 注册状态等查询指令和结果， 根据具体网络制式<br>和运营商会有所不同， 细节请参阅 AT 命令手册。  </p>
+<hr>
+<p>1) 重复 U9300 的 USB 加载过程和 AT 交互流程。 确保 U9300 正确注册到网络， 信<br>号强度 CSQ 返回的第一个参数在 13 以上；<br>2) 确认 Linux 系统带有 pppd 应用程序， 如果系统没有 pppd， 请安装 kppp， 里面<br>带有 pppd 应用程序；<br>3)创建拨号配置文件/etc/ppp/gprs-connect-chat<br>gprs-connect-char它是在ppp层会话时给chat进程的参数,每行<br>是一个”期望/发送” 的组合序列  </p>
+<p>TIMEOUT 15<br>ABORT “DELAYED”<br>ABORT “BUSY”<br>ABORT “ERROR”<br>ABORT “NO DIALTONE”<br>ABORT “NO CARRIER”<br>TIMEOUT 40<br>“” \rAT<br>OK ATS0=0<br>OK ATE0V1<br>OK AT+CGDCONT=1,”IP”,”UNINET”<br>OK ATDT*99#<br>CONNECT “”</p>
+<p>//使用的是电信4G卡</p>
+<p>注： 插入不同运营商的卡， AT+CGDCONT=1,”IP”,”CMNET”最后一个参数不同，<br>请咨询当地的运营商获取 APN。<br>4) 修改 pppd 的配置文件/etc/ppp/options<br>找到 auth 字样的行然后将其改为#auth， 这样在拨号过程中就不会提示需要身<br>份验证；<br>5) 建立拨号配置文件/etc/ppp/peer/gprs  </p>
+<p>#Usage:root&gt;pppd call gprs<br>/dev/ttyUSB1<br>9600<br>crtscts<br>modem<br>#noauth<br>debug<br>nodetach<br>#hide-password<br>usepeerdns<br>noipdefault<br>defaultroute<br>0.0.0.0:0.0.0.0<br>ipcp-accept-local<br>ipcp-accept-remote<br>#lcp-echo-failure 12<br>#lcp-echo-interval 3<br>#noccp<br>#novj<br>#novjccomp<br>#persist<br>connect ‘/usr/sbin/chat -s -v -f /etc/ppp/gprs-connect-chat’</p>
+<p>6) 拨号上网， 使用如下指令：<br>#pppd call gprs<br># ifconfig 如果出现如下回显， 多出了一个 ppp0 网口， 说明拨号已经成功<br>7) 测试连接 Internet<br>测试是否连接 Internet， 用如下指令：<br># ping 119.75.217.56<br>测试是否 ping 通 baidu 的 IP 地址。 如果 ping 不通， 需要给本机加条路由， 使<br>用如下指令：<br># route add default gw 10.64.64.64<br>注: 10.64.64.64: 运营商的 IP 地址。<br>如果 IP 地址能 ping 通， 而 ping 域名不通， 如下指令：<br># ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>则需要添加 DNS 到/etc/resolv.conf。<br>8) Linux 断开网络（必须 kill 当前的 pppd， 才能进行下一次 pppd）， 需要 kill pppd<br>进程（这个过程需要一段时间， 中间可能无响应） ， 使用如下指令：<br># killall pppd</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/28/e6-a0-91-e8-8e-93-e6-b4-beb-e8-b0-83-e8-af-95u9300c/" data-id="ck7y4s33g005c61474qku653n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-using-your-raspberry-pi-as-a-dlna-upnp-media-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/18/using-your-raspberry-pi-as-a-dlna-upnp-media-server/" class="article-date">
+  <time datetime="2019-10-18T08:32:03.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/using-your-raspberry-pi-as-a-dlna-upnp-media-server/">Using your Raspberry Pi as a DLNA/UPnP media server</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Another quick guide to show you how to set up a Raspberry Pi as a DLNA/UPnP media server using an external hard drive as storage.</p>
+<p>My home network has long been rather fragmented. Videos, Pictures and Music was spread across any one of 4 or 5 computers on the home network. Some of these computers were laptops, which meant things may or may not be avaliable at any given time. Additionally, any of these computers could be on or off at any one time.</p>
+<p>If this sounds remotely familiar, you may want to think about setting up a home media server. One place that stores all of your media. One that is cheap to keep running 24⁄7 and one that is stable and reliable and ready whenever you need it.</p>
+<p>For a long time now, I’ve had my Pi sitting serving the occasional web page, a torrent daemon, Samba shares and SSH. This is fine until you want to stream movies to smart TVs or game consoles. Samba just doesn’t cut it for that use.</p>
+<p>The following guide assumes you are running a Debian based distribution (Ubuntu, Raspbian, etc.) Other distros will be similar but not exactly the same.</p>
+<hr>
+<h3 id="Mounting-your-external-drive"><a href="#Mounting-your-external-drive" class="headerlink" title="Mounting your external drive"></a>Mounting your external drive</h3><p>What use is a media server if you have nowhere to store your media? This will walk you through auto-mounting an external drive upon boot.</p>
+<p>Plug in your USB drive and run the following to get a list of storage devices.</p>
+<p># lsblk<br>NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT<br>sda           8:0    0   1.8T  0 disk<br>└─sda1        8:1    0   1.8T  0 part<br>mmcblk0     179:0    0  29.7G  0 disk<br>├─mmcblk0p1 179:1    0    56M  0 part /boot<br>└─mmcblk0p2 179:2    0  29.7G  0 part /</p>
+<p>You should get something like that. Above you can see I have my 32GB SD card (mmcblk0) with the OS installed, and a my external HDD (sda) with a 2TB partition at /dev/sda1</p>
+<p>We’ll go ahead and create a mount point for our drive and mount it.</p>
+<p># mkdir -p /mnt/ext<br># mount /dev/sda1 /mnt/ext</p>
+<p>Great, we have access to our files at <em>/mnt/ext</em> now. To get it to automatically mount on boot, we need to add it to our <em>/etc/fstab</em> file.</p>
+<p>Next we’ll find our device UUID and filesystem type.</p>
+<p># blkid<br>/dev/sda1: LABEL=”2TB WD” UUID=”5102-AA4B” TYPE=”exfat”</p>
+<p>Add this line to the bottom of your fstab, substituting your UUID, mount point and filesystem. <strong>Ensure you pay attention to formatting of this file!</strong></p>
+<p>UUID=5102-AA4B  /mnt/ext    exfat   defaults    0   0</p>
+<p>Once we have that done, our drive is auto-mounted whenever we next reboot. Now to serve our media files…</p>
+<hr>
+<h3 id="Introducing-MiniDLNA"><a href="#Introducing-MiniDLNA" class="headerlink" title="Introducing MiniDLNA"></a>Introducing MiniDLNA</h3><p>MiniDLNA is a lightweight media server designed to support the DLNA and UPnP protocols. This works pretty nicely with almost any device you may want to consume media content on and it’s so lightweight it’s an ideal match for the Pi.</p>
+<p>So, let’s get started. First, run a full update and then install the <strong>minidlna</strong> package.</p>
+<p># apt-get update<br># apt-get upgrade<br># apt-get install minidlna</p>
+<p>Once installed, we’ll go ahead and edit the configuration file as follows.</p>
+<p>/etc/minidlna.conf<br>---<br>media_dir=A,/mnt/ext/Music<br>media_dir=P,/mnt/ext/Pictures<br>media_dir=V,/mnt/ext/Videos<br>friendly_name=Raspberry Pi<br>inotify=yes</p>
+<p>Fairly self explanitory, I hope. Set your directories, set a name for your media server, and ensure that the media library is automatically refreshed.</p>
+<p>Now we start minidlna and we should have a working media server!</p>
+<p># service minidlna start</p>
+<p>Upon the fist run, the media library will be built. This may take a while depending on how many files you have, once it’s done you shouldn’t have to do it again though.</p>
+<p>Finally, ask minidlna to start up automatically upon boot.</p>
+<p># update-rc.d minidlna defaults</p>
+<p>Tada! Enjoy your media :)</p>
+<p>Oh and by the way, it streams 1080p to XBoxes, Playstations, Smart TVs and other computers flawlessly…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/18/using-your-raspberry-pi-as-a-dlna-upnp-media-server/" data-id="ck7y4s37200b461479wgo4bta" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-bc-80-e5-90-af-e5-86-85-e6-a0-b8ip-e8-bd-ac-e5-8f-91" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/18/e5-bc-80-e5-90-af-e5-86-85-e6-a0-b8ip-e8-bd-ac-e5-8f-91/" class="article-date">
+  <time datetime="2019-10-18T08:04:31.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/e5-bc-80-e5-90-af-e5-86-85-e6-a0-b8ip-e8-bd-ac-e5-8f-91/">开启内核ip转发</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vi /etc/sysctl.conf<br>去掉下面注释<br># net.ipv4.ipv4_forward=1<br>立即生效<br>sudo sysctl -p</p>
+<p>配置本地IP转发：</p>
+<p>iptables -t nat -A PREROUTING -d 192.168.15.103 -j DNAT –to-destination 192.168.15.187<br>iptables -t nat -A POSTROUTING -d 192.168.15.1/24 -j SNAT –to 192.168.15.103</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/18/e5-bc-80-e5-90-af-e5-86-85-e6-a0-b8ip-e8-bd-ac-e5-8f-91/" data-id="ck7y4s33a005561478u3160tp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-b5-85-e8-b0-88tcp-e6-bb-91-e5-8a-a8-e7-aa-97-e5-8f-a3-e6-9c-ba-e5-88-b6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/18/e6-b5-85-e8-b0-88tcp-e6-bb-91-e5-8a-a8-e7-aa-97-e5-8f-a3-e6-9c-ba-e5-88-b6/" class="article-date">
+  <time datetime="2019-10-18T05:36:42.000Z" itemprop="datePublished">2019-10-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/e6-b5-85-e8-b0-88tcp-e6-bb-91-e5-8a-a8-e7-aa-97-e5-8f-a3-e6-9c-ba-e5-88-b6/">浅谈TCP滑动窗口机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>浅谈TCP滑动窗口机制  </p>
+<p>==============</p>
+<p>概念</p>
+<p>滑动窗口是两台主机间传送数据时的缓冲区。每台TCP /IP 主机支持两个滑动窗口,</p>
+<p>一个用于接收数据, 另一个用于发送数据。窗口尺寸表示计算机可能缓冲的数据量大小。</p>
+<p><strong>工作原理</strong></p>
+<p>1. 滑动窗口工作过程</p>
+<p>TCP 协议通过采用滑动窗口的方式控制数据流的传输。在传输层中, 数据按照一定的</p>
+<p>格式打成大小相同的包。每一个滑动窗口中包含一定数目的数据包, 滑动窗口的大小可以</p>
+<p>进行调整。每台网络上的主机维护一个发送窗口和一个接收窗口。发送方一次可发送相当于滑动窗口大小的数据包数目, 并在每个数据包前添加包头信息, 然后等待接收方返回确认信息。由于TCP 是面向连接的协议, 可以保证数据传输的完整性和准确性, 当传输过程中发生丢包时, 接收方会要求发送方从断点处重传数据。</p>
+<p>当TCP 从应用层中接收到数据时, TCP 将一个带序列号的报头加入数据包并将其交给</p>
+<p>IP, 由IP 将它发送到目标主机。</p>
+<p>当每一个数据包传送时, 源主机设置重发计时器, 描述在重新发送数据包前将等待</p>
+<p>ACK 的时间。在一般情况下, 当第一次发送失败后, 重发计时器的重试时间将设置为前一</p>
+<p>次的两倍。在发送窗口中有每一个数据包的备份, 直到收到ACK。</p>
+<p>当数据包到达目的主机接收窗口, 它们按照序列号放置。当目的主机接收到连续的数</p>
+<p>据段时, 就向源主机发送一个关于数据的认可( ACK) 的应答报文, 其中带有当前窗口尺寸。一旦源主机接收到数据包并认可, 发送窗口将进行滑动。如果在重发计时器设定的时</p>
+<p>间内, 源主机没有接收到对现存数据的认可, 数据将重新传送。重发数据包将加重网络和源主机的负担。下面通过应用实例来了解其作用吧。</p>
+<p><strong>滑动窗口应用实例</strong></p>
+<p>“ 三次握手”的例子描述了一个典型的TCP 传输过程。TCP 可使用称为滑动窗口的方法获得更好的TCP 传输性能。在TCP“ 三次握手”的过程中, 两台主机交换传输窗口大小, 接收主机把它的接收窗口大小设置成和发送主机的传输窗口大小一致。窗口大小表明任何一次所能传输段的最大个数。窗口大小是通过TCP 协议的格式中“ 窗口”字段, 在传输给目标主机的每一个报文中给出的。</p>
+<p>发送主机通过创建一个发送窗口, 以设置它的最大传输规模。例如, 如果发送主机设置</p>
+<p>发送窗口的大小是6, 如下图1所示,</p>
+<p>这意味着发送主机一次最多可连续发送6 个数据段, 此时必须得到目标主机确认后, 才能继续发送后续的数据段。</p>
+<p><img src="http://115.29.210.249/tggPic/content/2018-10/1539153750268.png" alt=""></p>
+<p>图1发送窗口为6 的数据段的传送</p>
+<p>( 1) 第一次连续发送6 个数据段后( 即1 至6 段) , 发送主机必须等待接收主机的确认。</p>
+<p>假如接收主机只收到段1, 2 和5, 则接收主机发回包含有序列号为3 的段进行确认, 确认的是1 和2 段。此时, 发送主机的滑动窗口向右滑过两个确认的段, 7 和8 段出现在滑动窗口中。如图2 所示。</p>
+<p><img src="http://115.29.210.249/tggPic/content/2018-10/1539153796379.png" alt=""></p>
+<p>图2 发送窗口向右滑过两个确认的段</p>
+<p>( 2 ) 发送主机又连续发送6 个数据段( 即3 至8 段) 。假定这6 段均被正确收到, 接收</p>
+<p>主机发回包含有序列号为9 的段进行确认, 即表示9 段前的数据段均已正确收到, 期待第9段的发送。此时, 发送主机的滑动窗口向右滑过6 个确认的段, 9 至14 段出现在滑动窗口中, 如图3 所示。</p>
+<p><img src="http://115.29.210.249/tggPic/content/2018-10/1539153813096.png" alt=""></p>
+<p>图3 发送窗口向右滑过6 个确认的段</p>
+<p>通过上例可以看出, 借助于滑动窗口能够提高TCP 数据的传输性能。因为TCP 无须对</p>
+<p>每一数据段进行确认, 只需要对发送一个窗口宽度的段确认一次。</p>
+<p><strong>小结</strong></p>
+<p>滑动窗口的大小对网络性能有很大的影响。如果滑动窗口过小, 则需要在网络上频繁</p>
+<p>的传输确认信息, 占用了大量的网络带宽; 如果滑动窗口过大, 对于利用率较高、容易产生丢包现象的网络, 则需要多次发送重复的数据, 这同样耗费了网络带宽。</p>
+<p>决定滑动窗口大小的因素, 包括网络的带宽、可靠性以及需要传输的数据量。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/18/e6-b5-85-e8-b0-88tcp-e6-bb-91-e5-8a-a8-e7-aa-97-e5-8f-a3-e6-9c-ba-e5-88-b6/" data-id="ck7y4s33l005i614761xjf2qz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fatfs-e7-9b-b8-e5-85-b3-e4-bb-8b-e7-bb-8d-e8-bd-ac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/09/fatfs-e7-9b-b8-e5-85-b3-e4-bb-8b-e7-bb-8d-e8-bd-ac/" class="article-date">
+  <time datetime="2019-08-09T08:13:52.000Z" itemprop="datePublished">2019-08-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/09/fatfs-e7-9b-b8-e5-85-b3-e4-bb-8b-e7-bb-8d-e8-bd-ac/">FATFS相关介绍(转)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.如何移植</p>
+<p>1.1首要考虑</p>
+<p>FatFs模块移植基于以下假设条件：</p>
+<p>ANSI C：编译器应遵循ANSI C。FatFs模块是以ANSI C(C89标准)语言编写的中间件软件，它不依赖任何硬件平台，只要相应的编译器支持ANSI C。整形类型大小：FatFs模块假设char/short/long类型变量大小为8/16/32位、假设int类型变量为16或32位。这些内容定义在文件integer.h中，对大多数编译器而言，默认的定义都不会有什么问题。如果与当前的定义有冲突，你必须在这个文件中小心的解决掉。</p>
+<p>1.2系统组织结构</p>
+<p>图1-1给出了嵌入式系统FatFs模块典型的关系依赖图。图中假设使用SPI接口访问SD卡，蓝色区域表示FatFs模块，注意FatFs模块并不包含也从不关心绿色区域的底层磁盘IO层。对于使用SPI访问SD卡的应用，FatFs官网提供的例程中，有使用硬件SPI和模拟SPI的例程。</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512065.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512065.png</a>)</p>
+<p>图1-1：FatFs关系依赖图</p>
+<p>如果只有一个磁盘设备，并且使用FatFs提供的磁盘接口，则不需要其它模块，只管编写应用程序即可，如图1-2(a)所示。如果使用多种不同接口，则需要编写另外一层软件，用来在驱动器和FatFs之间翻译命令和数据流，如图1-2(b)所示。</p>
+<p>注意图1-2中灰色部分属于底层磁盘I/O层，FatFs从来不关心这一层是如何实现的!</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512066.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512066.png</a>)</p>
+<p>图1-2：单个设备和多个设备系统</p>
+<p>1.3移植必须实现的函数</p>
+<p>仅需要提供FatFs模块需要的底层磁盘I/O函数，其它的均不是必须的。大部分函数不是必须的，例如，磁盘写函数在配置为只读模式时就不是必须的。表1-1给出函数是否需要与配置选项的关系。</p>
+<p>表1-1：移植时需要的函数列表</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512067.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512067.png</a>)</p>
+<p>2.限制</p>
+<p>支持的文件系统类型：FAT12、FAT16、FAT32(r0.0)和exFAT(r1.0，从版本R0.12开始支持)打开的文件数目：无限制(取决于可用内存)卷数量：最大为10卷大小：最大为2TB(512字节/扇区)单个文件大小：FAT卷最大为4GB，exFAT卷几乎无限制(理论16*1024*1024TB)簇大小：FAT卷最大为128扇区，exFAT卷最大为16MB扇区大小：512、1024、2048、4096字节什么是exFAT?</p>
+<p>exFAT(Extended File Allocation Table File System，扩展FAT)是Microsoft在Windows Embeded 5.0以及以上版本中引入的一种适合于闪存的文件系统，为了解决FAT32文件系统不支持大于等于4GB的单个文件而推出。</p>
+<p>卷、簇和扇区?</p>
+<p>卷(逻辑驱动器)是文件系统为管理物理磁盘而提出的。一个物理磁盘可以有多个卷，多个物理磁盘也可以映射到1个卷上。我们常说将硬盘分为4个区，对于文件系统而言，实际上它就要管理4个卷。</p>
+<p>簇可以简单的理解为是一组扇区，是文件系统管理磁盘数据区的最小单位，一个文件即便是0字节，也一定会占用一个簇。当格式化磁盘时，会有“分配单元大小”选项，默认选择为4096字节，这个大小就是簇大小。</p>
+<p>扇区是物理磁盘的最小单位，在制造时大小已经确定，对于U盘、SD卡，一般为512字节。</p>
+<p>3.内存使用量</p>
+<p>内存使用量大小取决于配置选项，表3-1显示了在特定配置下的ROM和RAM使用情况(FatFs官方网站上有更多的平台供参考，这里截取了其中的常用平台)。在此之前，先来了解一下表3-1会遇到的配置选项和缩写。</p>
+<p>在表3-1中：</p>
+<p>V表示宏_VOLUMES定义的值(卷的个数);F表示打开的文件数。宏_FS_READONLY表示读写限制，0表示读/写(R/W)，1表示只读(R/O);宏_FS_MINIMIZE用于函数裁剪，0表示全功能版(Full)，3为最小功能(Min);宏_FS_TINY用于模式配置，0表示正常模式，1表示微型模式。</p>
+<p>表3-1：不同平台、不同配置下，FatFs模块ROM和RAM消耗参考</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512068.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512068.png</a>)</p>
+<p>4.功能裁剪</p>
+<p>表4-1列出了FatFs的所有API函数以及函数在不同配置下的裁剪情况。</p>
+<p>表4-1：API函数和配置宏关系</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512069.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933512069.png</a>)</p>
+<p>5.长文件名</p>
+<p>FatFs模块从版本0.07开始支持长文件名。除了函数f_readdir函数外，FatFs模块的其它函数对短文件名(SFN)和长文件名(LFN)是透明的。默认情况下，长文件名被禁止。要使能长文件名，需要设置宏_USE_LFN为1、2或3，并且需要向项目中增加文件option/unicode.c。LFN需要一些额外的缓存，缓存的大小通过宏_MAX_LFN来设定。长文件名最多可能需要255个字符，所以要完全符合长文件名的特性，则至少需要分配255字节的缓存区。如果分配的缓存区不足以放下文件名，则文件函数会返回一个FR_INVALID_NAME的错误值。当使能了长文件名特性并且使能了可重入特性(宏_FS_REENTRANT==1)，_USE_LFN必须设置为2或3。在这种情况下，文件函数访问的文件名工作区缓存位域栈或堆中。工作缓存区占用(_MAX_LFN+1)*2字节，如果使能exFAT文件系统，需要再增加608字节缓存。</p>
+<p>表5-1列出了在Cortex-M3硬件平台、GCC编译器环境，使用长文件名时不同内码表增加的ROM大小。</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522070.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522070.png</a>)</p>
+<p>当LFN特性被使能，ROM大小的增长取决于所用的内码表。上表显示了使用LFN特性后几种内码表对应的ROM增长大小。当使用日文、中文和汉语时，会有成千上万的字符。不幸的是，它们需要一个巨大的OEM-Unicode双向转换表，这会使得模块的大小大幅度的增加，就像表中所给出的数据所示。因此，FatFs的双字节字符集的长文件名特性对于大多数的8位微控制器是不现实的。(这也是为什么作者在很长的时间内都没有兴趣实现LFN特性的原因)。</p>
+<p>注：FAT文件系统中的长文件名特性微软的专利。当在一个商业应用中使能LFN时，可能需要向微软申请许可。</p>
+<p>6.Unicode API</p>
+<p>默认情况下，FatFs的API函数使用ANSI/OEM代码集，即使在使能长文件名的情况下也是如此。但是FatFs也可以切换到Unicode代码集，只需要_LFN_UNICODE==1。使用ANSI/OEM代码集时字符串数据类型使用char，使用Unicode代码集时，字符串数据类型使用WCHAR(UTF-16)。《FatFs路径名称规则》一文提供了关于Unicode更详细的信息。</p>
+<p>7.exFAT文件系统</p>
+<p>exFAT(Microsoft’s Extended File Allocation Table)文件系统是微软在广泛使用的嵌入式操作系统中为替换FAT文件系统而开发的。它已经被SDA(SD卡协会)所采纳并推荐用户在高容量SD卡(&gt;32G)中使用。因此exFAT即将成为可移动存储器的标准文件系统。</p>
+<p>对于FAT32系统来说，单个文件被限制到最大4GB，但exFAT文件系统单个文件大小可以超过256TB!此外相对于FAT文件系统，exFAT文件系统在文件系统开销、特别是文件分配延时上都有降低，能够改善文件写效率。但是，当前FatFs版本软件也存在一个问题，就是在文件写入扇区非对齐时不如FAT文件系统吞吐量大。可以使用f_expand函数预先分配一个连续块来避免这个问题。</p>
+<p>注意exFAT属于微软专利!FatFs模块的exFAT功能是根据US. Pat. App. Pub. No. 2009/0164440 A1来实现的。可以通过配置宏使能或禁用exFAT功能。当在商业产品上使能exFAT功能后，需要向微软申请许可。</p>
+<p>特别注意，使能exFAT后，不再兼容C89，因为需要64位整形类型。</p>
+<p>8.可重入性</p>
+<p>不同卷上的文件操作总是可重入的(使能长文件名并且使用静态工作缓冲区除外)，并且可以同时工作。相同卷上的文件操作是不可重入的，但是也可以通过配置_FS_REENTRANT选项使用线程保护。在这种情况下，需要OS的同步对象控制函数，必须增加函数ff_cre_syncobj、ff_del_syncobj、ff_req_grant和ff_rel_grant到工程。</p>
+<p>当卷被某个任务使用时，这时如果另外一个任务调用文件函数，那么访问会被阻塞等待，直到任务离开文件函数。如果等待超过由宏_TIMEOUT定义的时间，文件函数调用会终止，并返回FR_TIMEOUT。超时特性在某些RTOS下可能不被支持。</p>
+<p>函数f_mount、f_mkfs和f_fdisk是一个例外。这些卷管理函数在同一个卷或物理磁盘上始终是不可重入的。当使用这些函数，其它任务要避免访问此卷。</p>
+<p>注：这个段落只是描述FatFs模块本身的可重入性，不假定底层磁盘I/O模块具有可重入性。</p>
+<p>9.重复的访问文件(Duplicated File Access)</p>
+<p>默认情况下，FatFs不支持以读/写方式重复打开文件，允许以只读方式重复打开文件。在写模式下禁止重复打开文件，禁止重命名、删除已经打开的文件，否则该卷上的FAT结构体会崩溃。还有，当前目录也不能被删除。</p>
+<p>文件锁控制可以通过宏_FS_LOCK &gt; 1使能。这个宏定义的值表示在文件锁控制下，多少文件、子目录可以同时打开。在这种情况下，任何对打开对象的非法操作(比如移除、重命名)会被拒绝并返回FR_LOCKED错误码，函数f_open和f_opendir是一个特例，它们执行失败返回FR_TOO_MANY_OPEN_FILES错误码。</p>
+<p>10. 高性能文件访问</p>
+<p>在小型嵌入式系统中，为了获得更好的读写文件性能，应用程序<a href="https://www.2cto.com/kf" target="_blank" rel="noopener">编程</a>应该考虑如何处理以合乎FatFs模块的特性。f_read函数读取磁盘上的文件数据按照下图中的序列：</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522071.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522071.png</a>)</p>
+<p>图10-1：读数据，扇区未对齐(小块数据)</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522072.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522072.png</a>)</p>
+<p>图10-2：读数据，扇区未对齐(大块数据)</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522073.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522073.png</a>)</p>
+<p>图10-3：读数据，扇区对齐</p>
+<p>文件I/O缓冲区用来读写部分扇区数据。文件I/O缓冲区可以是每个文件对象都有的私有扇区缓存，也可以是共享整个文件系统对象下的扇区缓存。宏_FS_TINY用来确定文件I/O缓冲区是使用文件对象缓存还是使用文件系统对象缓存。当_FS_TINY==1时，表示使用微型模式，文件I/O缓冲区共享文件系统对象缓存，文件数据传输和FAT/目录访问都使用文件系统缓存。这样每个文件对象可以减少_MAX_SS个字节数据内存。这种小内存配置的缺点是：缓存在文件I/O缓冲区的FAT数据在文件数据传输时将会丢失，并且在每一个簇的边界都要重新加载(意味着更长的执行时间)。 无论如何，这适合于大多数的应用场合，只需少量内存消耗就能获得不错的性能。</p>
+<p>图10-1描述了文件当中未对齐扇中的部分扇区数据通过文件I/O缓存进行传送过程。大块数据传送见图10-2，图10-2中的中间部分的一个或多个扇区数据传送直接使用了应用程序缓存。图10-3描述了按扇区对齐的数据传送。在这种情况下，文件I/O缓存不使用。直接传送，通过disk_read函数一次最大程度的读取尽量多的扇区范围，但是多扇区数据传输从不越过簇边界，即使它们是连续的。</p>
+<p>因此，尽量在读写时保证扇区对齐，避免传输缓存数据，这样可以改善读写性能。除了这个外，使用扇区对齐读写，在配置成小内存模式下，在文件传送时，不会冲刷掉缓存的FAT数据，这样就可以获得和正常模式下同样的性能同时又具有小的内存消耗。</p>
+<p>11. 使用Flash存储器的注意事项</p>
+<p>使用Flash存储器时，例如SDC和CFC，为了获得最大写性能，必须考虑它们的特性。</p>
+<p>11.1 使用多扇区写</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522074.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522074.png</a>)</p>
+<p>图11-1：多扇区/单扇区对比</p>
+<p>使用Flash存储器时，一个扇区一个扇区的写入最影响写入数据的吞吐率。如果每次能写入多个扇区，会大大提高写入数据的吞吐率，如图11-1所示。存储器接口时钟越快，影响越大，并且通常吞吐率会增大10倍以上。图11-2显示这种关系，在存储器接口速率相同的情况下，比如使用8GB SDHC类型的SD卡，每次写16K(32扇区)比每次写100字节(1扇区)吞吐率高了38.8倍。写事件的次数会影响存储器的寿命，当使用小数据块时，可能会多次访问同一扇区，比如每次写入100字节，会写5~6次才能将一个扇区写满，因此从保护存储器使用寿命上考虑，也要尽可能的使用大块数据。</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522075.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522075.png</a>)</p>
+<p>图11-2：读写吞吐率与写入块大小、存储器接口速率关系</p>
+<p>因此应用程序应该尽可能将数据组成一个大数据块再进行写入操作。理想的写入方式是每次写入是以扇区对齐的，并且写入数据大小等于扇区的倍数，最好是等于簇大小。当然，应用层到介质层必须要支持多扇区写特性，可是多数开源磁盘驱动缺少这块。</p>
+<p>注：Fatfs模块和它的例程磁盘驱动支持多扇区读写。</p>
+<p>12.强制擦除存储器</p>
+<p>当通过f_unlink函数移除一个文件时，FatFs会在FAT表中把文件占用的簇数据空间标记为”空”，但是并不会对包含文件数据的扇区做任何擦除操作，所以文件数据仍然存在着。如果要在移除文件时将文件数据强制删除，存储器上的空闲块会增加。这样，在下次向这个数据块写数据时，就可以跳过内部擦除操作。这样可能会提高写入性能。要使能这个特性，设置_USE_TRIM为1。注：这个特性是Flash存储器内部处理程序所期望的。大多数应用并不需要这个特性，并且当移除大文件时，f_unlink函数可能会花费很长时间。</p>
+<p>13.临界区</p>
+<p>写FAT卷时，如果因为意外故障导致写操作被中断，比如突然断电、错误的移除磁盘以及不可恢复的磁盘错误，可能会导致FAT结构体崩溃。图13-1和图13-2说明FatFs应用程序的临界区。</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522076.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522076.png</a>)</p>
+<p>图13-1：长临界区</p>
+<p>![](<a href="https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522077.png" target="_blank" rel="noopener">https://www.2cto.com/uploadfile/Collfiles/20161025/201610250933522077.png</a>)</p>
+<p>图13-2：:最小化的临界区</p>
+<p>上述红色区域代码执行时被意外终止，正在执行的对象更改可能会丢失。当上述黄色区域代码执行时被意外终止，下面列出的一个或多个可能会发生：</p>
+<p>正在改写的文件数据被损坏添加的文件恢复到初始状态丢失新建的文件新创建的文件或者覆写的内容丢失由于丢失簇链，磁盘性能下降 如果以只读模式打开文件，是不会出现上述情况的。为了使数据丢失风险最小化，临界区应尽可能的短，适当的使用f_sync函数可以缩短临界区，如图13-2所示的那样。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/09/fatfs-e7-9b-b8-e5-85-b3-e4-bb-8b-e7-bb-8d-e8-bd-ac/" data-id="ck7y4s34o006y6147962a8ymf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mdk-e9-80-9a-e6-9d-80-e7-89-88-e6-b3-a8-e5-86-8c-e6-9c-ba" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/mdk-e9-80-9a-e6-9d-80-e7-89-88-e6-b3-a8-e5-86-8c-e6-9c-ba/" class="article-date">
+  <time datetime="2019-07-09T06:52:44.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/mdk-e9-80-9a-e6-9d-80-e7-89-88-e6-b3-a8-e5-86-8c-e6-9c-ba/">MDK通杀版注册机</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下面这个注册机支持当前的所有版本，使用  </p>
+<p>这个注册机，不再需要注册RL-ARM，就可以直接使用MDK中带的emWin。</p>
+<p><a href="http://forum.armfly.com/forum.php?mod=attachment&aid=Mzg2OXxiYzVlZTNlM3wxNTYyNjU1MTM4fDB8MjM0Ng%3D%3D" target="_blank" rel="noopener">http://forum.armfly.com/forum.php?mod=attachment&amp;aid=Mzg2OXxiYzVlZTNlM3wxNTYyNjU1MTM4fDB8MjM0Ng%3D%3D</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/09/mdk-e9-80-9a-e6-9d-80-e7-89-88-e6-b3-a8-e5-86-8c-e6-9c-ba/" data-id="ck7y4s35e008161470qnhar0b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jlink-e7-83-a7-e5-86-99spi-flash-e5-ad-98-e5-82-a8-e8-8a-af-e7-89-87" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/18/jlink-e7-83-a7-e5-86-99spi-flash-e5-ad-98-e5-82-a8-e8-8a-af-e7-89-87/" class="article-date">
+  <time datetime="2019-06-18T00:40:57.000Z" itemprop="datePublished">2019-06-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/18/jlink-e7-83-a7-e5-86-99spi-flash-e5-ad-98-e5-82-a8-e8-8a-af-e7-89-87/">Jlink烧写SPI Flash存储芯片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h3><p>Jlink内部集成了SPI协议，部分接口是作为SPI复用功能的，具体硬件连接，如下图所示：</p>
+<p><img src="https://wcc-blog.oss-cn-beijing.aliyuncs.com/img/JLink-SPI-2.jpg" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/18/jlink-e7-83-a7-e5-86-99spi-flash-e5-ad-98-e5-82-a8-e8-8a-af-e7-89-87/" data-id="ck7y4s352007f614712ow3f8d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu-e5-ae-89-e8-a3-85-e4-bd-bf-e7-94-a8mosquitto" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/07/ubuntu-e5-ae-89-e8-a3-85-e4-bd-bf-e7-94-a8mosquitto/" class="article-date">
+  <time datetime="2019-06-07T07:08:43.000Z" itemprop="datePublished">2019-06-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/07/ubuntu-e5-ae-89-e8-a3-85-e4-bd-bf-e7-94-a8mosquitto/">ubuntu安装使用Mosquitto</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下描述了如何安装Mosquitto 并使用MQTT进行通信  </p>
+<p>1. 引入mosquitto仓库并更新<br>$sudo apt-add-repository ppa:mosquitto-dev/mosquitto-ppa<br>$sudo apt-get update  </p>
+<p>2. 执行以下命令安装mosquitto包<br>$sudoapt-get installmosquitto  </p>
+<p>3. 安装mosquitto开发包<br>$sudoapt-get installlibmosquitto-dev  </p>
+<p>4. 安装mosquitto客户端<br>$sudoapt-get installmosquitto-clients  </p>
+<p>5. 查询mosquitto是否正确运行<br>$sudoservice mosquitto status   </p>
+<p>6. 本机测试  </p>
+<p>打开一个终端，执行以下命令订阅主题”mqtt”<br>$mosquitto_sub -h localhost -t “mqtt”-v  </p>
+<p>打开另外一个终端，发布消息到主题 “mqtt”<br>$mosquitto_pub -h localhost -t “mqtt”-m “Hello MQTT”  </p>
+<p>现在你会看到消息被显示在前一个终端上了.  </p>
+<p>7. 网络测试（test.mosquitto.org）  </p>
+<p>从test.mosquitto.org订阅所有主题，任何人发布的任何消息你都可以收到，你会看到大量有趣消息滚动在你的屏幕上。<br>你也可以发布一些有趣的消息，所有订阅的人也同样会收到。  </p>
+<p>$mosquitto_sub -h test.mosquitto.org -t “#” -v  </p>
+<p>当然，你也可以只订阅特定主题，用来接收你自己的消息  </p>
+<p>$mosquitto_sub -h test.mosquitto.org -t “msg_only_from_me” -v  </p>
+<p>在另外一个终端上发布消息到特定主题，消息”My cat is Luna”应该会显示在上一个终端上  </p>
+<p>$mosquitto_pub -h test.mosquitto.org -t “msg_only_from_me” -m “My cat is Luna”  </p>
+<p>test.mosquitto.org 支持加密和不加密MQTT消息模式，也支持用TCP或者Websocket作为承载，可以通过wireshark抓包来观察不同的包格式.  </p>
+<p>mosquitto man page:  </p>
+<p><a href="https://mosquitto.org/documentation/" target="_blank" rel="noopener">https://mosquitto.org/documentation/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/07/ubuntu-e5-ae-89-e8-a3-85-e4-bd-bf-e7-94-a8mosquitto/" data-id="ck7y4s36z00ax6147b1akhuf9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e8-b0-83-e7-94-a8systemclock-config-e5-8d-a1-e6-ad-bb-e9-97-ae-e9-a2-98" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/e8-b0-83-e7-94-a8systemclock-config-e5-8d-a1-e6-ad-bb-e9-97-ae-e9-a2-98/" class="article-date">
+  <time datetime="2019-05-27T07:13:43.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/STM32/">STM32</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/e8-b0-83-e7-94-a8systemclock-config-e5-8d-a1-e6-ad-bb-e9-97-ae-e9-a2-98/">调用SystemClock_Config卡死问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用STM32CubeMX生成的代码配置时钟函数是SystemClock_Config();</p>
+<p>当重复调用时（进入stop模式后唤醒配置时钟）会进入void _Error_Handler(char *file, int line)</p>
+<p>这个是由于函数HAL_RCC_OscConfig引起。</p>
+<p>void SystemClock_Config(void)<br>{</p>
+<p>  RCC_OscInitTypeDef RCC_OscInitStruct;<br>  RCC_ClkInitTypeDef RCC_ClkInitStruct;<br>  RCC_PeriphCLKInitTypeDef PeriphClkInit;</p>
+<pre><code>/**Configure LSE Drive Capability 
+*/</code></pre><p>  HAL_PWR_EnableBkUpAccess();</p>
+<p>  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_HIGH);</p>
+<pre><code>/**Initializes the CPU, AHB and APB busses clocks 
+*/</code></pre><p>  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14<br>                              |RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_LSE;<br>  RCC_OscInitStruct.LSEState = RCC_LSE_ON;<br>  RCC_OscInitStruct.HSIState = RCC_HSI_ON;<br>  RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;<br>  RCC_OscInitStruct.HSICalibrationValue = 16;<br>  RCC_OscInitStruct.HSI14CalibrationValue = 16;<br>  RCC_OscInitStruct.LSIState = RCC_LSI_ON;<br>  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;<br>  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;<br>  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;<br>  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;<br>  if (HAL_RCC_OscConfig(&amp;RCC_OscInitStruct) != HAL_OK)<br>  {<br>    _Error_Handler(__FILE__, __LINE__);<br>  }</p>
+<pre><code>/**Initializes the CPU, AHB and APB busses clocks 
+*/</code></pre><p>  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK<br>                              |RCC_CLOCKTYPE_PCLK1;<br>  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;<br>  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;<br>  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;</p>
+<p>  if (HAL_RCC_ClockConfig(&amp;RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)<br>  {<br>    _Error_Handler(__FILE__, __LINE__);<br>  }</p>
+<p>  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_RTC;<br>  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;<br>  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;<br>  if (HAL_RCCEx_PeriphCLKConfig(&amp;PeriphClkInit) != HAL_OK)<br>  {<br>    _Error_Handler(__FILE__, __LINE__);<br>  }</p>
+<pre><code>/**Configure the Systick interrupt time 
+*/</code></pre><p>  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);</p>
+<pre><code>/**Configure the Systick 
+*/</code></pre><p>  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);</p>
+<p>  /* SysTick_IRQn interrupt configuration */<br>  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);<br>}</p>
+<p>进一步查找是这里引起：</p>
+<p>  /*-------------------------------- PLL Configuration ———————–<em>/<br>  /\</em> Check the parameters <em>/<br>  assert_param(IS_RCC_PLL(RCC_OscInitStruct-&gt;PLL.PLLState));<br>  if ((RCC_OscInitStruct-&gt;PLL.PLLState) != RCC_PLL_NONE)<br>  {<br>    /\</em> Check if the PLL is used as system clock or not */<br>    if(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)<br>    { </p>
+<p>解法：</p>
+<pre><code>      }
+    }
+  }
+}
+else
+{
+  //return HAL_ERROR;  
+}</code></pre><p>  }</p>
+<p>  return HAL_OK;</p>
+<p>或者在重新配置前调用HAL_RCC_DeInit();</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/27/e8-b0-83-e7-94-a8systemclock-config-e5-8d-a1-e6-ad-bb-e9-97-ae-e9-a2-98/" data-id="ck7y4s342005w61471gd43nl9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-django-e5-bf-98-e8-ae-b0-e7-ae-a1-e7-90-86-e5-91-98-e8-b4-a6-e5-8f-b7-e5-92-8c-e5-af-86-e7-a0-81-e5-a4-84-e7-90-86" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/27/django-e5-bf-98-e8-ae-b0-e7-ae-a1-e7-90-86-e5-91-98-e8-b4-a6-e5-8f-b7-e5-92-8c-e5-af-86-e7-a0-81-e5-a4-84-e7-90-86/" class="article-date">
+  <time datetime="2019-04-27T13:57:17.000Z" itemprop="datePublished">2019-04-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/27/django-e5-bf-98-e8-ae-b0-e7-ae-a1-e7-90-86-e5-91-98-e8-b4-a6-e5-8f-b7-e5-92-8c-e5-af-86-e7-a0-81-e5-a4-84-e7-90-86/">django忘记管理员账号和密码处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、忘记密码：</p>
+<p>1 &gt;&gt;&gt; from django.contrib.auth.models import User </p>
+<p>2 &gt;&gt;&gt; user = User.object.get(username=’your_account’) </p>
+<p>3 &gt;&gt;&gt; user.set_password(‘your_new_password’) </p>
+<p>4 &gt;&gt;&gt; user.save() </p>
+<p>5 &gt;&gt;&gt; quit()</p>
+<p>2、忘记账号：</p>
+<p><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p>1 &gt;&gt;&gt; from django.contrib.auth.models import User </p>
+<p>2 &gt;&gt;&gt; user = User.object.get(pk=1) </p>
+<p>3 &gt;&gt;&gt; user </p>
+<p>4 &lt;User: you_account&gt; </p>
+<p>5 &gt;&gt;&gt; user.set_password(‘your_new_password’) </p>
+<p>6 &gt;&gt;&gt; user.save() </p>
+<p>7 &gt;&gt;&gt; quit()</p>
+<p><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p>3、新建管理员账号：</p>
+<p>1 python manage.py createsuperuser </p>
+<p>2 Username (leave blank to use ‘administrator’): user01 </p>
+<p>3 Email address: (在这里输入你的自己的邮箱帐号) </p>
+<p>4 Password: </p>
+<p>5 Password (again):</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/27/django-e5-bf-98-e8-ae-b0-e7-ae-a1-e7-90-86-e5-91-98-e8-b4-a6-e5-8f-b7-e5-92-8c-e5-af-86-e7-a0-81-e5-a4-84-e7-90-86/" data-id="ck7y4s326003s61471q6p7285" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/" rel="tag">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

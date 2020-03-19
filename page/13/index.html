@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/13/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-pt-e4-bb-a3-e7-a0-81-e5-ae-9e-e9-aa-8c-e4-b8-80" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/24/pt-e4-bb-a3-e7-a0-81-e5-ae-9e-e9-aa-8c-e4-b8-80/" class="article-date">
+  <time datetime="2017-12-24T10:37:15.000Z" itemprop="datePublished">2017-12-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/open-source/">open source</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/24/pt-e4-bb-a3-e7-a0-81-e5-ae-9e-e9-aa-8c-e4-b8-80/">pt代码实验一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>pt是一种比较实用的状态机，代码实现起来的效果类似与OS，本文记录体验pt源码中的demo，example-small 例程。 源码下载： [repo owner=”notrynohigh” name=”pt”] example-small的大致结构如下： <code>static int protothread1(struct pt *pt) { PT_BEGIN(pt); while(1) { PT_WAIT_UNTIL(pt, protothread2_flag != 0); printf(&quot;Protothread 1 running\n&quot;); protothread2_flag = 0; protothread1_flag = 1; } PT_END(pt); } static int protothread2(struct pt *pt) { PT_BEGIN(pt); while(1) { protothread2_flag = 1; PT_WAIT_UNTIL(pt, protothread1_flag != 0); printf(&quot;Protothread 2 running\n&quot;); protothread1_flag = 0; } PT_END(pt); } static struct pt pt1, pt2; int main(void) { PT_INIT(&amp;pt1); PT_INIT(&amp;pt2); while(1) { protothread1(&amp;pt1); protothread2(&amp;pt2); } }</code> 暂且称protothread1和protothread2为两个线程。这个例子的效果是交替打印 protothread 1 running 和 protothread 2 running 使用pt时，每个线程需要一个struct pt的变量做状态机。 在本例子中，pt1和pt2分别给两个线程使用。在使用之前利用PT_INIT初始化变量。 看看线程里的代码结构，在函数的开始和结尾处分别是PT_BEGIN和PT_END,这种结构属于使用pt必须的结构。 在两个线程的代码中都用到了PT_WAIT_UNTIL来等待一个状态即 “protothread1_flag != 0” 和 “protothread2_flag != 0” 在这个状态为false时直接返回，当为true是继续往下执行。 根据代码中的宏展开，以protothread1为例，展开后就比较好理解： <code>static int protothread2(struct pt *pt) { char PT_YIELD_FLAG = 1; switch((pt)-&gt;lc) { case 0: while(1) { protothread2_flag = 1; do { LC_SET((pt)-&gt;lc); (pt)-&gt;lc = __LINE__; case __LINE__: if(!(condition)) { return PT_WAITING; } } while(0); PT_WAIT_UNTIL(pt, protothread1_flag != 0); printf(&quot;Protothread 2 running\n&quot;); protothread1_flag = 0; } } }</code> 采用switch case的结构完成状态机的实现。获取等待地方的行号，下次通过switch直接跳转过去。具体的代码可以查看pt.h lc.h lc-switch.h 有兴趣的可以看看。执行效果如下： <code>Protothread 2 running Protothread 1 running Protothread 2 running ..... Protothread 1 running Protothread 2 running Protothread 1 running</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/24/pt-e4-bb-a3-e7-a0-81-e5-ae-9e-e9-aa-8c-e4-b8-80/" data-id="ck7y4s365009a614713e6dqh8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pt/" rel="tag">pt</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rc4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/24/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rc4/" class="article-date">
+  <time datetime="2017-12-24T01:34:07.000Z" itemprop="datePublished">2017-12-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/24/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rc4/">对称加密算法RC4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RC4也是比较适用于流加密。整个加密解密过程基于一个256字节的SBOX。<br><strong>加密解密之前都需要初始化SBOX</strong>。而初始化SBOX是基于密钥的。</p>
+<p><code>RC4_ErrorCode_t RC4_InitSBox(RC4_U8 *key, RC4_U32 keylen)  
+{  
+RC4_U16 i = 0;  
+RC4_U8 j = 0;  
+if(gSBox == RC4_NULL || key == RC4_NULL || keylen == 0)  
+{  
+return RC4_ERROR;  
+}  
+for(i = 0;i &lt; 256;i++)  
+{  
+gSBox[i] = (RC4_U8)i;  
+}</code></p>
+<p>for(i = 0;i &lt; 256;i++)<br>{<br>j += gSBox[i] + key[i % keylen];<br>RC4_SwapByte(&amp;gSBox[i], &amp;gSBox[j]);<br>}<br>return RC4_SUCCESS;<br>}  </p>
+<p>SBOX的初始化是基于密钥的，而每次加密解密都需要初始化SBOX，所以在每轮的加密解密前密钥是可变的。对比TEA加密，RC4不是分组加密，同时RC4也是与原数据共用BUF。<br>加密解密用同一个API：<br><code>RC4_ErrorCode_t RC4_EncryptDecrypt(RC4_U8 *text, RC4_U8 *result, RC4_U32 text_len);</code><br>[repo owner=”notrynohigh” name=”RC4”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/24/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rc4/" data-id="ck7y4s32w004v61479jra59h3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95tea" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/23/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95tea/" class="article-date">
+  <time datetime="2017-12-23T11:53:05.000Z" itemprop="datePublished">2017-12-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/23/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95tea/">对称加密算法TEA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MCU在进行数据流传输时，为了不是明码传输会采用加密算法来给数据加密。本站之前有一篇介绍RSA非对称加密的文章。相比非对称加密，TEA对称加密算法代码实现比较简单，使用起来更加方便。 TEA加密算法是采用16bytes公共密钥进行加密解密。看如下加密过程的代码： <code>static TEA_ErrorCode_t TEA_EncryptGroup(TEA_U32 *text, TEA_U32 *key) { TEA_U32 sum = 0, v0 = text[0], v1 = text[1]; TEA_U32 k0 = key[0], k1 = key[1], k2 = key[2], k3 = key[3]; TEA_U8 i = 0; if(text == TEA_NULL || key == TEA_NULL) { return TEA_ERROR; } for(i = 0;i &lt; gTEA_EncryptTimes;i++) { sum += TEA_DELTA; v0 += (v1 &lt;&lt; 4) + k0 ^ v1 + sum ^ (v1 &gt;&gt; 5) + k1; v1 += (v0 &lt;&lt; 4) + k2 ^ v0 + sum ^ (v0 &gt;&gt; 5) + k3; } text[0] = v0; text[1] = v1; return TEA_SUCCESS; }</code> TEA加密算法是将原始数据分组进行加密，每组8个字节。对8个字节进行gTEA_EncryptTimes次的循环处理。那么可以看出gTEA_EncryptTimes也确定了加密的深度。所以提供两个API给用户设置公共密钥和加密的轮数。 <code>TEA_ErrorCode_t TEA_Config128bitsKey(TEA_U8 *key); TEA_ErrorCode_t TEA_ConfigEncryptTimes(TEA_U8 t);</code> 原始数据和加密后的数据都使用同一个buf，所以相对来说比较节省空间。解密过程也是加密的一个逆循环，如下所示： <code>static TEA_ErrorCode_t TEA_DecryptGroup(TEA_U32 *text, TEA_U32 *key) { TEA_U32 sum = TEA_DELTA * gTEA_EncryptTimes, v0 = text[0], v1 = text[1]; TEA_U32 k0 = key[0], k1 = key[1], k2 = key[2], k3 = key[3]; TEA_U8 i = 0; if(text == TEA_NULL || key == TEA_NULL) { return TEA_ERROR; } for(i = 0;i &lt; gTEA_EncryptTimes;i++) { v1 -= (v0 &lt;&lt; 4) + k2 ^ v0 + sum ^ (v0 &gt;&gt; 5) + k3; v0 -= (v1 &lt;&lt; 4) + k0 ^ v1 + sum ^ (v1 &gt;&gt; 5) + k1; sum -= TEA_DELTA; } text[0] = v0; text[1] = v1; return TEA_SUCCESS; }</code> 解密过程同样是分组进行，每组8个字节。上面贴的都是分组的处理过程，下面两个API才是给用户调用进行加密解密： <code>TEA_ErrorCode_t TEA_Encrypt(TEA_U8 *text, TEA_U32 size); TEA_ErrorCode_t TEA_Decrypt(TEA_U8 *text, TEA_U32 size);</code> TEA算法比较好实现，但是唯一觉得疙瘩的地方就是每次分组处理需要8个字节，那么原数据的长度不是8的整数倍数则需要再处理。git的代码是将8字节以下的原数据直接忽略。大于8字节的数据，不能被8整除的部分也忽略。8整倍数的数据加密，余下的不加密个人也可以接受。如果网友有更好的处理或者是好意见，欢迎指教！ [repo owner=”notrynohigh” name=”TEA”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/23/e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95tea/" data-id="ck7y4s330004y614729061w2q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-9e-84-e6-83-b3-e9-80-82-e5-90-88mcu-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93bfdb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/22/e6-9e-84-e6-83-b3-e9-80-82-e5-90-88mcu-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93bfdb/" class="article-date">
+  <time datetime="2017-12-22T13:59:29.000Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/bFDB/">bFDB</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/22/e6-9e-84-e6-83-b3-e9-80-82-e5-90-88mcu-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93bfdb/">构想适合MCU的数据库bFDB</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一直以来都想着有没有一个能适用于MCU的数据库代码，数据存储在外部的SPIFLASH中，提供数据的，查询、增加、删除、修改。同时考虑FLASH的磨损均衡问题。 具体的思路还在构思，感觉是很有意思的一件事，如果有这方面的想法或者有意一起coding的，欢迎加入，将联系方式通过评论给我，或者是发送邮件至 <a href="mailto:notrynohigh@outlook.com">notrynohigh@outlook.com</a> 有任何进展会在此站与大家分享。 暂时只是创建了一个代码仓库，并未添加代码，有兴趣的可以基于此一起开发！！！！ [repo owner=”notrynohigh” name=”bFDB”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/22/e6-9e-84-e6-83-b3-e9-80-82-e5-90-88mcu-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93bfdb/" data-id="ck7y4s33d00576147e3jt7odc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-bmenu-e4-bb-a3-e7-a0-81v0-0-2-e8-ae-a1-e5-88-92" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/22/bmenu-e4-bb-a3-e7-a0-81v0-0-2-e8-ae-a1-e5-88-92/" class="article-date">
+  <time datetime="2017-12-22T13:28:47.000Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/bMenu/">bMenu</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/22/bmenu-e4-bb-a3-e7-a0-81v0-0-2-e8-ae-a1-e5-88-92/">bMenu代码V0.0.2计划</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通用的菜单代码bMenu，主要目的是以简单明了的方式创建多级菜单，并提供相应的API以及常用的功能。虽然V0.0.1版本已经发出，但是没有应用在具体的项目中。 对于V0.0.1的介绍，可以查看本站中另一篇博文。<a href="http://www.yourmcu.com/blog/2017/12/21/%E9%80%9A%E7%94%A8%E5%9E%8B%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95%E8%AE%BE%E8%AE%A1%E4%BB%A3%E7%A0%81bmenu/" target="_blank" rel="noopener">bMenu介绍</a> 在此做简短的总结： 1、可通过API进行多级菜单的创建，菜单结构可以直观的体现。 2、支持同时创建多个菜单结构，指定菜单入口来确定最终使用的结构。 3、支持动态的隐藏和显示某个菜单页面。 4、菜单切换提供的API支持：左右切换，进入子菜单，返回父菜单，跳转到指定页面 在使用过程中如果碰到bug，将及时更新，可以关注git的动态。同时也会在本站发文说明。 ————————————————————————————- 在此准备下一版的规划： 1、菜单切换提供的API支持：左右上下切换，进入子菜单，返回父菜单，跳转指定页面。 2、动态调整同级菜单的位置 3、动态增加、删除菜单页面 4、完善V0.0.1中代码不合理地方 ————————————————————————————– 有什么好建议的可以在本文下面评论。 愿意一起开发下一版代码的，可以clone代码后一起开发。有任何进展和想法在此站同步更新。 [repo owner=”notrynohigh” name=”bMenu”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/22/bmenu-e4-bb-a3-e7-a0-81v0-0-2-e8-ae-a1-e5-88-92/" data-id="ck7y4s31q00376147gjx2he8m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-9d-9e-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rsa" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/21/e9-9d-9e-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rsa/" class="article-date">
+  <time datetime="2017-12-21T13:35:09.000Z" itemprop="datePublished">2017-12-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/21/e9-9d-9e-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rsa/">非对称加密算法RSA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>加密算法中非对称算法觉得RSA更好理解，同时代码实现起来不繁琐。关于RSA算法的介绍，推荐一个链接讲解的非常详细生动：<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="noopener">RSA算法原理介绍</a> 总的来说分为如下几部： 一、没有公共密码和私有密码时需要产生这两种密码： 产生的过程可以看上面的链接。下面展示代码中的接口： <code>RSA_ErrorCode_t RSA_CreateKey(RSA_U32 prime_1, RSA_U32 prime_2, RSA_U32 e);</code> 参数1 参数2是 随机选取的两个质数。 参数3是通过prime_1和prime_2进过计算后得出的值与1之间的一个质数。如果不确定这个范围是多少，可以先填写0。 执行此接口函数时会提示第三个参数需要在哪个范围内取值。 二、有公共密码和私有密码后配置，接口函数： <code>RSA_ErrorCode_t RSA_ConfigPublicKey(RSA_U32 n, RSA_U32 e); RSA_ErrorCode_t RSA_ConfigPrivateKey(RSA_U32 n, RSA_U32 d);</code> 三、开始加密解密，接口函数是： <code>/** * RSA encrypt * text: the data which you want to encrypt. * result: the result of this function * Len: the length of text . * return : the length of result . * 0 : error */ RSA_U32 RSA_Encrypt(RSA_U8 *text , RSA_U8 *result, RSA_U32 len); /** * RSA decrypt * text: the data which you want to decrypt. * result: the result of this function * Len: the length of text . * return : the length of result . * 0 : error */ RSA_U32 RSA_Decrypt(RSA_U8 *text, RSA_U8 *result, RSA_U32 len);</code> RSA算法还是非常安全，在单片机应用场景来说比较耗时同时比较耗内存。 如果有网友看到这篇文章，可以试试加密的耗时是多少. thanks ! [repo owner=”notrynohigh” name=”RSA”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/21/e9-9d-9e-e5-af-b9-e7-a7-b0-e5-8a-a0-e5-af-86-e7-ae-97-e6-b3-95rsa/" data-id="ck7y4s34i006p61470ivf20kx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-80-9a-e7-94-a8-e5-9e-8b-e5-a4-9a-e7-ba-a7-e8-8f-9c-e5-8d-95-e8-ae-be-e8-ae-a1-e4-bb-a3-e7-a0-81bmenu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/21/e9-80-9a-e7-94-a8-e5-9e-8b-e5-a4-9a-e7-ba-a7-e8-8f-9c-e5-8d-95-e8-ae-be-e8-ae-a1-e4-bb-a3-e7-a0-81bmenu/" class="article-date">
+  <time datetime="2017-12-21T09:01:07.000Z" itemprop="datePublished">2017-12-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/bMenu/">bMenu</a>►<a class="article-category-link" href="/categories/bMenu/open-source/">open source</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/21/e9-80-9a-e7-94-a8-e5-9e-8b-e5-a4-9a-e7-ba-a7-e8-8f-9c-e5-8d-95-e8-ae-be-e8-ae-a1-e4-bb-a3-e7-a0-81bmenu/">通用型多级菜单设计代码bMenu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有很多多级菜单设计的代码，一般都是先创建一个结构体数组，将每个界面编号后，放在结构体数组中。我觉得可以设计一种更加优雅的方式，提高移植性，于是有了现在的代码 主要思路： 1、每一级菜单称为object， 当级菜单的页面为 item 对应接口： <code>bM_OBJ_Handle bM_CreateObject(bM_ITEM_Handle hParent, bM_ID id); bM_ITEM_Handle bM_AddItemToObject(bM_OBJ_Handle hobj, bM_ID id, bM_CreateUI_t func);</code> 2、下一级菜单一定是基于上一级菜单的某个子页面。这样就可以理解在上面的接口中bM_CreateObject的一个入口参数 hParent就是指定上级菜单的子页面。 3、创建object和item都需要指定用户得id。在添加item到object时可以指定显示界面的功能函数。 4、根据功能的不同，有些情况下需要动态的隐藏和显示某个界面。则可以通过如下接口： <code>bM_Result_t bM_ChangeVisibleStatus(bM_ID id, bM_bool_t visible);</code> 5、有些项目需要动态更换整个菜单结构，可以提前创建多个菜单结构后，通过下面接口指定当前使用哪一个。 <code>bM_Result_t bM_SetMenuEntryPoint(bM_OBJ_Handle hobj);</code> 例如，创建4级菜单： <code>item1----item2-----item3-----item4 | item5----item6----item7 | item8--item9 | item10</code> 细化为： <code>object1 {item1----item2----item3----item4} object2 {item5----item6----item7} object3 {item8----item9} object4 {item10}</code> 准备用户id： <code>enum { USER_ID_OBJECT_1, USER_ID_ITEM1, USER_ID_ITEM2, USER_ID_ITME3, USER_ID_ITEM4, USER_ID_OBJECT_2, USER_ID_ITEM5, USER_ID_ITEM6, USER_ID_ITEM7, USER_ID_OBJECT_3, USER_ID_ITEM8, USER_ID_ITEM9, USER_ID_OBJECT_4, USER_ID_ITEM10 };</code> 开始创建菜单结构： <code>example_func { bM_OBJ_Handle hobj, hobj_tmp; bM_ITEM_Handle hItem; hobj = bM_CreateObject(bM_HANDLE_INVALID, USER_ID_OBJECT_1); //一级菜单 bM_AddItemToObject(hobj, USER_ID_ITEM1, func1); hItem = bM_AddItemToObject(hobj, USER_ID_ITEM2, func2); bM_AddItemToObject(hobj, USER_ID_ITME3, func3); bM_AddItemToObject(hobj, USER_ID_ITEM4, func4); hobj_tmp = bM_CreateObject(hItem, USER_ID_OBJECT_2); //二级菜单 bM_AddItemToObject(hobj_tmp, USER_ID_ITEM5, func5); hItem = bM_AddItemToObject(hobj_tmp, USER_ID_ITEM6, func6); bM_AddItemToObject(hobj_tmp, USER_ID_ITEM7, func7); hobj_tmp = bM_CreateObject(hItem, USER_ID_OBJECT_3); //三级菜单 hItem = bM_AddItemToObject(hobj_tmp, USER_ID_ITEM8, func8); bM_AddItemToObject(hobj_tmp, USER_ID_ITEM9, func9); hobj_tmp = bM_CreateObject(hItem, USER_ID_OBJECT_4); //四级菜单 bM_AddItemToObject(hobj_tmp, USER_ID_ITEM10, func10); //then set the entry point: bM_SetMenuEntryPoint(hobj); //指定当前的菜单结构入口 }</code> 结构创建好后，需要工作起来，则在主循环里调用： <code>void bM_BMenuModuleTask(void);</code> 需要切换界面时： <code>bM_Result_t bM_SendMessage(bM_Operation_t opt, bM_ID id);</code> 例如： <code>bM_SendMessage(BM_OPERATE_NEXT, 0); // to show the next item bM_SendMessage(BM_OPERATE_JUMP_TO, USER_ID_ITEM5); //to show the item5</code> 当然在开始使用前需要调用初始化函数指定malloc和free接口 <code>bM_Result_t bM_Init(bM_DMC_Interface_t bM_DMC_Interface);</code> [repo owner=”notrynohigh” name=”bMenu”]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/21/e9-80-9a-e7-94-a8-e5-9e-8b-e5-a4-9a-e7-ba-a7-e8-8f-9c-e5-8d-95-e8-ae-be-e8-ae-a1-e4-bb-a3-e7-a0-81bmenu/" data-id="ck7y4s34e006i6147ff5t31fa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/12/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

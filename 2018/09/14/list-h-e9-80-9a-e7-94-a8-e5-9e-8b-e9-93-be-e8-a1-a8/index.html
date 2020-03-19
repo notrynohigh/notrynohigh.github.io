@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>list.h通用型链表 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为了避免插入和删除的线性开销，我们允许表可以不连续存储，否则标的部分或者全部需要整体移动。 首先想到的是Linux源码下，路径好像是&#x2F;include&#x2F;linux&#x2F;list.h 不同版本可能不同： &#x2F;* SPDX-License-Identifier: GPL-2.0 *&#x2F;#ifndef _LINUX_LIST_H#define _LINUX_LIST_H #include “stdint.h” #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="list.h通用型链表">
+<meta property="og:url" content="http://yoursite.com/2018/09/14/list-h-e9-80-9a-e7-94-a8-e5-9e-8b-e9-93-be-e8-a1-a8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="为了避免插入和删除的线性开销，我们允许表可以不连续存储，否则标的部分或者全部需要整体移动。 首先想到的是Linux源码下，路径好像是&#x2F;include&#x2F;linux&#x2F;list.h 不同版本可能不同： &#x2F;* SPDX-License-Identifier: GPL-2.0 *&#x2F;#ifndef _LINUX_LIST_H#define _LINUX_LIST_H #include “stdint.h” #">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/wp-content/uploads/2018/09/20180914194909_28446.png">
+<meta property="article:published_time" content="2018-09-14T11:49:42.000Z">
+<meta property="article:modified_time" content="2020-03-19T02:23:33.865Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="链表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/wp-content/uploads/2018/09/20180914194909_28446.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-list-h-e9-80-9a-e7-94-a8-e5-9e-8b-e9-93-be-e8-a1-a8" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/14/list-h-e9-80-9a-e7-94-a8-e5-9e-8b-e9-93-be-e8-a1-a8/" class="article-date">
+  <time datetime="2018-09-14T11:49:42.000Z" itemprop="datePublished">2018-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      list.h通用型链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为了避免插入和删除的线性开销，我们允许表可以不连续存储，否则标的部分或者全部需要整体移动。</p>
+<p>首先想到的是Linux源码下，路径好像是/include/linux/list.h</p>
+<p>不同版本可能不同：</p>
+<p>/* SPDX-License-Identifier: GPL-2.0 */<br>#ifndef _LINUX_LIST_H<br>#define _LINUX_LIST_H</p>
+<p>#include “stdint.h”</p>
+<p>#define false   FALSE<br>#define true    TRUE</p>
+<p>struct list_head {<br>    struct list_head *next, *prev;<br>};</p>
+<p>typedef struct list_head list_head_t;</p>
+<p>#define LIST_POISON1    ((void *)0)<br>#define LIST_POISON2    ((void *)0)</p>
+<p>#ifndef NULL<br>#define NULL    ((void *)0)<br>#endif</p>
+<p>#define LIST_GET_STRUCT(type, name, pnode)   (type *)(((uint32_t)pnode) - ((uint32_t)(&amp;(((type *)0)-&gt;name))))  </p>
+<p>/*<br> * Simple doubly linked list implementation.<br> *<br> * Some of the internal functions (“__xxx”) are useful when<br> * manipulating whole lists rather than single entries, as<br> * sometimes we already know the next/prev entries and we can<br> * generate better code by using them directly rather than<br> * using the generic single-entry routines.<br> */</p>
+<p>#define LIST_HEAD_INIT(name) { &amp;(name), &amp;(name) }</p>
+<p>#define LIST_HEAD(name) <br>    struct list_head name = LIST_HEAD_INIT(name)</p>
+<p>static inline void INIT_LIST_HEAD(struct list_head *list)<br>{<br>    list-&gt;next = list;<br>    list-&gt;prev = list;<br>}</p>
+<p>#ifdef CONFIG_DEBUG_LIST<br>extern bool __list_add_valid(struct list_head *new,<br>                  struct list_head *prev,<br>                  struct list_head *next);<br>extern bool __list_del_entry_valid(struct list_head *entry);<br>#else<br>static inline bool __list_add_valid(struct list_head *new,<br>                struct list_head *prev,<br>                struct list_head *next)<br>{<br>    return true;<br>}<br>static inline bool __list_del_entry_valid(struct list_head *entry)<br>{<br>    return true;<br>}<br>#endif</p>
+<p>/*<br> * Insert a new entry between two known consecutive entries.<br> *<br> * This is only for internal list manipulation where we know<br> * the prev/next entries already!<br> */<br>static inline void __list_add(struct list_head *new,<br>                  struct list_head *prev,<br>                  struct list_head *next)<br>{<br>    if (!__list_add_valid(new, prev, next))<br>        return;</p>
+<pre><code>next-&gt;prev = new;
+new-&gt;next = next;
+new-&gt;prev = prev;
+prev-&gt;next = new;</code></pre><p>}</p>
+<p>/**<br> * list_add - add a new entry<br> * @new: new entry to be added<br> * @head: list head to add it after<br> *<br> * Insert a new entry after the specified head.<br> * This is good for implementing stacks.<br> <em>/<br>static inline void list_add(struct list_head \</em>new, struct list_head *head)<br>{<br>    __list_add(new, head, head-&gt;next);<br>}</p>
+<p>/**<br> * list_add_tail - add a new entry<br> * @new: new entry to be added<br> * @head: list head to add it before<br> *<br> * Insert a new entry before the specified head.<br> * This is useful for implementing queues.<br> <em>/<br>static inline void list_add_tail(struct list_head \</em>new, struct list_head *head)<br>{<br>    __list_add(new, head-&gt;prev, head);<br>}</p>
+<p>/*<br> * Delete a list entry by making the prev/next entries<br> * point to each other.<br> *<br> * This is only for internal list manipulation where we know<br> * the prev/next entries already!<br> */<br>static inline void __list_del(struct list_head * prev, struct list_head * next)<br>{<br>    next-&gt;prev = prev;<br>    prev-&gt;next = next;<br>}</p>
+<p>/**<br> * list_del - deletes entry from list.<br> * @entry: the element to delete from the list.<br> * Note: list_empty() on entry does not return true after this, the entry is<br> * in an undefined state.<br> */<br>static inline void __list_del_entry(struct list_head *entry)<br>{<br>    if (!__list_del_entry_valid(entry))<br>        return;</p>
+<pre><code>\_\_list\_del(entry-&gt;prev, entry-&gt;next);</code></pre><p>}</p>
+<p>static inline void list_del(struct list_head *entry)<br>{<br>    __list_del_entry(entry);<br>    entry-&gt;next = LIST_POISON1;<br>    entry-&gt;prev = LIST_POISON2;<br>}</p>
+<p>/**<br> * list_replace - replace old entry by new one<br> * @old : the element to be replaced<br> * @new : the new element to insert<br> *<br> * If @old was empty, it will be overwritten.<br> */<br>static inline void list_replace(struct list_head *old,<br>                struct list_head *new)<br>{<br>    new-&gt;next = old-&gt;next;<br>    new-&gt;next-&gt;prev = new;<br>    new-&gt;prev = old-&gt;prev;<br>    new-&gt;prev-&gt;next = new;<br>}</p>
+<p>static inline void list_replace_init(struct list_head *old,<br>                    struct list_head *new)<br>{<br>    list_replace(old, new);<br>    INIT_LIST_HEAD(old);<br>}</p>
+<p>/**<br> * list_del_init - deletes entry from list and reinitialize it.<br> * @entry: the element to delete from the list.<br> */<br>static inline void list_del_init(struct list_head *entry)<br>{<br>    __list_del_entry(entry);<br>    INIT_LIST_HEAD(entry);<br>}</p>
+<p>/**<br> * list_move - delete from one list and add as another’s head<br> * @list: the entry to move<br> * @head: the head that will precede our entry<br> <em>/<br>static inline void list_move(struct list_head \</em>list, struct list_head *head)<br>{<br>    __list_del_entry(list);<br>    list_add(list, head);<br>}</p>
+<p>/**<br> * list_move_tail - delete from one list and add as another’s tail<br> * @list: the entry to move<br> * @head: the head that will follow our entry<br> */<br>static inline void list_move_tail(struct list_head *list,<br>                  struct list_head *head)<br>{<br>    __list_del_entry(list);<br>    list_add_tail(list, head);<br>}</p>
+<p>/**<br> * list_is_last - tests whether @list is the last entry in list @head<br> * @list: the entry to test<br> * @head: the head of the list<br> */<br>static inline int list_is_last(const struct list_head *list,<br>                const struct list_head *head)<br>{<br>    return list-&gt;next == head;<br>}</p>
+<p>/**<br> * list_empty - tests whether a list is empty<br> * @head: the list to test.<br> */<br>static inline int list_empty(const struct list_head *head)<br>{<br>    return (head-&gt;next == head);<br>}</p>
+<p>/**<br> * list_empty_careful - tests whether a list is empty and not being modified<br> * @head: the list to test<br> *<br> * Description:<br> * tests whether a list is empty _and_ checks that no other CPU might be<br> * in the process of modifying either member (next or prev)<br> *<br> * NOTE: using list_empty_careful() without synchronization<br> * can only be safe if the only activity that can happen<br> * to the list entry is list_del_init(). Eg. it cannot be used<br> * if another CPU could re-list_add() it.<br> */<br>static inline int list_empty_careful(const struct list_head *head)<br>{<br>    struct list_head *next = head-&gt;next;<br>    return (next == head) &amp;&amp; (next == head-&gt;prev);<br>}</p>
+<p>/**<br> * list_rotate_left - rotate the list to the left<br> * @head: the head of the list<br> */<br>static inline void list_rotate_left(struct list_head *head)<br>{<br>    struct list_head *first;</p>
+<pre><code>if (!list_empty(head)) {
+    first = head-&gt;next;
+    list\_move\_tail(first, head);
+}</code></pre><p>}</p>
+<p>/**<br> * list_is_singular - tests whether a list has just one entry.<br> * @head: the list to test.<br> */<br>static inline int list_is_singular(const struct list_head *head)<br>{<br>    return !list_empty(head) &amp;&amp; (head-&gt;next == head-&gt;prev);<br>}</p>
+<p>static inline void __list_cut_position(struct list_head <em>list,<br>        struct list_head \</em>head, struct list_head *entry)<br>{<br>    struct list_head *new_first = entry-&gt;next;<br>    list-&gt;next = head-&gt;next;<br>    list-&gt;next-&gt;prev = list;<br>    list-&gt;prev = entry;<br>    entry-&gt;next = list;<br>    head-&gt;next = new_first;<br>    new_first-&gt;prev = head;<br>}</p>
+<p>/**<br> * list_cut_position - cut a list into two<br> * @list: a new list to add all removed entries<br> * @head: a list with entries<br> * @entry: an entry within head, could be the head itself</p>
+<ul>
+<li>and if so we won’t cut the list<br>*<br>* This helper moves the initial part of @head, up to and<br>* including @entry, from @head to @list. You should<br>* pass on @entry an element you know is on @head. @list<br>* should be an empty list or a list you do not care about<br>* losing its data.</li>
+<li></li>
+<li>/<br>static inline void list_cut_position(struct list_head *list,<pre><code>struct list\_head \*head, struct list\_head \*entry)</code></pre>{<br>  if (list_empty(head))<pre><code>return;</code></pre>  if (list_is_singular(head) &amp;&amp;<pre><code>(head-&gt;next != entry &amp;&amp; head != entry))
+return;</code></pre>  if (entry == head)<pre><code>INIT\_LIST\_HEAD(list);</code></pre>  else<pre><code>\_\_list\_cut_position(list, head, entry);</code></pre>}</li>
+</ul>
+<p>static inline void __list_splice(const struct list_head *list,<br>                 struct list_head *prev,<br>                 struct list_head *next)<br>{<br>    struct list_head *first = list-&gt;next;<br>    struct list_head *last = list-&gt;prev;</p>
+<pre><code>first-&gt;prev = prev;
+prev-&gt;next = first;
+
+last-&gt;next = next;
+next-&gt;prev = last;</code></pre><p>}</p>
+<p>/**<br> * list_splice - join two lists, this is designed for stacks<br> * @list: the new list to add.<br> * @head: the place to add it in the first list.<br> */<br>static inline void list_splice(const struct list_head *list,<br>                struct list_head *head)<br>{<br>    if (!list_empty(list))<br>        __list_splice(list, head, head-&gt;next);<br>}</p>
+<p>/**<br> * list_splice_tail - join two lists, each list being a queue<br> * @list: the new list to add.<br> * @head: the place to add it in the first list.<br> */<br>static inline void list_splice_tail(struct list_head *list,<br>                struct list_head *head)<br>{<br>    if (!list_empty(list))<br>        __list_splice(list, head-&gt;prev, head);<br>}</p>
+<p>/**<br> * list_splice_init - join two lists and reinitialise the emptied list.<br> * @list: the new list to add.<br> * @head: the place to add it in the first list.<br> *<br> * The list at @list is reinitialised<br> */<br>static inline void list_splice_init(struct list_head *list,<br>                    struct list_head *head)<br>{<br>    if (!list_empty(list)) {<br>        __list_splice(list, head, head-&gt;next);<br>        INIT_LIST_HEAD(list);<br>    }<br>}</p>
+<p>/**<br> * list_splice_tail_init - join two lists and reinitialise the emptied list<br> * @list: the new list to add.<br> * @head: the place to add it in the first list.<br> *<br> * Each of the lists is a queue.<br> * The list at @list is reinitialised<br> */<br>static inline void list_splice_tail_init(struct list_head *list,<br>                     struct list_head *head)<br>{<br>    if (!list_empty(list)) {<br>        __list_splice(list, head-&gt;prev, head);<br>        INIT_LIST_HEAD(list);<br>    }<br>}</p>
+<p>/**<br> * list_entry - get the struct for this entry<br> * @ptr:    the &amp;struct list_head pointer.<br> * @type:    the type of the struct this is embedded in.<br> * @member:    the name of the list_head within the struct.<br> */<br>#define list_entry(ptr, type, member) <br>    container_of(ptr, type, member)</p>
+<p>/**<br> * list_first_entry - get the first element from a list<br> * @ptr:    the list head to take the element from.<br> * @type:    the type of the struct this is embedded in.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Note, that list is expected to be not empty.<br> */<br>#define list_first_entry(ptr, type, member) <br>    list_entry((ptr)-&gt;next, type, member)</p>
+<p>/**<br> * list_last_entry - get the last element from a list<br> * @ptr:    the list head to take the element from.<br> * @type:    the type of the struct this is embedded in.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Note, that list is expected to be not empty.<br> */<br>#define list_last_entry(ptr, type, member) <br>    list_entry((ptr)-&gt;prev, type, member)</p>
+<p>/**<br> * list_first_entry_or_null - get the first element from a list<br> * @ptr:    the list head to take the element from.<br> * @type:    the type of the struct this is embedded in.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Note that if the list is empty, it returns NULL.<br> */<br>#define list_first_entry_or_null(ptr, type, member) ({ <br>    struct list_head *head__ = (ptr); <br>    struct list_head *pos__ = READ_ONCE(head__-&gt;next); <br>    pos__ != head__ ? list_entry(pos__, type, member) : NULL; <br>})</p>
+<p>/**<br> * list_next_entry - get the next element in list<br> * @pos:    the type * to cursor<br> * @member:    the name of the list_head within the struct.<br> <em>/<br>#define list_next_entry(pos, member) <br>    list_entry((pos)-&gt;member.next, typeof(</em>(pos)), member)</p>
+<p>/**<br> * list_prev_entry - get the prev element in list<br> * @pos:    the type * to cursor<br> * @member:    the name of the list_head within the struct.<br> <em>/<br>#define list_prev_entry(pos, member) <br>    list_entry((pos)-&gt;member.prev, typeof(</em>(pos)), member)</p>
+<p>/**<br> * list_for_each    -    iterate over a list<br> * @pos:    the &amp;struct list_head to use as a loop cursor.<br> * @head:    the head for your list.<br> */<br>#define list_for_each(pos, head) <br>    for (pos = (head)-&gt;next; pos != (head); pos = pos-&gt;next)</p>
+<p>/**<br> * list_for_each_prev    -    iterate over a list backwards<br> * @pos:    the &amp;struct list_head to use as a loop cursor.<br> * @head:    the head for your list.<br> */<br>#define list_for_each_prev(pos, head) <br>    for (pos = (head)-&gt;prev; pos != (head); pos = pos-&gt;prev)</p>
+<p>/**<br> * list_for_each_safe - iterate over a list safe against removal of list entry<br> * @pos:    the &amp;struct list_head to use as a loop cursor.<br> * @n:        another &amp;struct list_head to use as temporary storage<br> * @head:    the head for your list.<br> */<br>#define list_for_each_safe(pos, n, head) <br>    for (pos = (head)-&gt;next, n = pos-&gt;next; pos != (head); <br>        pos = n, n = pos-&gt;next)</p>
+<p>/**<br> * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry<br> * @pos:    the &amp;struct list_head to use as a loop cursor.<br> * @n:        another &amp;struct list_head to use as temporary storage<br> * @head:    the head for your list.<br> */<br>#define list_for_each_prev_safe(pos, n, head) <br>    for (pos = (head)-&gt;prev, n = pos-&gt;prev; <br>         pos != (head); <br>         pos = n, n = pos-&gt;prev)</p>
+<p>/**<br> * list_for_each_entry    -    iterate over list of given type<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> <em>/<br>#define list_for_each_entry(pos, head, member)                <br>    for (pos = list_first_entry(head, typeof(</em>pos), member);    <br>         &amp;pos-&gt;member != (head);                    <br>         pos = list_next_entry(pos, member))</p>
+<p>/**<br> * list_for_each_entry_reverse - iterate backwards over list of given type.<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> <em>/<br>#define list_for_each_entry_reverse(pos, head, member)            <br>    for (pos = list_last_entry(head, typeof(</em>pos), member);        <br>         &amp;pos-&gt;member != (head);                     <br>         pos = list_prev_entry(pos, member))</p>
+<p>/**<br> * list_prepare_entry - prepare a pos entry for use in list_for_each_entry_continue()<br> * @pos:    the type * to use as a start point<br> * @head:    the head of the list<br> * @member:    the name of the list_head within the struct.<br> *<br> * Prepares a pos entry for use as a start point in list_for_each_entry_continue().<br> <em>/<br>#define list_prepare_entry(pos, head, member) <br>    ((pos) ? : list_entry(head, typeof(</em>pos), member))</p>
+<p>/**<br> * list_for_each_entry_continue - continue iteration over list of given type<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Continue to iterate over list of given type, continuing after<br> * the current position.<br> */<br>#define list_for_each_entry_continue(pos, head, member)         <br>    for (pos = list_next_entry(pos, member);            <br>         &amp;pos-&gt;member != (head);                    <br>         pos = list_next_entry(pos, member))</p>
+<p>/**<br> * list_for_each_entry_continue_reverse - iterate backwards from the given point<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Start to iterate over list of given type backwards, continuing after<br> * the current position.<br> */<br>#define list_for_each_entry_continue_reverse(pos, head, member)        <br>    for (pos = list_prev_entry(pos, member);            <br>         &amp;pos-&gt;member != (head);                    <br>         pos = list_prev_entry(pos, member))</p>
+<p>/**<br> * list_for_each_entry_from - iterate over list of given type from the current point<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Iterate over list of given type, continuing from current position.<br> */<br>#define list_for_each_entry_from(pos, head, member)             <br>    for (; &amp;pos-&gt;member != (head);                    <br>         pos = list_next_entry(pos, member))</p>
+<p>/**<br> * list_for_each_entry_from_reverse - iterate backwards over list of given type<br> *                                    from the current point<br> * @pos:    the type * to use as a loop cursor.<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Iterate backwards over list of given type, continuing from current position.<br> */<br>#define list_for_each_entry_from_reverse(pos, head, member)        <br>    for (; &amp;pos-&gt;member != (head);                    <br>         pos = list_prev_entry(pos, member))</p>
+<p>/**<br> * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry<br> * @pos:    the type * to use as a loop cursor.<br> * @n:        another type * to use as temporary storage<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> <em>/<br>#define list_for_each_entry_safe(pos, n, head, member)            <br>    for (pos = list_first_entry(head, typeof(</em>pos), member),    <br>        n = list_next_entry(pos, member);            <br>         &amp;pos-&gt;member != (head);                     <br>         pos = n, n = list_next_entry(n, member))</p>
+<p>/**<br> * list_for_each_entry_safe_continue - continue list iteration safe against removal<br> * @pos:    the type * to use as a loop cursor.<br> * @n:        another type * to use as temporary storage<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Iterate over list of given type, continuing after current point,<br> * safe against removal of list entry.<br> */<br>#define list_for_each_entry_safe_continue(pos, n, head, member)         <br>    for (pos = list_next_entry(pos, member),                 <br>        n = list_next_entry(pos, member);                <br>         &amp;pos-&gt;member != (head);                        <br>         pos = n, n = list_next_entry(n, member))</p>
+<p>/**<br> * list_for_each_entry_safe_from - iterate over list from current point safe against removal<br> * @pos:    the type * to use as a loop cursor.<br> * @n:        another type * to use as temporary storage<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Iterate over list of given type from current point, safe against<br> * removal of list entry.<br> */<br>#define list_for_each_entry_safe_from(pos, n, head, member)             <br>    for (n = list_next_entry(pos, member);                    <br>         &amp;pos-&gt;member != (head);                        <br>         pos = n, n = list_next_entry(n, member))</p>
+<p>/**<br> * list_for_each_entry_safe_reverse - iterate backwards over list safe against removal<br> * @pos:    the type * to use as a loop cursor.<br> * @n:        another type * to use as temporary storage<br> * @head:    the head for your list.<br> * @member:    the name of the list_head within the struct.<br> *<br> * Iterate backwards over list of given type, safe against removal<br> * of list entry.<br> <em>/<br>#define list_for_each_entry_safe_reverse(pos, n, head, member)        <br>    for (pos = list_last_entry(head, typeof(</em>pos), member),        <br>        n = list_prev_entry(pos, member);            <br>         &amp;pos-&gt;member != (head);                     <br>         pos = n, n = list_prev_entry(n, member))</p>
+<p>/**<br> * list_safe_reset_next - reset a stale list_for_each_entry_safe loop<br> * @pos:    the loop cursor used in the list_for_each_entry_safe loop<br> * @n:        temporary storage used in list_for_each_entry_safe<br> * @member:    the name of the list_head within the struct.<br> *<br> * list_safe_reset_next is not safe to use in general if the list may be<br> * modified concurrently (eg. the lock is dropped in the loop body). An<br> * exception to this is if the cursor element (pos) is pinned in the list,<br> * and list_safe_reset_next is called after re-taking the lock and before<br> * completing the current iteration of the loop body.<br> */<br>#define list_safe_reset_next(pos, n, member)                <br>    n = list_next_entry(pos, member)</p>
+<p>#endif</p>
+<p>使用方法比较简单，提供了增减查询等操作，非常方便：</p>
+<p>typedef struct<br>{<br>    uint8_t  id;<br>    list_head_t node;<br>}list_struct_t;</p>
+<p>list_struct_t list_struct_head;</p>
+<pre><code>list\_struct\_t *pnode = NULL;
+list\_head\_t *ptmp_node = NULL;
+INIT\_LIST\_HEAD(&amp;list\_struct\_head.node);
+
+for(int i = 0;i &lt; 10;i++)
+{
+    pnode = (list\_struct\_t *)malloc(sizeof(list\_struct\_t));
+    if(pnode == NULL)
+    {
+       break;
+    }
+    pnode-&gt;id = i;
+    list\_add\_tail(&amp;pnode-&gt;node, &amp;list\_struct\_head.node);
+    pnode = NULL;
+}
+
+list\_for\_each(ptmp\_node, &amp;list\_struct_head.node)
+{
+    if(ptmp_node != NULL)
+    {
+        pnode = LIST\_GET\_STRUCT(list\_struct\_t, node, ptmp_node);
+    }
+    else
+    {
+        break;
+    }
+    uart1\_write\_ch(pnode-&gt;id);
+}</code></pre><p>结果如下：</p>
+<p><img src="/wp-content/uploads/2018/09/20180914194909_28446.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/14/list-h-e9-80-9a-e7-94-a8-e5-9e-8b-e9-93-be-e8-a1-a8/" data-id="ck7y4s357007o6147cpxkbs7r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/21/e9-80-92-e5-bd-92-e6-96-b9-e5-bc-8f-e5-ae-9e-e7-8e-b0-e5-ad-97-e7-ac-a6-e4-b8-b2-e6-af-94-e8-be-83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          递归方式实现字符串比较
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/13/e9-80-92-e5-bd-92-e7-ae-80-e8-ae-ba/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">递归简论</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BabyOS/">BabyOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E4%BB%A3%E7%A0%81/">C代码</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode/">LeetCode</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nordic/">Nordic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32/">STM32</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bFDB/">bFDB</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/">bMenu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bMenu/open-source/">open source</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-kv/">b_kv</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-log/">b_log</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/b-tp/">b_tp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/open-source/">open source</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">数据结构与算法分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/%E6%9D%82%E6%96%87/">杂文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E6%96%87/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/">算法图解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BabyOS/" rel="tag">BabyOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FATFS/" rel="tag">FATFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIC/" rel="tag">IIC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KEIL/" rel="tag">KEIL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PADS/" rel="tag">PADS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QT/" rel="tag">QT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RC4/" rel="tag">RC4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCC/" rel="tag">RCC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSA/" rel="tag">RSA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTT/" rel="tag">RTT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StarUML/" rel="tag">StarUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TEA/" rel="tag">TEA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U9300C/" rel="tag">U9300C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bFDB/" rel="tag">bFDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bMenu/" rel="tag">bMenu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-kv/" rel="tag">b_kv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-log/" rel="tag">b_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/b-tp/" rel="tag">b_tp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootloader/" rel="tag">bootloader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cjson/" rel="tag">cjson</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfu/" rel="tag">dfu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doxygen/" rel="tag">doxygen</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easylogger/" rel="tag">easylogger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hostapd/" rel="tag">hostapd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptable/" rel="tag">iptable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jlink/" rel="tag">jlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/log/" rel="tag">log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lora/" rel="tag">lora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdk/" rel="tag">mdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mqtt/" rel="tag">mqtt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nordic/" rel="tag">nordic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrf52832/" rel="tag">nrf52832</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nrfutil/" rel="tag">nrfutil</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pt/" rel="tag">pt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpi/" rel="tag">rpi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rtos/" rel="tag">rtos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uGUI/" rel="tag">uGUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/utc/" rel="tag">utc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xmodem/" rel="tag">xmodem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" rel="tag">串口调试助手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="tag">变长参数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%94%AF%E4%B8%80ID/" rel="tag">唯一ID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" rel="tag">多级菜单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">对称加密算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" rel="tag">开源许可</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="tag">非对称加密算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BabyOS/" style="font-size: 10px;">BabyOS</a> <a href="/tags/Django/" style="font-size: 12.5px;">Django</a> <a href="/tags/FATFS/" style="font-size: 10px;">FATFS</a> <a href="/tags/IIC/" style="font-size: 10px;">IIC</a> <a href="/tags/KEIL/" style="font-size: 10px;">KEIL</a> <a href="/tags/PADS/" style="font-size: 12.5px;">PADS</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RC4/" style="font-size: 10px;">RC4</a> <a href="/tags/RCC/" style="font-size: 10px;">RCC</a> <a href="/tags/RSA/" style="font-size: 10px;">RSA</a> <a href="/tags/RTT/" style="font-size: 10px;">RTT</a> <a href="/tags/StarUML/" style="font-size: 10px;">StarUML</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/TEA/" style="font-size: 10px;">TEA</a> <a href="/tags/U9300C/" style="font-size: 10px;">U9300C</a> <a href="/tags/bFDB/" style="font-size: 10px;">bFDB</a> <a href="/tags/bMenu/" style="font-size: 12.5px;">bMenu</a> <a href="/tags/b-kv/" style="font-size: 12.5px;">b_kv</a> <a href="/tags/b-log/" style="font-size: 12.5px;">b_log</a> <a href="/tags/b-tp/" style="font-size: 12.5px;">b_tp</a> <a href="/tags/bootloader/" style="font-size: 10px;">bootloader</a> <a href="/tags/cjson/" style="font-size: 12.5px;">cjson</a> <a href="/tags/dfu/" style="font-size: 12.5px;">dfu</a> <a href="/tags/doxygen/" style="font-size: 12.5px;">doxygen</a> <a href="/tags/easylogger/" style="font-size: 10px;">easylogger</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hostapd/" style="font-size: 10px;">hostapd</a> <a href="/tags/iptable/" style="font-size: 10px;">iptable</a> <a href="/tags/jlink/" style="font-size: 10px;">jlink</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/leetcode/" style="font-size: 20px;">leetcode</a> <a href="/tags/log/" style="font-size: 10px;">log</a> <a href="/tags/lora/" style="font-size: 10px;">lora</a> <a href="/tags/mdk/" style="font-size: 10px;">mdk</a> <a href="/tags/mqtt/" style="font-size: 10px;">mqtt</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nordic/" style="font-size: 17.5px;">nordic</a> <a href="/tags/nrf52832/" style="font-size: 12.5px;">nrf52832</a> <a href="/tags/nrfutil/" style="font-size: 10px;">nrfutil</a> <a href="/tags/pt/" style="font-size: 15px;">pt</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/rpi/" style="font-size: 10px;">rpi</a> <a href="/tags/rtos/" style="font-size: 10px;">rtos</a> <a href="/tags/stm32/" style="font-size: 15px;">stm32</a> <a href="/tags/uGUI/" style="font-size: 10px;">uGUI</a> <a href="/tags/utc/" style="font-size: 10px;">utc</a> <a href="/tags/xmodem/" style="font-size: 10px;">xmodem</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B/" style="font-size: 10px;">串口调试助手</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%8A%A0%E5%AF%86/" style="font-size: 10px;">加密</a> <a href="/tags/%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" style="font-size: 12.5px;">变长参数</a> <a href="/tags/%E5%94%AF%E4%B8%80ID/" style="font-size: 10px;">唯一ID</a> <a href="/tags/%E5%A4%9A%E7%BA%A7%E8%8F%9C%E5%8D%95/" style="font-size: 10px;">多级菜单</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 12.5px;">对称加密算法</a> <a href="/tags/%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF/" style="font-size: 10px;">开源许可</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 10px;">排序算法</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 10px;">链表</a> <a href="/tags/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 10px;">非对称加密算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/e7-bc-96-e8-af-91-e8-87-aa-e5-ae-9a-e4-b9-89-e7-9a-84-e6-a0-91-e8-8e-93-e6-b4-be-e5-86-85-e6-a0-b8/">编译自定义的树莓派内核</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/02/e5-9c-a8-e7-ba-bf-e7-94-9f-e6-88-90ascii-e5-ad-97-e7-ac-a6-e7-94-bb-e7-bd-91-e7-ab-99/">在线生成ascii字符画网站</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/19/e8-99-9a-e6-8b-9f-e6-9c-ba-e9-87-8cubuntu-e7-bc-96-e8-af-91-e5-86-85-e6-a0-b8-e6-96-b9-e6-b3-95/">虚拟机里Ubuntu编译内核方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/09/5g-e6-8a-80-e6-9c-af-e5-8f-91-e5-b1-95-e9-80-9a-e4-bf-97-e8-a7-a3-e8-af-b4-ef-bc-88-e8-bd-ac-ef-bc-89/">5G技术发展通俗解说（转）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
